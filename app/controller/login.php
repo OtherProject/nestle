@@ -20,13 +20,148 @@ class login extends Controller {
         $this->loginHelper = $this->loadModel('loginHelper');
         $this->activityHelper = $this->loadModel('activityHelper');
         // $this->helper_model = $this->loadModel('helper_model');
+
+        require_once(LIBS.'twitteroauth/twitteroauth/twitteroauth.php');
+        require LIBS.'facebook-php-sdk/src/facebook.php';
 	}
 	
 	function index(){
 
+        global $CONFIG, $basedomain;
+
+        
+        pr($_SESSION);
+
+
+        $facebook = new Facebook(array(
+                      'appId'  => $CONFIG['fb']['appId'],
+                      'secret' => $CONFIG['fb']['secret'],
+                    ));
+        
+        $user = $facebook->getUser();
+
+        if ($user) {
+            try {
+                // Proceed knowing you have a logged in user who's authenticated.
+                $user_profile = $facebook->api('/me');
+            } catch (FacebookApiException $e) {
+                error_log($e);
+                $user = null;
+            } 
+        }
+
+        if ($user) {
+
+            pr($user_profile);
+            $logoutUrl = $facebook->getLogoutUrl();
+            $this->view->assign('user',$user);
+            $this->view->assign('accessUrlFb',$logoutUrl);
+        } else {
+            $loginUrl = $facebook->getLoginUrl();
+             $this->view->assign('accessUrlFb',$loginUrl);
+        }
+
+
+        /* Twitter login */
+
+        if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
+            // header('Location: ./clearsessions.php');
+         
+            if ($CONFIG['twitter']['CONSUMER_KEY'] == "" || $CONFIG['twitter']['CONSUMER_SECRET'] == "" ) {
+                echo 'You need a consumer key and secret to test the sample code. Get one from <a href="https://dev.twitter.com/apps">dev.twitter.com/apps</a>';
+                
+
+            }
+
+            $this->view->assign('accessUrlTwitter',$basedomain.'login/redirectTwitter');
+
+        }
+        /* Get user access tokens out of the session. */
+        $access_token = $_SESSION['access_token'];
+
+        /* Create a TwitterOauth object with consumer/user tokens. */
+        $connection = new TwitterOAuth($CONFIG['twitter']['CONSUMER_KEY'], $CONFIG['twitter']['CONSUMER_SECRET'], $access_token['oauth_token'], $access_token['oauth_token_secret']);
+
+        /* If method is set change API call made. Test is called by default. */
+        $content = $connection->get('account/verify_credentials');
+        // pr($content);
         return $this->loadView('login');
     }
 	
+
+    function twitterCallBack()
+    {
+
+        global $CONFIG, $basedomain;
+        // require_once(LIBS.'twitteroauth/twitteroauth/twitteroauth.php');
+        
+        /* If the oauth_token is old redirect to the connect page. */
+        if (isset($_REQUEST['oauth_token']) && $_SESSION['oauth_token'] !== $_REQUEST['oauth_token']) {
+          $_SESSION['oauth_status'] = 'oldtoken';
+          // header('Location: ./clearsessions.php');
+          redirect($basedomain.'login/index');
+        }
+
+        /* Create TwitteroAuth object with app key/secret and token key/secret from default phase */
+        $connection = new TwitterOAuth($CONFIG['twitter']['CONSUMER_KEY'], $CONFIG['twitter']['CONSUMER_SECRET'], $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
+
+        /* Request access tokens from twitter */
+        $access_token = $connection->getAccessToken($_REQUEST['oauth_verifier']);
+
+        /* Save the access tokens. Normally these would be saved in a database for future use. */
+        $_SESSION['access_token'] = $access_token;
+
+        /* Remove no longer needed request tokens */
+        unset($_SESSION['oauth_token']);
+        unset($_SESSION['oauth_token_secret']);
+
+        /* If HTTP response is 200 continue otherwise send to connect page to retry */
+        if (200 == $connection->http_code) {
+          /* The user has been verified and the access tokens can be saved for future use */
+          $_SESSION['status'] = 'verified';
+          // header('Location: ./index.php');
+          pr('berhasil login');
+          redirect($basedomain.'login/index');
+        } else {
+          /* Save HTTP status for error dialog on connnect page.*/
+          // header('Location: ./clearsessions.php');
+          redirect($basedomain.'login/index');
+        }
+    }
+
+
+    function redirectTwitter()
+    {
+
+        global $CONFIG;
+
+        // require_once(LIBS.'twitteroauth/twitteroauth/twitteroauth.php');
+        
+
+        /* Build TwitterOAuth object with client credentials. */
+        $connection = new TwitterOAuth($CONFIG['twitter']['CONSUMER_KEY'], $CONFIG['twitter']['CONSUMER_SECRET']);
+         
+        /* Get temporary credentials. */
+        $request_token = $connection->getRequestToken($CONFIG['twitter']['OAUTH_CALLBACK']);
+
+        /* Save temporary credentials to session. */
+        $_SESSION['oauth_token'] = $token = $request_token['oauth_token'];
+        $_SESSION['oauth_token_secret'] = $request_token['oauth_token_secret'];
+         
+        /* If last connection failed don't display authorization link. */
+        switch ($connection->http_code) {
+          case 200:
+            /* Build authorize URL and redirect user to Twitter. */
+            $url = $connection->getAuthorizeURL($token);
+            // header('Location: ' . $url); 
+            redirect($url);
+            break;
+          default:
+            /* Show notification if something went wrong. */
+            echo 'Could not connect to Twitter. Refresh the page or try again later.';
+        }
+    }
+
     /**
      * @todo create new user
      *           
