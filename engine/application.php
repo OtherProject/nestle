@@ -1,5 +1,6 @@
 <?php
 
+
 class Application {
 	
 	var $page;
@@ -39,6 +40,7 @@ class Application {
 		
 		$GLOBALS['CODEKIR']['smarty'] = $this->setSmarty();
 		$GLOBALS['CODEKIR']['purifier'] = $this->setPurifier();
+		
 		
 	}
 	
@@ -98,7 +100,9 @@ class Application {
 		
 		return $excel;
 	}
+
 	
+
 	function loadView($fileName='home', $data="")
 	{
 		

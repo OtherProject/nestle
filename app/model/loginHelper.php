@@ -7,7 +7,7 @@ class loginHelper extends Database {
         global $basedomain;
         $this->loadmodule();
         $this->salt = '1nf0k0mun1t4s';
-        $this->set_session = new Session();
+        $this->session = new Session();
     }
     
     function loadmodule()
@@ -54,13 +54,52 @@ class loginHelper extends Database {
                     if (!in_array($key, $ignoreFIeld))$newCred[$key] = $val;
                 }
 
-                $this->set_session->set_session($newCred);
+                $this->session->set_session($newCred);
                 
                 return $newCred;
             }
         }
         
         return false;
+    }
+
+    function loginSosmed($sosmed=1,$data=array())
+    {
+
+        if (!$data) return false;
+
+        foreach ($data as $key => $value) {
+            $$key = $value;
+        }
+        
+        $sql = "SELECT * FROM social_member WHERE sosmed_id = '{$data['id']}' AND usertype = {$sosmed} LIMIT 1";
+        $result = $this->fetch($sql);
+        if ($result){
+
+            $dataSession = $res;
+        }else{
+
+            if ($sosmed==1){
+                $sql = "INSERT IGNORE INTO social_member (sosmed_id, name, email, middle_name, last_name, sex, link, usertype,n_status) 
+                        VALUES ('{$id}','{$first_name}','{$email}','{$middle_name}','{$last_name}','{$gender}','{$link}',1,1)";
+                // pr($sql);
+                $res = $this->query($sql);
+                
+            }else{
+
+                $sql = "INSERT IGNORE INTO social_member (sosmed_id, name, username, description, link, city, usertype,n_status)
+                        VALUES ('{$data['id']}', '{$data['name']}', '{$data['screen_name']}', '{$data['description']}','{$data['url']}','{$data['location']}',2,1)";
+                // pr($sql);
+                $res = $this->query($sql);
+            }
+            
+            // pr($sql);
+            $dataSession = $data;
+        }
+
+        $this->session->set_session($dataSession);
+
+        return true;
     }
 
 	function local($data=false)

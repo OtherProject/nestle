@@ -15,5 +15,8 @@ require_once (COREPATH .'class_session.php');
 require_once (LIBS . 'smarty/Smarty.class.php');
 require_once (COREPATH .'application.php');
 require_once (COREPATH .'controller.php');
+require_once(LIBS.'twitteroauth/twitteroauth/twitteroauth.php');
+require_once LIBS.'facebook/autoload.php';
+
 
 ?>

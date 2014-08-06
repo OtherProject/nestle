@@ -1,5 +1,11 @@
 <?php
 
+use Facebook\FacebookSession;
+use Facebook\FacebookRedirectLoginHelper;
+use Facebook\FacebookRequest;
+use Facebook\GraphUser;
+use Facebook\FacebookRequestException;
+
 class login extends Controller {
 	
 	var $models = FALSE;
@@ -21,8 +27,6 @@ class login extends Controller {
         $this->activityHelper = $this->loadModel('activityHelper');
         // $this->helper_model = $this->loadModel('helper_model');
 
-        require_once(LIBS.'twitteroauth/twitteroauth/twitteroauth.php');
-        require LIBS.'facebook-php-sdk/src/facebook.php';
 	}
 	
 	function index(){
@@ -30,9 +34,72 @@ class login extends Controller {
         global $CONFIG, $basedomain;
 
         
-        pr($_SESSION);
+        FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);
+        $helper = new FacebookRedirectLoginHelper($basedomain.'login/index/?try=login');
+        $session = false;
+        if(isset($_GET['try'])){
+            $session = $helper->getSessionFromRedirect();
+             // pr($session);
+            if ($session) {
+              // Logged in
+              // echo '<pre>';
+              
+            
 
+            // $_SESSION['fb-session'] = $session;
+            // print_r($_SESSION);exit;
+            $me = (new FacebookRequest(
+                  $session, 'GET', '/me'
+                ))->execute()->getGraphObject();
+                
+            $dataUser = array('id','email','first_name','gender','last_name','link','middle_name','name','quotes');
+            foreach ($dataUser as $value) {
+                $user[$value] = $me->getProperty($value);
+            }
+            
+            $setLoginUser = $this->loginHelper->loginSosmed(1,$user); 
 
+            }
+            // $post = (new FacebookRequest(
+            //   $session, 'POST', '/me/feed',array ('message' => 'This is a test message',)
+            // ))->execute()->getGraphObject();
+
+            // pr($post);exit;
+            redirect($basedomain);
+            
+            $this->view->assign('login',true);
+
+        }else{
+            
+            $loginUrl = $helper->getLoginUrl(array('scope' => 'email,user_photos,publish_actions',)); 
+            $this->view->assign('accessUrlFb',$loginUrl);
+            
+
+        }
+
+        
+        
+        // pr($album);
+        /* Twitter login */
+
+        if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
+            // header('Location: ./clearsessions.php');
+         
+            if ($CONFIG['twitter']['CONSUMER_KEY'] == "" || $CONFIG['twitter']['CONSUMER_SECRET'] == "" ) {
+                echo 'You need a consumer key and secret to test the sample code. Get one from <a href="https://dev.twitter.com/apps">dev.twitter.com/apps</a>';
+                
+
+            }
+
+            $this->view->assign('accessUrlTwitter',$basedomain.'login/twitterRedirect');
+
+        }
+        
+        return $this->loadView('login');
+    }
+	
+    function fbAPIV3()
+    {
         $facebook = new Facebook(array(
                       'appId'  => $CONFIG['fb']['appId'],
                       'secret' => $CONFIG['fb']['secret'],
@@ -44,6 +111,8 @@ class login extends Controller {
             try {
                 // Proceed knowing you have a logged in user who's authenticated.
                 $user_profile = $facebook->api('/me');
+
+                
             } catch (FacebookApiException $e) {
                 error_log($e);
                 $user = null;
@@ -61,33 +130,7 @@ class login extends Controller {
              $this->view->assign('accessUrlFb',$loginUrl);
         }
 
-
-        /* Twitter login */
-
-        if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
-            // header('Location: ./clearsessions.php');
-         
-            if ($CONFIG['twitter']['CONSUMER_KEY'] == "" || $CONFIG['twitter']['CONSUMER_SECRET'] == "" ) {
-                echo 'You need a consumer key and secret to test the sample code. Get one from <a href="https://dev.twitter.com/apps">dev.twitter.com/apps</a>';
-                
-
-            }
-
-            $this->view->assign('accessUrlTwitter',$basedomain.'login/redirectTwitter');
-
-        }
-        /* Get user access tokens out of the session. */
-        $access_token = $_SESSION['access_token'];
-
-        /* Create a TwitterOauth object with consumer/user tokens. */
-        $connection = new TwitterOAuth($CONFIG['twitter']['CONSUMER_KEY'], $CONFIG['twitter']['CONSUMER_SECRET'], $access_token['oauth_token'], $access_token['oauth_token_secret']);
-
-        /* If method is set change API call made. Test is called by default. */
-        $content = $connection->get('account/verify_credentials');
-        // pr($content);
-        return $this->loadView('login');
     }
-	
 
     function twitterCallBack()
     {
@@ -118,10 +161,31 @@ class login extends Controller {
         /* If HTTP response is 200 continue otherwise send to connect page to retry */
         if (200 == $connection->http_code) {
           /* The user has been verified and the access tokens can be saved for future use */
-          $_SESSION['status'] = 'verified';
+            $_SESSION['status'] = 'verified';
           // header('Location: ./index.php');
-          pr('berhasil login');
-          redirect($basedomain.'login/index');
+            pr('berhasil login');
+
+            /* Get user access tokens out of the session. */
+            $access_token = $_SESSION['access_token'];
+
+            /* Create a TwitterOauth object with consumer/user tokens. */
+            $connection = new TwitterOAuth($CONFIG['twitter']['CONSUMER_KEY'], $CONFIG['twitter']['CONSUMER_SECRET'], $access_token['oauth_token'], $access_token['oauth_token_secret']);
+
+            /* If method is set change API call made. Test is called by default. */
+            $content = $connection->get('account/verify_credentials');
+            // pr($content);
+            
+            $dataUser = array('id_str','name','screen_name','description','url','location');
+            foreach ($dataUser as $value) {
+                $user[$value] = $content->$value;
+            }
+
+            echo 'login true';
+
+            $setLoginUser = $this->loginHelper->loginSosmed(2,$user); 
+
+
+            redirect($basedomain);
         } else {
           /* Save HTTP status for error dialog on connnect page.*/
           // header('Location: ./clearsessions.php');
@@ -130,7 +194,7 @@ class login extends Controller {
     }
 
 
-    function redirectTwitter()
+    function twitterRedirect()
     {
 
         global $CONFIG;
