@@ -1,5 +1,11 @@
 <?php
 
+use Facebook\FacebookSession;
+use Facebook\FacebookRedirectLoginHelper;
+use Facebook\FacebookRequest;
+use Facebook\GraphUser;
+use Facebook\FacebookRequestException;
+
 class Controller extends Application{
 	
 	
@@ -35,8 +41,15 @@ class Controller extends Application{
 		
 		// $this->inject();
 		// pr($this->isAdminOnline());
+
+		if (isset($_SESSION['fb-logout'])){
+			$this->view->assign('logoutUrl',@$_SESSION['fb-logout']);
+		}else{
+			$this->view->assign('logoutUrl',$basedomain.'logout.php');
+		}
 		
 		// exit;
+
 		if (file_exists($filePath)){
 			
 			if ($DATA[$this->configkey]['page']!=='login'){
@@ -269,6 +282,30 @@ class Controller extends Application{
 		$getHelper = new helper_model;
 
 		$getHelper->logActivity($action,$comment);
+
+	}
+
+	function destroySocmed()
+	{	
+		global $CONFIG, $basedomain;
+
+		FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);
+
+		$helper = new FacebookRedirectLoginHelper($basedomain.'logout.php?param=true');
+		$session = false;
+		if(isset($_GET['param'])){
+			$session = $helper->getSessionFromRedirect();
+
+			$fbsession = new FacebookSession($session->getToken());
+			$params = 'https://localhost/nestle/nestle';
+
+			$logoutUrl = $helper->getLogoutUrl($fbsession,$params); 
+			print_r($logoutUrl);
+			// $logout = $fbsession->getLogoutUrl($params); 
+			echo "<a target='_blank' href='{$logoutUrl}' >facebook logout</a>";
+
+			
+		}
 
 	}
 	

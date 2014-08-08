@@ -29,7 +29,7 @@ class home extends Controller {
 
 		global $CONFIG, $basedomain;
 
-		
+		// pr($_SESSION);
 		
 		FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);
         $helper = new FacebookRedirectLoginHelper($basedomain.'home/index/?get=true');

@@ -44,9 +44,13 @@ class login extends Controller {
               // Logged in
               // echo '<pre>';
               
-            
+            $fbsession = new FacebookSession($session->getToken());
+            $params = $basedomain.'logout.php';
 
-            // $_SESSION['fb-session'] = $session;
+            $logoutUrl = $helper->getLogoutUrl($fbsession,$params); 
+
+
+            $_SESSION['fb-logout'] = $logoutUrl;
             // print_r($_SESSION);exit;
             $me = (new FacebookRequest(
                   $session, 'GET', '/me'
@@ -85,12 +89,7 @@ class login extends Controller {
         if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
             // header('Location: ./clearsessions.php');
          
-            if ($CONFIG['twitter']['CONSUMER_KEY'] == "" || $CONFIG['twitter']['CONSUMER_SECRET'] == "" ) {
-                echo 'You need a consumer key and secret to test the sample code. Get one from <a href="https://dev.twitter.com/apps">dev.twitter.com/apps</a>';
-                
-
-            }
-
+            
             $this->view->assign('accessUrlTwitter',$basedomain.'login/twitterRedirect');
 
         }
@@ -163,7 +162,7 @@ class login extends Controller {
           /* The user has been verified and the access tokens can be saved for future use */
             $_SESSION['status'] = 'verified';
           // header('Location: ./index.php');
-            pr('berhasil login');
+            // pr('berhasil login');
 
             /* Get user access tokens out of the session. */
             $access_token = $_SESSION['access_token'];
