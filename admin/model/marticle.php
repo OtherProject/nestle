@@ -14,6 +14,7 @@ class marticle extends Database {
 		if(!empty($data['expiredate'])) $data['expiredate'] = date("Y-m-d",strtotime($data['expiredate'])); 
 		
 		if($data['action'] == 'insert'){
+			pr($data);exit;
 			$query = "INSERT INTO  
 						cdc_news_content (title,brief,content,image,thumbnailimage,categoryid,articletype,
 											tags,createdate,postdate,expiredate,fromwho,authorid,n_status)

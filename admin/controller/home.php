@@ -21,6 +21,7 @@ class home extends Controller {
 	public function index(){
 		
 		// pr($_SESSION);
+		// $this->view->assign('username',$_SESSION);
 		
 		return $this->loadView('home');
 

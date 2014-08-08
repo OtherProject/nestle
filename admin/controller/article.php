@@ -9,6 +9,7 @@ class article extends Controller {
 	{
 		parent::__construct();
 		$this->loadmodule();
+		$this->setSmarty();
 		
 		// $this->validatePage();
 	}
@@ -36,14 +37,15 @@ class article extends Controller {
 	
 	public function addarticle(){
 		
-		$data['category'] = $this->models->get_category();
+		// $data['category'] = $this->models->get_category();
 
-		if(isset($_GET['id']))
-		{
-			$data['item'] = $this->models->get_article_id($_GET['id']);	
-		} 
-		
-		return $this->loadView('inputarticle',$data);
+		// if(isset($_GET['id']))
+		// {
+		// 	$data['item'] = $this->models->get_article_id($_GET['id']);	
+		// } 
+		$data = array(1,2,3);
+		// $this->view->assign('user',$data);
+		return $this->loadView('inputarticle');
 	}
     
 	public function articleinp(){
@@ -65,7 +67,7 @@ class article extends Controller {
 		} else {
 			$_POST['articletype']=0;
 		}
- 
+ 		pr($_POST);exit;
 		if(isset($_POST)){
                 // validasi value yang masuk
                $x = form_validation($_POST);
@@ -93,7 +95,7 @@ class article extends Controller {
 				   	
 			   }catch (Exception $e){}
 			   
-            echo "<script>alert('Data berhasil di simpan');window.location.href='".$CONFIG['admin']['base_url']."article/index'</script>";
+            echo "<script>alert('Data berhasil di simpan');window.location.href='".$CONFIG['admin']['base_url']."home'</script>";
             }
 	}
 	
