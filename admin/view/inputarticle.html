@@ -36,7 +36,9 @@ $(function () {
 					<div class="portlet-content">
 				
 						
-						
+						{foreach $user as $val}
+							{$val}
+						{/foreach}
 						<div class="col-sm-12">
 							<div class="form-group">
 							<label for="text-input">Title</label>

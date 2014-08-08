@@ -9,7 +9,7 @@ class article extends Controller {
 	{
 		parent::__construct();
 		$this->loadmodule();
-		$this->setSmarty();
+		$this->view = $this->setSmarty();
 		
 		// $this->validatePage();
 	}
@@ -44,7 +44,7 @@ class article extends Controller {
 		// 	$data['item'] = $this->models->get_article_id($_GET['id']);	
 		// } 
 		$data = array(1,2,3);
-		// $this->view->assign('user',$data);
+		$this->view->assign('user',$data);
 		return $this->loadView('inputarticle');
 	}
     
