@@ -10,7 +10,8 @@ class article extends Controller {
 		parent::__construct();
 		$this->loadmodule();
 		$this->view = $this->setSmarty();
-		
+		$sessionAdmin = new Session;
+		$this->admin = $sessionAdmin->get_session();
 		// $this->validatePage();
 	}
 	public function loadmodule()
@@ -43,8 +44,11 @@ class article extends Controller {
 		// {
 		// 	$data['item'] = $this->models->get_article_id($_GET['id']);	
 		// } 
+
+		pr($this->admin);
 		$data = array(1,2,3);
 		$this->view->assign('user',$data);
+		$this->view->assign('admin',$this->admin['admin']);
 		return $this->loadView('inputarticle');
 	}
     

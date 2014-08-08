@@ -41,7 +41,7 @@ class Controller extends Application{
 		
 		// $this->inject();
 		// pr($this->isAdminOnline());
-
+		
 		if (isset($_SESSION['fb-logout'])){
 			$this->view->assign('logoutUrl',@$_SESSION['fb-logout']);
 		}else{
