@@ -7,5 +7,7 @@
 
 $ROUTES = array(
 				'home',
+				'login',
+				'article'
                 );
 ?>

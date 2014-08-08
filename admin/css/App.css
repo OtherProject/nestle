@@ -1,7 +1,7 @@
 body {
   color: #444;
   font: 13px/1.7em "Open Sans", "trebuchet ms", arial, sans-serif;
-  background: #666666 url(../images/layout/sidebar-bg.png) repeat-y 0 0;
+  background: #666666 url(../img/layout/sidebar-bg.png) repeat-y 0 0;
 }
 h1,
 h2,
@@ -1708,7 +1708,7 @@ label {
   height: 100%;
   position: absolute;
   right: 0;
-  background: #111111 url(../images/gallery/zoom.png) no-repeat 50%;
+  background: #111111 url(../img/gallery/zoom.png) no-repeat 50%;
   z-index: 10;
   opacity: 0.5;
   filter: alpha(opacity=50);
@@ -3285,7 +3285,7 @@ ul.support-list li {
     background-image: none;
   }
   #search {
-    width: 1%;
+    width: 100%;
     min-height: 0;
     display: block;
   }

@@ -1,4 +1,25 @@
-<div id="content-header">
+<?php /* Smarty version Smarty-3.1.15, created on 2014-08-09 00:15:03
+         compiled from "view/home.html" */ ?>
+<?php /*%%SmartyHeaderCode:90671886953e4688432f4a2-72027671%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_valid = $_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    '3c1bdcd6c9b0c8d1a6a267d96d10c4045e955f2c' => 
+    array (
+      0 => 'view/home.html',
+      1 => 1407514502,
+      2 => 'file',
+    ),
+  ),
+  'nocache_hash' => '90671886953e4688432f4a2-72027671',
+  'function' => 
+  array (
+  ),
+  'version' => 'Smarty-3.1.15',
+  'unifunc' => 'content_53e4688443c757_51634438',
+  'has_nocache_code' => false,
+),false); /*/%%SmartyHeaderCode%%*/?>
+<?php if ($_valid && !is_callable('content_53e4688443c757_51634438')) {function content_53e4688443c757_51634438($_smarty_tpl) {?><div id="content-header">
 	<h1>Article</h1>
 </div> <!-- #content-header -->	
 
@@ -64,4 +85,4 @@
 
 	</div> <!-- /.row -->
 
-</div>
+</div><?php }} ?>
