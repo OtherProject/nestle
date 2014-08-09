@@ -50,6 +50,17 @@ body{
 	overflow:auto;
 	border:0px solid #000;
 }
+#wrapperhome{
+	margin: 0 auto;
+	margin-top:25px;
+	width:1120px;
+	height:450px;
+	background-image:url(../img/bg_home.PNG);
+	background-position:center;
+	background-repeat:no-repeat;
+	overflow:auto;
+	border:0px solid #000;
+}
 #wrapdetailarticle{
 	margin: 0 auto;
 	margin-top:25px;
@@ -65,6 +76,18 @@ body{
 	width:1000px;
 	overflow:auto;
 	border:0px solid #000;
+}
+#slides{
+	margin:0 auto;
+	margin-top:40px;
+	background-color:#EEECED;
+	width:743px;
+	height:317px;
+	overflow:hidden;
+	border:15px solid #fdf9f9;
+	border-radius:15px;
+	box-shadow: 0px 0px 15px #888;
+	
 }
 #article{
 	margin:0 auto;
@@ -167,6 +190,12 @@ body{
 	
 	border:0px solid #000;
 }
+
+#divbtnslide{
+	margin: 0 auto;
+	margin-top:5px;
+	border:0px solid #000;
+}
 #divbtn a{
 	text-decoration:none;
 }
@@ -181,6 +210,21 @@ body{
 	border-radius:30px;
 	text-shadow: 1px 2px #8E244A;
 	box-shadow: 0px 6px 10px 0px #007DCA;
+}
+.btnpinkslide{
+	font-family: NunitoBold;
+	font-size:18px;
+	text-decoration:none;
+	background-color:#F73E82;
+	color:#fff;
+	padding: 5px 35px;
+	border:3px solid #FFF;
+	border-radius:30px;
+	text-shadow: 1px 2px #8E244A;
+	box-shadow: 0px 6px 10px 0px #C0BEBE;
+}
+.btnpinkslide:hover{
+	background-color:#FD698B;
 }
 .btn-f{
 	font-family: NunitoBold;
@@ -197,6 +241,10 @@ body{
 	text-shadow: 1px 2px #8E244A;
 	box-shadow: 0px 6px 10px 0px #007DCA;
 }
+.btn-f:hover{
+	background-image:url(../img/btn-fhover.JPG);
+	background-color:#2b69bb;
+}
 .btn-t{
 	font-family: NunitoBold;
 	font-size:18px;
@@ -211,6 +259,48 @@ body{
 	border-radius:30px;
 	text-shadow: 1px 2px #8E244A;
 	box-shadow: 0px 6px 10px 0px #007DCA;
+}
+.btn-t:hover{
+	background-image:url(../img/btn-thover.JPG);
+	background-color:#48c9fc;
+}
+.btn-fslide{
+	font-family: NunitoBold;
+	font-size:18px;
+	text-decoration:none;
+	background-image:url(../img/btn-f.JPG);
+	background-position: 15px 0px; 
+	background-repeat:no-repeat;
+	background-color:#465FA1;
+	color:#fff;
+	padding: 5px 40px;
+	border:3px solid #FFF;
+	border-radius:30px;
+	text-shadow: 1px 2px #183C6C;
+	box-shadow: 0px 6px 10px 0px #C0BEBE;
+}
+.btn-fslide:hover{
+	background-image:url(../img/btn-fhover.JPG);
+	background-color:#2b69bb;
+}
+.btn-tslide{
+	font-family: NunitoBold;
+	font-size:18px;
+	text-decoration:none;
+	background-image:url(../img/btn-t.JPG);
+	background-position: 15px 0px; 
+	background-repeat:no-repeat;
+	background-color:#59B6FC;
+	color:#fff;
+	padding: 5px 45px;
+	border:3px solid #FFF;
+	border-radius:30px;
+	text-shadow: 1px 2px #007BAB;
+	box-shadow: 0px 6px 10px 0px #C0BEBE;
+}
+.btn-tslide:hover{
+	background-image:url(../img/btn-thover.JPG);
+	background-color:#48c9fc;
 }
 .btnpink:hover{
 	font-family: NunitoBold;
