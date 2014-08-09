@@ -16,6 +16,7 @@ $ROUTES = array(
                 'user',
                 'activate',
                 'register',
-                'setting'               
+                'setting',
+				'article'
                 );
 ?>
