@@ -6,7 +6,7 @@ use Facebook\FacebookRequest;
 use Facebook\GraphUser;
 use Facebook\FacebookRequestException;
 
-class home extends Controller {
+class article extends Controller {
 	
 	var $models = FALSE;
 	var $view;
@@ -59,9 +59,9 @@ class home extends Controller {
        	// pr($post);
       	
 
-    	return $this->loadView('home');
+    	return $this->loadView('article/index');
     }
-	function connect(){
+	function detail(){
 
 		global $CONFIG, $basedomain;
 
@@ -95,7 +95,7 @@ class home extends Controller {
        	// pr($post);
       	
 
-    	return $this->loadView('connect');
+    	return $this->loadView('article/detail');
     }
 	
 	
