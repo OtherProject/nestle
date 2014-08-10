@@ -22,81 +22,66 @@ class article extends Controller {
 	
 	function loadmodule()
 	{
-        //$this->models = $this->loadModel('frontend');
+    $this->contentHelper = $this->loadModel('contentHelper');
 	}
 	
 	function index(){
 
 		global $CONFIG, $basedomain;
 
-		// pr($_SESSION);
-		
-		FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);
-        $helper = new FacebookRedirectLoginHelper($basedomain.'home/index/?get=true');
-        $session = false;
-        if(isset($_GET['get'])){
-        	$session = $helper->getSessionFromRedirect();
-        	
-        	/* Buat posting message */
-        	
-        	// $post = (new FacebookRequest(
-         //      $session, 'POST', '/me/feed',array ('message' => 'This is a test message from bot',)
-         //    ))->execute()->getGraphObject();
-
-
-        	$album = (new FacebookRequest(
-                      $session,'GET','/me/albums'
-                    ))->execute()->getGraphObject();
-             
-            
-            // pr($album);
-        }else{
-        	$loginUrl = $helper->getLoginUrl(array('scope' => 'user_photos,publish_actions',)); 
-			$this->view->assign('accessUrlFb',$loginUrl);
-        }
-        
-
-       	// pr($post);
-      	
-
-    	return $this->loadView('article/index');
+		$getArticle = $this->contentHelper->getArticle();
+    if ($getArticle){
+      foreach ($getArticle as $key => $value) {
+        $getArticle[$key]['changeDate'] = changeDate($value['posted_date']);
+      }
     }
+		// pr($getArticle);
+    $this->view->assign('article',$getArticle);
+
+  	return $this->loadView('article/index');
+  }
+
 	function detail(){
 
 		global $CONFIG, $basedomain;
 
-		// pr($_SESSION);
-		
-		FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);
-        $helper = new FacebookRedirectLoginHelper($basedomain.'home/index/?get=true');
-        $session = false;
-        if(isset($_GET['get'])){
-        	$session = $helper->getSessionFromRedirect();
-        	
-        	/* Buat posting message */
-        	
-        	// $post = (new FacebookRequest(
-         //      $session, 'POST', '/me/feed',array ('message' => 'This is a test message from bot',)
-         //    ))->execute()->getGraphObject();
-
-
-        	$album = (new FacebookRequest(
-                      $session,'GET','/me/albums'
-                    ))->execute()->getGraphObject();
-             
-            
-            // pr($album);
-        }else{
-        	$loginUrl = $helper->getLoginUrl(array('scope' => 'user_photos,publish_actions',)); 
-			$this->view->assign('accessUrlFb',$loginUrl);
+      $id = _g('id');
+		  $getArticle = $this->contentHelper->getArticle($id);
+      if ($getArticle){
+        foreach ($getArticle as $key => $value) {
+          $getArticle[$key]['changeDate'] = changeDate($value['posted_date']);
+          $getArticle[$key]['content'] = html_entity_decode($value['content']);
         }
-        
+      }
 
-       	// pr($post);
-      	
+      $getNextArticle = $this->contentHelper->getNextArticle($id);
+
+      // pr($getNextArticle);
+      $this->view->assign('article',$getArticle);
+      $this->view->assign('prevNextArticle',$getNextArticle);
 
     	return $this->loadView('article/detail');
     }
+
+  function ajax()
+  {
+
+    $page = intval(_p('page'));
+    $getArticle = $this->contentHelper->getArticle(false,$page);
+    if ($getArticle){
+      foreach ($getArticle as $key => $value) {
+        $getArticle[$key]['changeDate'] = changeDate($value['posted_date']);
+      }
+
+      print json_encode(array('status'=>true, 'res'=>$getArticle));
+    }else{
+
+      print json_encode(array('status'=>false));
+    }
+    
+
+    exit;
+  }
 	
 	
 }

@@ -17,6 +17,7 @@ $ROUTES = array(
                 'activate',
                 'register',
                 'setting',
-				'article'
+		'article',
+                'uploadfoto'
                 );
 ?>

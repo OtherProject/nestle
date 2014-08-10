@@ -10,6 +10,14 @@ function base_url() {
 	return $base_url;
 }
 
+function changeDate($date=false)
+{
+	if (!$date) return false;
+	$changeFormat = date("j F Y",strtotime($date));
+	
+	return $changeFormat;
+}
+
 function change_date_simple($date_data, $type, $order_by)
 {
 	/* ex : change_date_to_slash('2012-01-01', 'slash', 'by_date') */

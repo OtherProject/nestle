@@ -15,11 +15,41 @@
 		<div id='cssmenu'>
 		<ul>
 		   <li  {$classhome}><a href='{$basedomain}'><span>Home</span></a></li>
-		   <li><a href='{$basedomain}'><span>About</span></a></li>
-		   <li><a href='{$basedomain}'><span>Terms & Conditions</span></a></li>
+		    <li  id='basic-modal'><a href='#' class='basic'><span>About</span></a></li>
+		   <li  id='basic-modal'><a href='#' class='basic2'><span>Terms & Conditions</span></a></li>
 		   <li {$classarticle}><a href='{$basedomain}article'><span>Article</span></a></li>
-		   <li class='last'><a href='{$basedomain}'><img src="{$basedomain}assets/img/logout.png"/><span>&nbsp;</span></a></li>
+		   {if $user}
+		   <li class='last'><a href='{$logoutUrl}'><img src="{$basedomain}assets/img/logout.png"/><span>&nbsp;</span></a></li>
+		   {else}
+		    <li class='last'><a href='#'><span>&nbsp;</span></a></li>
+		   {/if}
 		</ul>
 		</div>
 	</div>
 </div>
+
+<!---ABOUT----------------------------------------->
+		<div id="basic-modal-content">
+			<div id="imgAbout">
+				<img src="{$basedomain}assets/file/about.png" />
+			</div>
+			<div id="contentAbout">
+			<span class="titleAbout">About</span>
+			<p class="isiAbout">Usia Balita merupakan periode emas tumbuh kembang Si Kecil. Untuk mendukung pertumbuhansi kecil secara Optimal, Lactogen ActiveGro Koni Hadir dengan 19 vitamin dan mineral yang membantu Si kecil tumbuh sehat. kuat, cerdas, dan ceria. dilengkapi dengan kandungan probiotik untuk menjaga kesehatan saluran cerna, nutrisi pun terserap optimal sehingga keutuhanenergi, vitamin dan mineral sikecil tercukupi. pastinya menyenangkan melihat si kecil dapat tumbuh sehat, kuat, cerdas, dan ceria. ayo tunjukkan aksi lactogen ActivGro kids si kecil dan menangkan berbagai hadiah menarik dari lactogen Activgro</p>
+			</div>
+		</div>
+
+		<!-- preload the images -->
+		<div style='display:none'>
+			<img src='img/basic/x.png' alt='' />
+		</div>
+<!--term condition-->
+		<div id="basic-modal-content" class="term">
+			<h3>TERM CONDITION</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in ligula id sem tristique ultrices eget id neque. Duis enim turpis, tempus at accumsan vitae, lobortis id sapien. Pellentesque nec orci mi, in pharetra ligula. Nulla facilisi. Nulla facilisi. Mauris convallis venenatis massa, quis consectetur felis ornare quis. Sed aliquet nunc ac ante molestie ultricies. Nam pulvinar ultricies bibendum. Vivamus diam leo, faucibus et vehicula eu, molestie sit amet dui. Proin nec orci et elit semper ultrices. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed quis urna mi, ac dignissim mauris. Quisque mollis ornare mauris, sed laoreet diam malesuada quis. Proin vel elementum ante. Donec hendrerit arcu ac odio tincidunt posuere. Vestibulum nec risus eu lacus semper viverra. </p>
+		</div>
+
+		<!-- preload the images -->
+		<div style='display:none'>
+			<img src='img/basic/x.png' alt='' />
+		</div>

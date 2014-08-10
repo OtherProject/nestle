@@ -73,13 +73,12 @@ class Controller extends Application{
 
 			if ($this->configkey == 'default'){
 
-				// pr($DATA);
-				// $this->inject();
-
 				$ignoreClass = array('login','register');
+				
+				/*
 				if (in_array($DATA[$this->configkey]['page'], $ignoreClass)){
 
-					/* remove session if user exist in same browser */
+					 // remove session if user exist in same browser 
 					$ignoreFunc = array('validate','accountValid','doLogin','doSignup');
 					if (in_array($DATA[$this->configkey]['function'], $ignoreFunc)){
 						// do nothing
@@ -94,15 +93,17 @@ class Controller extends Application{
 
 				}else{
 
+
 					if (!$this->isUserOnline()){
 						redirect($CONFIG[$this->configkey]['login']);
 						exit;
 					}
 					
 				}
-
+				*/
 				
 			}
+
 			// pr($DATA);
 			if ($this->configkey == 'admin'){
 				if ($DATA[$this->configkey]['page']=='login'){

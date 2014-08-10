@@ -1,9 +1,24 @@
 <div id="wrapper">
+	{if $article}
+	{foreach $article as $val}
+	<div id="article">
+		<img src="{$basedomain}assets/file/gambar.jpg"/ height="150px" width="100%">
+		<div id="deskripsi">
+			<span class="title">{$val.title}</span><br/>
+			<span class="date"><span class="kalender">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{$val.changeDate}</span><br/>
+			<span class="brief">{$val.brief}</span><br/><br/>
+			<span><a href="{$basedomain}article/detail/?id={$val.id}"  class="more">Selengkapnya</a></span>
+		</div>
+	</div>
+	{/foreach}
+	{/if}
+
+	{*}
 	<div id="article">
 		<img src="{$basedomain}assets/file/gambar.jpg"/ height="150px" width="100%">
 		<div id="deskripsi">
 			<span class="title">4 Tips si kecil tidur nyenyak hingga lelap dan lahap sampai selamanya</span><br/>
-			<span class="date"><span class="kalender">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>15 mei 2014</span><br/>
+			<span class="date"><span class="kalender">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{$val.changeDate}</span><br/>
 			<span class="brief">Usia Balita merupakan periode emas tumbuh kembang Si Kecil. Untuk mendukung pertumbuhansi kecil secara</span><br/><br/>
 			<span><a href="{$basedomain}article/detail"  class="more">Selengkapnya</a></span>
 		</div>
@@ -44,18 +59,45 @@
 			<span><a href="{$basedomain}article/detail"  class="more">Selengkapnya</a></span>
 		</div>
 	</div>
-	<div id="article">
-		<img src="{$basedomain}assets/file/gambar.jpg"/ height="150px" width="100%">
-		<div id="deskripsi">
-			<span class="title">4 Tips si kecil tidur nyenyak hingga lelap dan lahap sampai selamanya</span><br/>
-			<span class="date"><span class="kalender">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>15 mei 2014</span><br/>
-			<span class="brief">Usia Balita merupakan periode emas tumbuh kembang Si Kecil. Untuk mendukung pertumbuhansi kecil secara</span><br/><br/>
-			<span><a href="{$basedomain}article/detail"  class="more">Selengkapnya</a></span>
-		</div>
-	</div>
+	{/*}
 </div>
 <div id="wrapperbtn" align="center">
 	<div id="divbtn">
-		<a href="#" class="btnpink">Load More</a>
+		<a href="javascript:void(0)" class="btnpink loadMore" pid="3">Load More</a>
 	</div>
 </div>
+
+{literal}
+	<script type="text/javascript">
+
+		$(document).on('click','.loadMore', function(){
+
+			var page = $(this).attr('pid');
+			$.post(basedomain+'article/ajax',{page:page}, function(data){
+
+				var html = "";
+
+				if (data.status==true){
+					$.each(data.res, function(i,val){
+
+						html += '<div id="article">';
+						html += '	<img src="'+basedomain+'assets/file/gambar.jpg"/ height="150px" width="100%">';
+						html += '	<div id="deskripsi">';
+						html += '		<span class="title">'+val.title+'</span><br/>';
+						html += '		<span class="date"><span class="kalender">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>'+val.changeDate+'</span><br/>';
+						html += '		<span class="brief">'+val.brief+'</span><br/><br/>';
+						html += '		<span><a href="'+basedomain+'article/detail/?id='+val.id+'"  class="more">Selengkapnya</a></span>';
+						html += '	</div>';
+						html += '</div>';
+
+					})
+				}
+				
+				
+				$('#wrapper').append(html);
+				$('.loadMore').attr('pid',parseInt(page)+3);
+
+			}, "JSON")	
+		})
+	</script>
+{/literal}
