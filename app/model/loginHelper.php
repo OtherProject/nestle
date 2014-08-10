@@ -73,10 +73,11 @@ class loginHelper extends Database {
         }
         
         $sql = "SELECT * FROM social_member WHERE sosmed_id = '{$data['id']}' AND usertype = {$sosmed} LIMIT 1";
+        // pr($sql);
         $result = $this->fetch($sql);
         if ($result){
 
-            $dataSession = $res;
+            $dataSession = $result;
         }else{
 
             if ($sosmed==1){
@@ -96,7 +97,8 @@ class loginHelper extends Database {
             // pr($sql);
             $dataSession = $data;
         }
-
+        // pr($dataSession);
+        // exit;
         $this->session->set_session($dataSession);
 
         return true;

@@ -18,7 +18,11 @@
 		   <li><a href='{$basedomain}'><span>About</span></a></li>
 		   <li><a href='{$basedomain}'><span>Terms & Conditions</span></a></li>
 		   <li {$classarticle}><a href='{$basedomain}article'><span>Article</span></a></li>
-		   <li class='last'><a href='{$basedomain}'><img src="{$basedomain}assets/img/logout.png"/><span>&nbsp;</span></a></li>
+		   {if $user}
+		   <li class='last'><a href='{$logoutUrl}'><img src="{$basedomain}assets/img/logout.png"/><span>&nbsp;</span></a></li>
+		   {else}
+		    <li class='last'><a href='#'><span>&nbsp;</span></a></li>
+		   {/if}
 		</ul>
 		</div>
 	</div>
