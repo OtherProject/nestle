@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.15, created on 2014-08-10 00:01:52
+<?php /* Smarty version Smarty-3.1.15, created on 2014-08-10 20:48:08
          compiled from "view/home.html" */ ?>
 <?php /*%%SmartyHeaderCode:90671886953e4688432f4a2-72027671%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '3c1bdcd6c9b0c8d1a6a267d96d10c4045e955f2c' => 
     array (
       0 => 'view/home.html',
-      1 => 1407600111,
+      1 => 1407674886,
       2 => 'file',
     ),
   ),
@@ -82,9 +82,9 @@ article/addarticle"><button type="button" class="btn btn-default btn-sm"><i clas
 									<th class="checkbox-column">
 										<input type="checkbox" class="icheck-input" onchange="return AreAnyCheckboxesChecked();">
 									</th>
-									<th data-filterable="true" data-sortable="true" data-direction="desc">Title</th>
-									<th data-filterable="true" data-sortable="true" data-direction="desc">Status</th>
-									<th data-direction="asc" data-filterable="true" data-sortable="true">Created Date</th>
+									<th data-filterable="true" data-sortable="true" >Title</th>
+									<th data-filterable="true" data-sortable="true" >Status</th>
+									<th data-filterable="true" data-sortable="true">Created Date</th>
 									<th data-filterable="true" data-sortable="true">Author</th>
 								</tr>
 							</thead>
