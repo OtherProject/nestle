@@ -1,6 +1,11 @@
 <?php
 class contentHelper extends Database {
 	
+	function __construct()
+	{
+		$this->prefix = "nestle";
+	}
+
 	function getNews()
 	{
 		
@@ -31,6 +36,16 @@ class contentHelper extends Database {
 		
 	}
 	
-	
+	function getArticle($id=false)
+	{
+
+		$filter = "";
+		if ($id) $filter = "AND id = {$id}";
+
+		$sql = "SELECT * FROM {$this->prefix}_news_content WHERE n_status = 1 {$filter}";
+		$res = $this->fetch($sql,1);
+		if ($res) return $res;
+		return false;
+	}
 }
 ?>
