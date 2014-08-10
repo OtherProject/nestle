@@ -63,6 +63,38 @@
 </div>
 <div id="wrapperbtn" align="center">
 	<div id="divbtn">
-		<a href="#" class="btnpink">Load More</a>
+		<a href="javascript:void(0)" class="btnpink loadMore" pid="3">Load More</a>
 	</div>
 </div>
+
+{literal}
+	<script type="text/javascript">
+
+		$(document).on('click','.loadMore', function(){
+
+			var page = $(this).attr('pid');
+			$.post(basedomain+'article/ajax',{page:page}, function(data){
+
+				var html = "";
+
+				$.each(data.res, function(i,val){
+
+					html += '<div id="article">';
+					html += '	<img src="'+basedomain+'assets/file/gambar.jpg"/ height="150px" width="100%">';
+					html += '	<div id="deskripsi">';
+					html += '		<span class="title">'+val.title+'</span><br/>';
+					html += '		<span class="date"><span class="kalender">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>'+val.changeDate+'</span><br/>';
+					html += '		<span class="brief">'+val.brief+'</span><br/><br/>';
+					html += '		<span><a href="'+basedomain+'article/detail/?id='+val.id+'"  class="more">Selengkapnya</a></span>';
+					html += '	</div>';
+					html += '</div>';
+
+				})
+				
+				$('#wrapper').append(html);
+				$('.loadMore').attr('pid',parseInt(page)+3);
+
+			}, "JSON")	
+		})
+	</script>
+{/literal}

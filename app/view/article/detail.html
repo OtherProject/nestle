@@ -15,16 +15,16 @@
 <div id="wrapper">
 	<div id="wrapbtn" align="left">
 
-			<a href="#" class="btnpink">Prev Article</a>
+			<a href="{if $prevNextArticle.prev=='#'}javascript:void(0){else}{$basedomain}article/detail/?id={$prevNextArticle.prev}{/if}" class="btnpink">Prev Article</a>
 		
 	</div>
 	<div id="wrapbtn" align="center">
-	<a href="#" class="btn-f">&nbsp;</a>&nbsp;&nbsp;&nbsp;
-	<a href="#" class="btn-t">&nbsp;</a>
+	<a href="{$basedomain}home/connect" class="btn-f">&nbsp;</a>&nbsp;&nbsp;&nbsp;
+	<a href="{$basedomain}home/connect" class="btn-t">&nbsp;</a>
 	</div>
 	<div id="wrapbtn" align="right">
 
-			<a href="#" class="btnpink">Next Article</a>
+			<a href="{if $prevNextArticle.next=='#'}javascript:void(0){else}{$basedomain}article/detail/?id={$prevNextArticle.next}{/if}" class="btnpink">Next Article</a>
 
 	</div>
 

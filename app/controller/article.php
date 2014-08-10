@@ -53,10 +53,35 @@ class article extends Controller {
           $getArticle[$key]['content'] = html_entity_decode($value['content']);
         }
       }
-      // pr($getArticle);
+
+      $getNextArticle = $this->contentHelper->getNextArticle($id);
+
+      // pr($getNextArticle);
       $this->view->assign('article',$getArticle);
+      $this->view->assign('prevNextArticle',$getNextArticle);
+
     	return $this->loadView('article/detail');
     }
+
+  function ajax()
+  {
+
+    $page = intval(_p('page'));
+    $getArticle = $this->contentHelper->getArticle(false,$page);
+    if ($getArticle){
+      foreach ($getArticle as $key => $value) {
+        $getArticle[$key]['changeDate'] = changeDate($value['posted_date']);
+      }
+
+      print json_encode(array('status'=>true, 'res'=>$getArticle));
+    }else{
+
+      print json_encode(array('status'=>false));
+    }
+    
+
+    exit;
+  }
 	
 	
 }
