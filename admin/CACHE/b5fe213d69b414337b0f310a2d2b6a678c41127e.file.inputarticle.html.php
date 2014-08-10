@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.15, created on 2014-08-09 00:13:15
+<?php /* Smarty version Smarty-3.1.15, created on 2014-08-09 23:47:49
          compiled from "view/inputarticle.html" */ ?>
 <?php /*%%SmartyHeaderCode:158651711553e4ccf56364a2-39979658%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'b5fe213d69b414337b0f310a2d2b6a678c41127e' => 
     array (
       0 => 'view/inputarticle.html',
-      1 => 1407514394,
+      1 => 1407599243,
       2 => 'file',
     ),
   ),
@@ -20,14 +20,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'variables' => 
   array (
     'basedomain' => 0,
-    'title' => 0,
-    'brief' => 0,
-    'deskripsi' => 0,
-    'id' => 0,
+    'data' => 0,
     'admin' => 0,
-    'postdate' => 0,
-    'status' => 0,
-    'image' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
@@ -69,12 +63,10 @@ article/articleinp" enctype="multipart/form-data">
 				
 					<div class="portlet-content">
 				
-						
-						
 						<div class="col-sm-12">
 							<div class="form-group">
 							<label for="text-input">Title</label>
-									<input type="text" name="title" class="form-control" value="<?php echo $_smarty_tpl->tpl_vars['title']->value;?>
+									<input type="text" name="title" class="form-control" value="<?php echo $_smarty_tpl->tpl_vars['data']->value['title'];?>
 " data-required="true"/>
 							</div>
 						</div>	
@@ -82,7 +74,7 @@ article/articleinp" enctype="multipart/form-data">
 						<div class="col-md-6">
 							<div class="form-group">
 							<label for="text-input">Brief</label>
-									<input type="text" name="brief" class="form-control" value="<?php echo $_smarty_tpl->tpl_vars['brief']->value;?>
+									<input type="text" name="brief" class="form-control" value="<?php echo $_smarty_tpl->tpl_vars['data']->value['brief'];?>
 " />
 							</div>
 						</div>
@@ -90,15 +82,19 @@ article/articleinp" enctype="multipart/form-data">
 						<div class="col-sm-12">
 							<div class="form-group">
 							<label for="textarea-input">Deskripsi</label>
-									<textarea name="content" id="isi"  cols="10" rows="20" class="form-control"><?php echo $_smarty_tpl->tpl_vars['deskripsi']->value;?>
+									<textarea name="content" id="isi"  cols="10" rows="20" class="form-control"><?php echo $_smarty_tpl->tpl_vars['data']->value['content'];?>
 </textarea>
 							</div>
 							
 							
 									<!-- hidden -->
-									<input type="hidden" name="id" value="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+									<input type="hidden" name="id" value="<?php echo $_smarty_tpl->tpl_vars['data']->value['id'];?>
 " />
-									<input type="text" name="authorid" value="<?php echo $_smarty_tpl->tpl_vars['admin']->value['admin']['name'];?>
+									<input type="hidden" name="authorid" value="<?php echo $_smarty_tpl->tpl_vars['admin']->value['id'];?>
+" />
+									<input type="hidden" name="image" value="<?php echo $_smarty_tpl->tpl_vars['data']->value['image'];?>
+" />
+									<input type="hidden" name="image_url" value="<?php echo $_smarty_tpl->tpl_vars['data']->value['file'];?>
 " />
 									<!-- hidden -->
 							
@@ -123,7 +119,7 @@ article/articleinp" enctype="multipart/form-data">
 						<div class="form-group">
 							<label for="select-input">Postdate</label>
 							<div id="postdate" class="input-group date" data-auto-close="true" data-date-format="dd-mm-yyyy" data-date-autoclose="true">
-								<input class="form-control" type="text" name="postdate" value="<?php echo $_smarty_tpl->tpl_vars['postdate']->value;?>
+								<input class="form-control" type="text" name="postdate" value="<?php echo $_smarty_tpl->tpl_vars['data']->value['posted_date'];?>
 " data-required="true">
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
@@ -133,7 +129,7 @@ article/articleinp" enctype="multipart/form-data">
 						<div class="form-group">
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="status" class="" <?php echo $_smarty_tpl->tpl_vars['status']->value;?>
+										<input type="checkbox" name="n_status" class="" <?php echo $_smarty_tpl->tpl_vars['data']->value['n_status'];?>
  >
 										Publish
 									</label>
@@ -155,8 +151,8 @@ article/articleinp" enctype="multipart/form-data">
 					</div> <!-- /.portlet-header -->
 					<div class="portlet-content">
 						<div class="fileupload fileupload-new" data-provides="fileupload">
-						  <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="<?php echo $_smarty_tpl->tpl_vars['image']->value;?>
-" alt="<?php echo $_smarty_tpl->tpl_vars['image']->value;?>
+						  <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="<?php echo $_smarty_tpl->tpl_vars['data']->value['file'];?>
+" alt="<?php echo $_smarty_tpl->tpl_vars['data']->value['image'];?>
 " /></div>
 						  <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
 						  <div>

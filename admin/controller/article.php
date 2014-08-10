@@ -22,32 +22,18 @@ class article extends Controller {
 	
 	public function index(){
        
-		$data = $this->models->get_article();
-		if ($data){
-			foreach ($data as $key => $val){
-				$data[$key]['createdateChange'] = changeDate($val['createdate']);
-				$data[$key]['postdateChange'] = changeDate($val['postdate']);
-			}
-		}
 		
-		// pr($data);
-		$_SESSION['pages'] = 'news';
-		return $this->loadView('viewarticle',$data);
 
 	}
 	
 	public function addarticle(){
 		
-		// $data['category'] = $this->models->get_category();
+		if(isset($_GET['id']))
+		{
+			$data = $this->models->get_article_id($_GET['id']);	
+			$this->view->assign('data',$data);
+		} 
 
-		// if(isset($_GET['id']))
-		// {
-		// 	$data['item'] = $this->models->get_article_id($_GET['id']);	
-		// } 
-
-		pr($this->admin);
-		$data = array(1,2,3);
-		$this->view->assign('user',$data);
 		$this->view->assign('admin',$this->admin['admin']);
 		return $this->loadView('inputarticle');
 	}
@@ -55,10 +41,10 @@ class article extends Controller {
 	public function articleinp(){
 		global $CONFIG;
 		
-		if(isset($_POST['status'])){
-			if($_POST['status']=='on') $_POST['status']=1;
+		if(isset($_POST['n_status'])){
+			if($_POST['n_status']=='on') $_POST['n_status']=1;
 		} else {
-			$_POST['status']=0;
+			$_POST['n_status']=0;
 		}
 		if(isset($_POST['articletype'])){
 			if($_POST['articletype']=='on') {
@@ -71,7 +57,7 @@ class article extends Controller {
 		} else {
 			$_POST['articletype']=0;
 		}
- 		pr($_POST);exit;
+ 		
 		if(isset($_POST)){
                 // validasi value yang masuk
                $x = form_validation($_POST);
@@ -90,10 +76,12 @@ class article extends Controller {
 						if(!empty($_FILES)){
 							if($_FILES['file_image']['name'] != ''){
 								if($x['action'] == 'update') deleteFile($x['image']);
-								$image = uploadFile('file_image');
-								$x['image'] = $image['filename'];
+								$image = uploadFile('file_image',null,'image');
+								$x['image_url'] = $CONFIG['admin']['app_url'].$image['folder_name'].$image['full_name'];
+								$x['image'] = $image['full_name'];
 							}
 						}
+						
 						$data = $this->models->article_inp($x);
 			   		}
 				   	
@@ -106,28 +94,32 @@ class article extends Controller {
 	public function articledel(){
 
 		global $CONFIG;
+		// pr($_POST);exit;
+		$data = $this->models->article_del($_POST['ids']);
 		
-		$id = $_GET['id'];
-
-		$data = $this->models->article_del($id);
-		
-		echo "<script>alert('Data berhasil di hapus');window.location.href='".$CONFIG['admin']['base_url']."article/index'</script>";
+		echo "<script>alert('Data has been moved to trash');window.location.href='".$CONFIG['admin']['base_url']."home'</script>";
 		
 	}
 	
 	public function trash(){
        
-		$data = $this->models->get_article_trash(1);
+		$data = $this->models->get_article_trash();
 		if ($data){
 			foreach ($data as $key => $val){
-				$data[$key]['createdateChange'] = changeDate($val['createdate']);
-				$data[$key]['postdateChange'] = changeDate($val['postdate']);
+				$data[$key]['created_date'] = dateFormat($val['created_date'],'article');
+
+				$data[$key]['posted_date'] = dateFormat($val['posted_date'],'article');
+
+				if($val['n_status'] == '2') {
+					$data[$key]['n_status'] = 'Deleted';
+					$data[$key]['status_color'] = 'red';
+				} 
 			}
 		}
 		
-		// pr($data);
-		$_SESSION['pages'] = 'trash';
-		return $this->loadView('viewtrash',$data);
+		$this->view->assign('data',$data);
+
+		return $this->loadView('viewtrash');
 
 	}
 	
@@ -167,11 +159,9 @@ class article extends Controller {
 
 		global $CONFIG;
 		
-		$id = $_GET['id'];
-
-		$data = $this->models->article_restore($id);
+		$data = $this->models->article_restore($_POST['ids']);
 		
-		echo "<script>alert('Data berhasil di restore');window.location.href='".$CONFIG['admin']['base_url']."article/trash'</script>";
+		echo "<script>alert('Your data has been restore');window.location.href='".$CONFIG['admin']['base_url']."article/trash'</script>";
 		
 	}
 	
