@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.15, created on 2014-08-08 21:08:59
+<?php /* Smarty version Smarty-3.1.15, created on 2014-08-10 12:44:26
          compiled from "./view/sidebar.html" */ ?>
 <?php /*%%SmartyHeaderCode:16282585953e468847590e2-58028832%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'd064259dbd57878c55967c97fc189d9b7462e5cb' => 
     array (
       0 => './view/sidebar.html',
-      1 => 1407503335,
+      1 => 1407645815,
       2 => 'file',
     ),
   ),
@@ -60,16 +60,23 @@ home">
 							Article List
 						</a>
 					</li>
+					<li>
+						<a href="<?php echo $_smarty_tpl->tpl_vars['basedomain']->value;?>
+article/trash">
+							<i class="fa fa-trash-o"></i>
+							Trash
+						</a>			
+					</li>
 				</ul>
 			</li>
 
-			<li class="">
+			<!--<li class="">
 				<a href="<?php echo $_smarty_tpl->tpl_vars['basedomain']->value;?>
 us">
 					<i class="fa fa-user"></i>
 					Users
 				</a>				
-			</li>		
+			</li>-->		
 			
 		</ul>
 				

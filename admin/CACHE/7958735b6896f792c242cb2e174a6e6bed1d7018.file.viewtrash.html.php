@@ -1,22 +1,22 @@
-<?php /* Smarty version Smarty-3.1.15, created on 2014-08-10 00:01:52
-         compiled from "view/home.html" */ ?>
-<?php /*%%SmartyHeaderCode:90671886953e4688432f4a2-72027671%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /* Smarty version Smarty-3.1.15, created on 2014-08-10 12:42:40
+         compiled from "view/viewtrash.html" */ ?>
+<?php /*%%SmartyHeaderCode:202671362453e6f6314da8a8-08569008%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    '3c1bdcd6c9b0c8d1a6a267d96d10c4045e955f2c' => 
+    '7958735b6896f792c242cb2e174a6e6bed1d7018' => 
     array (
-      0 => 'view/home.html',
-      1 => 1407600111,
+      0 => 'view/viewtrash.html',
+      1 => 1407645629,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '90671886953e4688432f4a2-72027671',
+  'nocache_hash' => '202671362453e6f6314da8a8-08569008',
   'function' => 
   array (
   ),
   'version' => 'Smarty-3.1.15',
-  'unifunc' => 'content_53e4688443c757_51634438',
+  'unifunc' => 'content_53e6f6315dd427_57312973',
   'variables' => 
   array (
     'basedomain' => 0,
@@ -25,7 +25,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_53e4688443c757_51634438')) {function content_53e4688443c757_51634438($_smarty_tpl) {?><script type="text/javascript">
+<?php if ($_valid && !is_callable('content_53e6f6315dd427_57312973')) {function content_53e6f6315dd427_57312973($_smarty_tpl) {?><script type="text/javascript">
 	function AreAnyCheckboxesChecked () {
 	  if ($("#Form2 input:checkbox:checked").length > 0)
 		{
@@ -38,7 +38,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 	}
 </script>
 <div id="content-header">
-	<h1>Article</h1>
+	<h1>Trash</h1>
 </div> <!-- #content-header -->	
 
 <div id="content-container">
@@ -53,7 +53,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 					<h3>
 						<i class="fa fa-table"></i>
-						Article List
+						Deleted Articles List
 					</h3>
 
 				</div> <!-- /.portlet-header -->
@@ -63,12 +63,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 					<div class="table-responsive">
 
 					<form action="<?php echo $_smarty_tpl->tpl_vars['basedomain']->value;?>
-article/articledel" method=POST name="checks" ID="Form2" onsubmit="return confirm('Are you sure want to delete?');">
+article/articlerest" method=POST name="checks" ID="Form2" onsubmit="return confirm('Are you sure want to restore?');">
 
-					<a href="<?php echo $_smarty_tpl->tpl_vars['basedomain']->value;?>
-article/addarticle"><button type="button" class="btn btn-default btn-sm"><i class="fa fa-plus"></i> Add New</button></a>
-
-					<button type="submit" class="btn btn-primary btn-sm" id="btn-dis" disabled><i class="fa fa-trash-o"></i> Delete</button>
+					<button type="submit" class="btn btn-success btn-sm" id="btn-dis" disabled><i class="fa fa-trash-o"></i> Restore</button>
 					
 					<table 
 						class="table table-striped table-bordered table-hover table-highlight table-checkable" 
@@ -99,11 +96,8 @@ $_smarty_tpl->tpl_vars['var']->_loop = true;
 										<input type="checkbox" class="icheck-input" name="ids[]" value="<?php echo $_smarty_tpl->tpl_vars['var']->value['id'];?>
 " onchange="return AreAnyCheckboxesChecked();">
 									</td>
-									<td><a href="<?php echo $_smarty_tpl->tpl_vars['basedomain']->value;?>
-article/addarticle/?id=<?php echo $_smarty_tpl->tpl_vars['var']->value['id'];?>
-" data-toggle="tooltip" data-placement="right" title="Edit or view <?php echo $_smarty_tpl->tpl_vars['var']->value['title'];?>
-"><?php echo $_smarty_tpl->tpl_vars['var']->value['title'];?>
-</a></td>
+									<td><?php echo $_smarty_tpl->tpl_vars['var']->value['title'];?>
+</td>
 									<td style="color:<?php echo $_smarty_tpl->tpl_vars['var']->value['status_color'];?>
 "><?php echo $_smarty_tpl->tpl_vars['var']->value['n_status'];?>
 </td>

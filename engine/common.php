@@ -143,6 +143,10 @@ function uploadFile($data,$path=null,$ext){
 	$shufflefilename = md5(str_shuffle('codekir-v0.3'.$CONFIG[$key]['max_filesize']));
 	$filename = $shufflefilename.'.'.$getExt;
 	
+	/* Host Folder path */
+	list($root_path, $dummy) = explode('admin',$CONFIG[$key]['root_path']);
+	list($dummy, $pathFolder) = explode($root_path,$pathFile);
+
 	if ($_FILES[$data]["error"] > 0){
 	
 		echo "Return Code: " . $_FILES[$data]["error"] . "<br>";
@@ -160,7 +164,8 @@ function uploadFile($data,$path=null,$ext){
 				'full_path' => $pathFile,
 				'full_name' => $filename,
 				'raw_name' => $shufflefilename,
-                'real_name' => $_FILES[$data]["name"]
+                'real_name' => $_FILES[$data]["name"],
+                'folder_name' => $pathFolder
 			);
 			return $result;
 		}else{
@@ -172,13 +177,34 @@ function uploadFile($data,$path=null,$ext){
 				'full_path' => $pathFile,
 				'full_name' => $filename,
 				'raw_name' => $shufflefilename,
-                'real_name' => $_FILES[$data]["name"]
+                'real_name' => $_FILES[$data]["name"],
+                'folder_name' => $pathFolder
 			);
 			return $result;
 		}
 	}
 	
 	return $filename;
+}
+
+function deleteFile($data=null, $path=null)
+{	
+	global $CONFIG;
+	
+	if (array_key_exists('admin',$CONFIG)) $key = 'admin';
+	if (array_key_exists('default',$CONFIG)) $key = 'default';
+	
+	if ($data == null) return false;
+	if ($path!='') $data = $path.'/'.$data;	
+	
+	$fileName = $CONFIG[$key]['upload_path'].$data;
+	
+	if (is_file($fileName)){
+		unlink($fileName);
+	}else{
+		return false;
+	}
+	
 }
 
 function encode($data=false)
@@ -404,6 +430,28 @@ function createAccount($data=array())
 	exec("echo '".$data['username']. " ".$data['password']."' | nc ".$host." ".$port);
 
 }
+
+function dateFormat($date,$type=false,$locale='id_ID.utf8'){
+		
+		/* ex : dateFormat(<any type of date>, 'dd-mm-yyyy') */
+
+		if($date =='') exit('Date not complete');
+
+		setlocale (LC_TIME, 'id_ID.utf8');
+		
+		if($type == 'dd-mm-yyyy'){
+			return strftime( "%d-%m-%Y", strtotime($date));
+		} 
+		if($type == 'dd/mm/yyyy'){
+			return strftime( "%d/%m/%Y", strtotime($date));
+		} 
+		elseif ($type == 'article-day') {
+			return strftime( "%A, %d %B %Y", strtotime($date));
+		}
+		elseif ($type == 'article') {
+			return strftime( "%d %B %Y", strtotime($date));
+		}
+	}
 
 function sendGlobalMail($to,$from,$msg,$config=true){
 

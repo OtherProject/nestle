@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.15, created on 2014-08-07 20:51:19
+<?php /* Smarty version Smarty-3.1.15, created on 2014-08-10 12:44:06
          compiled from "view/login.html" */ ?>
 <?php /*%%SmartyHeaderCode:208463549653e37647e59289-10879897%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'f46244a254c85aab071d12e09c2c2b21c6d37d10' => 
     array (
       0 => 'view/login.html',
-      1 => 1406096940,
+      1 => 1407645839,
       2 => 'file',
     ),
   ),
@@ -15,13 +15,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.15',
+  'unifunc' => 'content_53e37647effca4_82264329',
   'variables' => 
   array (
     'basedomain' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.15',
-  'unifunc' => 'content_53e37647effca4_82264329',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_53e37647effca4_82264329')) {function content_53e37647effca4_82264329($_smarty_tpl) {?><link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['basedomain']->value;?>
 css/Login.css" type="text/css" />
@@ -30,7 +30,7 @@ css/Login.css" type="text/css" />
 	
 	<div id="login">
 		
-		<h3>Administration</h3>
+		<h3>Administrator</h3>
 
 		<h5>Please sign in to get access.</h5>
 
@@ -59,9 +59,9 @@ login/local" class="form" method="post">
 
 	</div> <!-- /#login -->
 
-	<a href="#styledModal" data-toggle="modal" id="signup-btn" class="btn btn-lg btn-block">
+	<!--<a href="#styledModal" data-toggle="modal" id="signup-btn" class="btn btn-lg btn-block">
 		Create an Account
-	</a>
+	</a>-->
 
 
 </div> <!-- /#login-container -->
