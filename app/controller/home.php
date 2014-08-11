@@ -98,7 +98,7 @@ class home extends Controller {
 
         }
         
-        redirect($basedomain);
+        redirect($basedomain.'uploadfoto');
         
 
       }else{

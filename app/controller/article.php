@@ -55,10 +55,17 @@ class article extends Controller {
       }
 
       $getNextArticle = $this->contentHelper->getNextArticle($id);
-
+      $getRandomArticle = $this->contentHelper->getRandomArticle($id);
+      if ($getRandomArticle){
+        foreach ($getRandomArticle as $key => $value) {
+          $getRandomArticle[$key]['changeDate'] = changeDate($value['posted_date']);
+          $getRandomArticle[$key]['content'] = html_entity_decode($value['content']);
+        }
+      }
       // pr($getNextArticle);
       $this->view->assign('article',$getArticle);
       $this->view->assign('prevNextArticle',$getNextArticle);
+      $this->view->assign('getRandomArticle',$getRandomArticle);
 
     	return $this->loadView('article/detail');
     }

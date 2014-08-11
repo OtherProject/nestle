@@ -102,6 +102,39 @@ function redirect($data) {
 
 }
 
+
+function imageFrame($filename=false, $framefile=false)
+{
+
+	global $IMAGE;
+
+	include(LIBS.'class_image_upload/class.upload.php');
+
+	
+	$handle = new Upload($IMAGE[0]['pathfile'].$filename);
+	if ($handle->uploaded) {
+		$handle->image_resize = true;
+		$handle->image_x = 283;
+		$handle->image_y = 221;
+		$handle->image_ratio_crop = true;
+		$handle->jpeg_quality = 100;
+		$handle->image_watermark = $IMAGE[0]['pathframe'].$framefile;
+
+		$handle->Process($IMAGE[0]['imageframed']);
+		if ($handle->processed) {
+			$filename = $handle->file_dst_name;
+		}else{
+			echo 'Error: ' . $handle->error . '';
+		}
+		$handle-> Clean();
+		return true;
+	}else{
+		echo 'Error: ' . $handle->error . '';
+	}
+	
+	return false;
+}
+
 /**
  * @todo upload file function
  * @param String $data = name attribut of file to be upload

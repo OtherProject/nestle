@@ -4,6 +4,8 @@ class contentHelper extends Database {
 	function __construct()
 	{
 		$this->prefix = "nestle";
+		$session = new Session();
+		$this->user = $session->get_session();
 	}
 
 	function getNews()
@@ -48,6 +50,17 @@ class contentHelper extends Database {
 		return false;
 	}
 
+	function getRandomArticle($id=false, $start=0, $limit=3)
+	{
+
+		$filter = "";
+		if ($id) $filter = "AND id <> {$id}";
+
+		$sql = "SELECT * FROM {$this->prefix}_news_content WHERE n_status = 1 {$filter} ORDER BY rand() DESC LIMIT {$start},{$limit}";
+		$res = $this->fetch($sql,1);
+		if ($res) return $res;
+		return false;
+	}
 	function getNextArticle($id=false)
 	{
 
@@ -93,6 +106,51 @@ class contentHelper extends Database {
 			return $data;
 		}
 		
+		return false;
+	}
+
+	function saveUserFoto($data=array())
+	{
+
+		$useraccount = $this->user['default'];
+
+		$date = date('Y-m-d H:i:s');
+		// pr($useraccount);
+		$title = "Upload foto from local store";
+		$sql = "INSERT INTO {$this->prefix}_news_content_repo (title,typealbum, files, userid, created_date, n_status)
+				VALUES ('{$title}', 1, '{$data['full_name']}', {$useraccount['id']}, '{$date}',1)";
+		// pr($sql);
+		$res = $this->query($sql);
+		if($res) return true;
+		return false;
+	}
+
+	function getMyPhoto()
+	{
+		$userid = $this->user['default']['id'];
+		$sql = "SELECT * FROM {$this->prefix}_news_content_repo WHERE userid = {$userid} 
+				AND n_status = 1 {$filter} ORDER BY created_date DESC LIMIT 1";
+		$res = $this->fetch($sql);
+		if ($res) return $res;
+		return false;
+	}
+
+	function getFrame()
+	{
+		
+		$sql = "SELECT * FROM {$this->prefix}_news_content_repo WHERE gallerytype = 1 
+				AND n_status = 1 {$filter} ORDER BY created_date DESC ";
+		$res = $this->fetch($sql,1);
+		if ($res) return $res;
+		return false;
+	}
+
+	function updateUserFoto($id, $filename)
+	{
+		
+		$sql = "UPDATE {$this->prefix}_news_content_repo SET thumbnail = '{$filename}' WHERE id = {$id} LIMIT 1";
+		$res = $this->query($sql);
+		if ($res) return true;
 		return false;
 	}
 }

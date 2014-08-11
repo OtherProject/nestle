@@ -28,7 +28,7 @@ class marticle extends Database {
 							content = '{$data['content']}',
 							image = '{$data['image']}',
 							file = '{$data['image_url']}',
-							posted_date = '".date("Y-m-d",strtotime($data['postdate']))."',
+							posted_date = '".$date."',
 							authorid = '{$data['authorid']}',
 							n_status = {$data['n_status']}
 						WHERE
