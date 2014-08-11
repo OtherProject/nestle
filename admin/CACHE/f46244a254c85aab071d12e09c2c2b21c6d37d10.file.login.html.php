@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.15, created on 2014-08-10 12:44:06
+<?php /* Smarty version Smarty-3.1.15, created on 2014-08-10 12:54:31
          compiled from "view/login.html" */ ?>
 <?php /*%%SmartyHeaderCode:208463549653e37647e59289-10879897%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'f46244a254c85aab071d12e09c2c2b21c6d37d10' => 
     array (
       0 => 'view/login.html',
-      1 => 1407645839,
+      1 => 1407646469,
       2 => 'file',
     ),
   ),
@@ -29,7 +29,8 @@ css/Login.css" type="text/css" />
 
 	
 	<div id="login">
-		
+		<img width="200px" src="<?php echo $_smarty_tpl->tpl_vars['basedomain']->value;?>
+images/logos/logo-login.png" alt="Logo" />
 		<h3>Administrator</h3>
 
 		<h5>Please sign in to get access.</h5>

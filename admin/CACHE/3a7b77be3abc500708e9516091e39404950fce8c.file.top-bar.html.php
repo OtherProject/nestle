@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.15, created on 2014-08-09 00:02:12
+<?php /* Smarty version Smarty-3.1.15, created on 2014-08-10 13:14:23
          compiled from "./view/top-bar.html" */ ?>
 <?php /*%%SmartyHeaderCode:99107523153e4688473add2-86298427%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '3a7b77be3abc500708e9516091e39404950fce8c' => 
     array (
       0 => './view/top-bar.html',
-      1 => 1407513649,
+      1 => 1407647659,
       2 => 'file',
     ),
   ),
@@ -47,14 +47,14 @@ home">
 			</a>
 
 			<ul class="dropdown-menu" role="menu">
-				<!--<li>
-					<a href="">
-						<i class="fa fa-user"></i> 
-						&nbsp;&nbsp;<?php echo $_smarty_tpl->tpl_vars['admin']->value['admin']['name'];?>
-
+				<li>
+					<a href="<?php echo $_smarty_tpl->tpl_vars['basedomain']->value;?>
+profile">
+						<i class="fa fa-cogs"></i> 
+						&nbsp;&nbsp;Settings
 					</a>
 				</li>
-				<li class="divider"></li>-->
+				<li class="divider"></li>
 				<li>
 					<a href="<?php echo $_smarty_tpl->tpl_vars['basedomain']->value;?>
 logout.php">
