@@ -8,4 +8,5 @@ cache/*
 admin/config/config.php
 admin/cache/*
 admin/CACHE/*
+admin/logs/*
 dashboard/config/config.php
