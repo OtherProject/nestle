@@ -1,5 +1,7 @@
 <?php
 
+require_once(LIBS.'twitteroauth/tmhOAuth-master/tmhOAuth.php');
+
 use Facebook\FacebookSession;
 use Facebook\FacebookRedirectLoginHelper;
 use Facebook\FacebookRequest;
@@ -29,7 +31,7 @@ class uploadfoto extends Controller {
 	}
 	function index(){
 
-
+    // pr($_SESSION);
 		global $CONFIG, $basedomain;
 
 		
@@ -53,6 +55,8 @@ class uploadfoto extends Controller {
 
   	return $this->loadView('upload/chooseframe');
   }
+
+
 	 function share(){
 
 		global $CONFIG, $basedomain, $IMAGE;
@@ -69,46 +73,171 @@ class uploadfoto extends Controller {
     }
 
 
-		FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);
-    $helper = new FacebookRedirectLoginHelper($basedomain.'uploadfoto/share/?share=true');
-    $session = false;
-    if(isset($_GET['share'])){
-    	$session = $helper->getSessionFromRedirect();
-    	
-    	/* Buat posting message */
-    	
-    	// $post = (new FacebookRequest(
-     //      $session, 'POST', '/me/feed',array ('message' => 'This is a test message from bot',)
-     //    ))->execute()->getGraphObject();
+    if (isset($_SESSION['fb-logout'])){
 
-      
-      $arr["source"] = '@' . realpath($file_path);
-      $arr["message"] = 'test from app';
-
-      $post = (new FacebookRequest(
-              $session, 'POST', '/me/photos',$arr
-            ))->execute()->getGraphObject();
-
-      /*
-    	$album = (new FacebookRequest(
-                  $session,'GET','/me/albums'
-                ))->execute()->getGraphObject();
-      */  
+      FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);
+      $helper = new FacebookRedirectLoginHelper($basedomain.'uploadfoto/share/?share=true');
+      $session = false;
+      if(isset($_GET['share'])){
+        $session = $helper->getSessionFromRedirect();
         
-        // pr($album);
-      redirect($basedomain.'uploadfoto/changephoto');
+        /* Buat posting message */
+        
+        // $post = (new FacebookRequest(
+       //      $session, 'POST', '/me/feed',array ('message' => 'This is a test message from bot',)
+       //    ))->execute()->getGraphObject();
 
+        
+        $arr["source"] = '@' . realpath($file_path);
+        $arr["message"] = 'test from app';
+
+        $post = (new FacebookRequest(
+                $session, 'POST', '/me/photos',$arr
+              ))->execute()->getGraphObject();
+
+        /*
+        $album = (new FacebookRequest(
+                    $session,'GET','/me/albums'
+                  ))->execute()->getGraphObject();
+        */  
+          
+          // pr($album);
+        redirect($basedomain.'uploadfoto/changephoto');
+
+      }else{
+        $loginUrl = $helper->getLoginUrl(array('scope' => 'user_photos,publish_actions',)); 
+        $this->view->assign('accessUrl',$loginUrl);
+      }
+    
     }else{
-    	$loginUrl = $helper->getLoginUrl(array('scope' => 'user_photos,publish_actions',)); 
-	    $this->view->assign('accessUrlFb',$loginUrl);
-    }
+
+    
+        if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
+        
+          $this->view->assign('accessUrl',$basedomain.'uploadfoto/twitterRedirectShare');
+        }
         
 
-       	// pr($post);
-      	
-
+    }
+		
   	return $this->loadView('upload/share');
   }
+
+  function twitterCallBackShare()
+    {
+
+        global $CONFIG, $basedomain, $IMAGE;
+        // require_once(LIBS.'twitteroauth/twitteroauth/twitteroauth.php');
+        
+        /* If the oauth_token is old redirect to the connect page. */
+        if (isset($_REQUEST['oauth_token']) && $_SESSION['oauth_token'] !== $_REQUEST['oauth_token']) {
+          $_SESSION['oauth_status'] = 'oldtoken';
+          // header('Location: ./clearsessions.php');
+          redirect($basedomain.'uploadfoto');
+        }
+
+        /* Create TwitteroAuth object with app key/secret and token key/secret from default phase */
+        $connection = new TwitterOAuth($CONFIG['twitter']['CONSUMER_KEY'], $CONFIG['twitter']['CONSUMER_SECRET'], $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
+
+        /* Request access tokens from twitter */
+        $access_token = $connection->getAccessToken($_REQUEST['oauth_verifier']);
+
+        /* Save the access tokens. Normally these would be saved in a database for future use. */
+        $_SESSION['access_token'] = $access_token;
+
+        /* Remove no longer needed request tokens */
+        unset($_SESSION['oauth_token']);
+        unset($_SESSION['oauth_token_secret']);
+
+        /* If HTTP response is 200 continue otherwise send to connect page to retry */
+        if (200 == $connection->http_code) {
+          /* The user has been verified and the access tokens can be saved for future use */
+            $_SESSION['status'] = 'verified';
+          // header('Location: ./index.php');
+            // pr('berhasil login');
+
+            /* Get user access tokens out of the session. */
+            $access_token = $_SESSION['access_token'];
+
+            /* Create a TwitterOauth object with consumer/user tokens. */
+            $connection = new TwitterOAuth($CONFIG['twitter']['CONSUMER_KEY'], $CONFIG['twitter']['CONSUMER_SECRET'], $access_token['oauth_token'], $access_token['oauth_token_secret']);
+
+            /* If method is set change API call made. Test is called by default. */
+            $content = $connection->get('account/verify_credentials');
+            // pr($content);
+            
+            
+            $getMyPhoto = $this->contentHelper->getMyPhoto();
+            if ($getMyPhoto){
+              // pr($getMyPhoto);
+              $file_path = $IMAGE[0]['imageframed'].$getMyPhoto['thumbnail'];
+
+            }
+
+
+            $params['media[]'] = "@{$file_path}";
+            $params['status'] = 'test API image upload ';
+            
+            
+            $access_token = $_SESSION['access_token'];
+
+            $tmhOAuth = new \tmhOAuth(array(
+                        'consumer_key' => $CONFIG['twitter']['CONSUMER_KEY'],
+                        'consumer_secret' => $CONFIG['twitter']['CONSUMER_SECRET'],
+                        'token' => $access_token['oauth_token'],
+                        'secret' => $access_token['oauth_token_secret'],
+                        ));
+
+            $response = $tmhOAuth->user_request(array(
+                        'method' => 'POST',
+                        'url' => $tmhOAuth->url("1.1/statuses/update_with_media"),
+                        'params' => $params,
+                        'multipart' => true
+                        ));
+            
+            
+            redirect($basedomain.'uploadfoto/changephoto');
+        } else {
+          /* Save HTTP status for error dialog on connnect page.*/
+          // header('Location: ./clearsessions.php');
+          redirect($basedomain.'login/index');
+        }
+    }
+
+
+    function twitterRedirectShare()
+    {
+
+        global $CONFIG,$basedomain;
+
+        // require_once(LIBS.'twitteroauth/twitteroauth/twitteroauth.php');
+        
+        $twitterRedirectShare = $basedomain.'uploadfoto/twitterCallBackShare/';
+
+        /* Build TwitterOAuth object with client credentials. */
+        $connection = new TwitterOAuth($CONFIG['twitter']['CONSUMER_KEY'], $CONFIG['twitter']['CONSUMER_SECRET']);
+         
+        /* Get temporary credentials. */
+        $request_token = $connection->getRequestToken($twitterRedirectShare);
+
+        /* Save temporary credentials to session. */
+        $_SESSION['oauth_token'] = $token = $request_token['oauth_token'];
+        $_SESSION['oauth_token_secret'] = $request_token['oauth_token_secret'];
+         
+        /* If last connection failed don't display authorization link. */
+        switch ($connection->http_code) {
+          case 200:
+            /* Build authorize URL and redirect user to Twitter. */
+            $url = $connection->getAuthorizeURL($token);
+            // header('Location: ' . $url); 
+            redirect($url);
+            break;
+          default:
+            /* Show notification if something went wrong. */
+            echo 'Could not connect to Twitter. Refresh the page or try again later.';
+        }
+    }
+
    function changephoto(){
 
 		global $CONFIG, $basedomain;
@@ -121,42 +250,12 @@ class uploadfoto extends Controller {
       $file_path = $getMyPhoto['thumbnail'];
 
       $this->view->assign('myfoto',$getMyPhoto);
-      
+
     }
 
   	return $this->loadView('upload/changephoto');
   }
-	function postToSocmed()
-  {
-    FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);
-        $helper = new FacebookRedirectLoginHelper($basedomain.'home/index/?get=true');
-        $session = false;
-        if(isset($_GET['get'])){
-          $session = $helper->getSessionFromRedirect();
-          
-          /* Buat posting message */
-          
-          // $post = (new FacebookRequest(
-         //      $session, 'POST', '/me/feed',array ('message' => 'This is a test message from bot',)
-         //    ))->execute()->getGraphObject();
-
-
-          $album = (new FacebookRequest(
-                      $session,'GET','/me/albums'
-                    ))->execute()->getGraphObject();
-             
-            
-            // pr($album);
-        }else{
-          $loginUrl = $helper->getLoginUrl(array('scope' => 'user_photos,publish_actions',)); 
-      $this->view->assign('accessUrlFb',$loginUrl);
-        }
-        
-
-        // pr($post);
-        
-
-  }
+	
 
 	function ajaxUpload()
   {

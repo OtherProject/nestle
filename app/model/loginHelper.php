@@ -94,8 +94,13 @@ class loginHelper extends Database {
                 $res = $this->query($sql);
             }
             
+            usleep(500);
+            $sql = "SELECT * FROM social_member WHERE sosmed_id = '{$data['id']}' LIMIT 1";
             // pr($sql);
-            $dataSession = $data;
+            $result = $this->fetch($sql);
+
+            // pr($sql);
+            $dataSession = $result;
         }
         // pr($dataSession);
         // exit;
