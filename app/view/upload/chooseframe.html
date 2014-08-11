@@ -73,9 +73,9 @@
 		$.post(basedomain+'uploadfoto/generateImage',{fileid:fileid, frameName:frameName, fileName:fileName}, function(data){
 
 			if (data.status==true){
-				setTimeout(function() {
+				
 				    window.location.href = basedomain+'uploadfoto/share';
-				}, 1000);
+				
 			}
 
 		},"JSON")
