@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.15, created on 2014-08-10 12:44:26
+<?php /* Smarty version Smarty-3.1.15, created on 2014-08-11 13:23:35
          compiled from "./view/sidebar.html" */ ?>
 <?php /*%%SmartyHeaderCode:16282585953e468847590e2-58028832%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'd064259dbd57878c55967c97fc189d9b7462e5cb' => 
     array (
       0 => './view/sidebar.html',
-      1 => 1407645815,
+      1 => 1407734338,
       2 => 'file',
     ),
   ),
@@ -42,7 +42,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 			<li class="dropdown active">
 				<a href="javascript:;">
 					<i class="fa fa-file-text"></i>
-					Article
+					Article 
 					<span class="caret"></span>
 				</a>				
 				<ul class="sub-nav">
@@ -70,13 +70,29 @@ article/trash">
 				</ul>
 			</li>
 
-			<!--<li class="">
-				<a href="<?php echo $_smarty_tpl->tpl_vars['basedomain']->value;?>
-us">
-					<i class="fa fa-user"></i>
-					Users
+			<li class="dropdown">
+				<a href="javascript:;">
+					<i class="fa fa-picture-o"></i>
+					Picture Frame 
+					<span class="caret"></span>
 				</a>				
-			</li>-->		
+				<ul class="sub-nav">
+					<li>
+						<a href="<?php echo $_smarty_tpl->tpl_vars['basedomain']->value;?>
+article/upload">
+							<i class="fa fa-cloud-upload"></i> 
+							Upload Frame
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo $_smarty_tpl->tpl_vars['basedomain']->value;?>
+home/frame">
+							<i class="fa fa-list-alt"></i> 
+							Frame List
+						</a>
+					</li>
+				</ul>
+			</li>	
 			
 		</ul>
 				

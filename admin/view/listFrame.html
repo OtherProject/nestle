@@ -1,0 +1,23 @@
+<div id="content-header">
+	<h1>Frame List</h1>
+</div> <!-- #content-header -->	
+
+<div id="content-container">
+
+	<div class="row">
+
+		{foreach $data as $var}
+		<div class="col-md-3 col-sm-6">
+			<div class="thumbnail">
+				<div class="thumbnail-view">
+					<a href="{$var.files}" class="thumbnail-view-hover ui-lightbox"></a>
+		            <img src="{$var.files}" style="width: 100%" alt="Gallery Image" />
+		        </div>
+	          </div>					
+
+		</div> <!-- /.col -->
+		{/foreach}
+
+	</div>
+
+</div>

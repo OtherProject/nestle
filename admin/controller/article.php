@@ -28,6 +28,8 @@ class article extends Controller {
 	
 	public function addarticle(){
 		
+		$this->view->assign('active','active');
+
 		if(isset($_GET['id']))
 		{
 			$data = $this->models->get_article_id($_GET['id']);	
@@ -116,44 +118,14 @@ class article extends Controller {
 				} 
 			}
 		}
-		
+
+		$this->view->assign('active','active');
 		$this->view->assign('data',$data);
 
 		return $this->loadView('viewtrash');
 
 	}
 	
-	public function trashlowongan(){
-       
-		$data = $this->models->get_article_trash(2);
-		if ($data){
-			foreach ($data as $key => $val){
-				$data[$key]['createdateChange'] = changeDate($val['createdate']);
-				$data[$key]['postdateChange'] = changeDate($val['postdate']);
-			}
-		}
-		
-		// pr($data);
-		$_SESSION['pages'] = 'trash';
-		return $this->loadView('viewtrash',$data);
-
-	}
-	
-	public function trashads(){
-       
-		$data = $this->models->get_article_trash(6);
-		if ($data){
-			foreach ($data as $key => $val){
-				$data[$key]['createdateChange'] = changeDate($val['createdate']);
-				$data[$key]['postdateChange'] = changeDate($val['postdate']);
-			}
-		}
-		
-		// pr($data);
-		$_SESSION['pages'] = 'trash';
-		return $this->loadView('viewtrash',$data);
-
-	}
 	
 	public function articlerest(){
 
@@ -176,6 +148,39 @@ class article extends Controller {
 		echo "<script>alert('Data berhasil di hapus secara permanen');window.location.href='".$CONFIG['admin']['base_url']."article/trash'</script>";
 		
 	}
+
+	public function upload(){
+
+		return $this->loadView('uploadFrame');
+
+	}
+
+	public function uplFrame(){
+		global $CONFIG;
+
+		//upload file
+		if(!empty($_FILES)){
+			if($_FILES['file_image']['name'] != ''){
+				$image = uploadFile('file_image','frame','image');
+
+				$data['title'] = $image['real_name'];
+				$data['typealbum'] = 2;
+				$data['content'] = $image['full_name'];
+				$data['files'] = $CONFIG['admin']['app_url'].$image['folder_name'].$image['full_name'];
+				$data['created_date'] = date("Y-m-d H:i:s");
+				$data['n_status'] = 1;
+
+				$data = $this->models->frame_inp($data);
+
+				echo "<script>alert('Files has been uploaded');window.location.href='".$CONFIG['admin']['base_url']."home/frame'</script>";
+			}
+		} else {
+
+			echo "<script>alert('No file has been selected');window.location.href='".$CONFIG['admin']['base_url']."article/upload'</script>";
+
+		}
+	}
+
 }
 
 ?>

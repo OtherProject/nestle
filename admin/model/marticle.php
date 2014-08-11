@@ -135,38 +135,30 @@ class marticle extends Database {
 		return $result;
 	}
 	
-	function get_category()
-	{
-		$query = "SELECT * FROM cdc_news_content_category WHERE id < 3";
-		
+	function frame_inp($data){
+
+		foreach ($data as $key => $val) {
+			$tmpfield[] = $key;
+			$tmpvalue[] = "'$val'";
+		}
+
+		$field = implode(',', $tmpfield);
+		$value = implode(',', $tmpvalue);
+
+		$query = "INSERT INTO nestle_news_content_repo ({$field}) VALUES ($value)";
+
+		$result = $this->query($query);
+
+		return true;
+	}
+
+	function get_frameList(){
+
+		$query = "SELECT * FROM nestle_news_content_repo ORDER BY created_date DESC";
+
 		$result = $this->fetch($query,1);
 		
 		return $result;
-	}
-	
-	function slide_activator($id)
-	{
-		$query = "SELECT articletype FROM cdc_news_content WHERE id = {$id}";
-		
-		$result = $this->fetch($query,1);
-		
-		if($result[0]['articletype']==1){
-			$articletype = 11;
-		} else {
-			$articletype = 1;
-		}
-		
-		$query = "UPDATE cdc_news_content SET articletype={$articletype} WHERE id={$id}";
-		
-		$result = $this->query($query);
-	}
-	
-	function slide_remove($id)
-	{
-		
-		$query = "UPDATE cdc_news_content SET articletype=0 WHERE id={$id}";
-		
-		$result = $this->query($query);
 	}
 }
 ?>
