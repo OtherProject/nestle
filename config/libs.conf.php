@@ -12,6 +12,12 @@ $EXCEL[0]['filetype'] = array('application/ms-excel', 'application/vnd.ms-excel'
 $SMARTY[0]['template'] = APPPATH.'view/';
 $SMARTY[0]['cache'] = LIBS.'smarty/cache';
 $SMARTY[0]['config'] = LIBS.'smarty/configs';
-$SMARTY[0]['logs'] = CACHE;
+$SMARTY[0]['logs'] = LOGS;
+
+/* IMAGE FRAME CONFIG */
+
+$IMAGE[0]['pathfile'] = $CONFIG['default']['upload_path'];
+$IMAGE[0]['pathframe'] = $CONFIG['default']['upload_path']. 'frame/';
+$IMAGE[0]['imageframed'] = $CONFIG['default']['upload_path']. 'imageFramed/';
 
 ?>

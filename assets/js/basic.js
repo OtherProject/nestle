@@ -23,4 +23,9 @@ jQuery(function ($) {
 
 		return false;
 	});
+	$('#basic-modal .global-popup').click(function (e) {
+		$('#basic-modal-content.global').modal();
+
+		return false;
+	});
 });

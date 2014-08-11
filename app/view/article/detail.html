@@ -2,7 +2,7 @@
 	{if $article}
 	<div id="articeDetail">
 		<div id="articleImg">
-			<img src="{$basedomain}assets/file/gambardetail.jpg" width="434px"/>
+			<img src="{$basedomain}public_assets/{$article[0].image}" width="434px"/>
 		</div><br/>
 		<div id="articleDesc">
 			<span class="title"><p class="wordwrap">{$article[0].title}</p></span>
@@ -35,6 +35,22 @@
 </span>
 </div>
 <div id="wrapper">
+
+	{if $getRandomArticle}
+	{foreach $getRandomArticle as $val}
+	<div id="article">
+		<img src="{$basedomain}public_assets/{$val.image}"/ height="150px" width="100%">
+		<div id="deskripsi">
+			<span class="title">{$val.title}</span><br/>
+			<span class="date"><span class="kalender">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{$val.changeDate}</span><br/>
+			<span class="brief">{$val.brief}</span><br/><br/>
+			<span><a href="{$basedomain}article/detail/?id={$val.id}"  class="more">Selengkapnya</a></span>
+		</div>
+	</div>
+	{/foreach}
+	{/if}
+
+	{*}
 	<div id="article">
 		<img src="{$basedomain}assets/file/gambar.jpg"/ height="150px" width="100%">
 		<div id="deskripsi">
@@ -53,14 +69,5 @@
 			<span><a href="#"  class="more">Selengkapnya</a></span>
 		</div>
 	</div>
-	<div id="article">
-		<img src="{$basedomain}assets/file/gambar.jpg"/ height="150px" width="100%">
-		<div id="deskripsi">
-			<span class="title">4 Tips si kecil tidur nyenyak hingga lelap dan lahap sampai selamanya</span><br/>
-			<span class="date"><span class="kalender">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>15 mei 2014</span><br/>
-			<span class="brief">Usia Balita merupakan periode emas tumbuh kembang Si Kecil. Untuk mendukung pertumbuhansi kecil secara</span><br/><br/>
-			<span><a href="#"  class="more">Selengkapnya</a></span>
-		</div>
-	</div>
-	
+	{/*}
 </div>

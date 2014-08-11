@@ -163,7 +163,7 @@ class login extends Controller {
             $_SESSION['status'] = 'verified';
           // header('Location: ./index.php');
             // pr('berhasil login');
-
+            $_SESSION['twitter-status'] = true;
             /* Get user access tokens out of the session. */
             $access_token = $_SESSION['access_token'];
 
@@ -176,21 +176,30 @@ class login extends Controller {
             
             $dataUser = array('id_str','name','screen_name','description','url','location');
             foreach ($dataUser as $value) {
-                $user[$value] = $content->$value;
+
+                if ($value=='id_str'){
+                    $user['id'] = $content->$value;
+                }else{
+                    $user[$value] = $content->$value;
+                }
+                
             }
 
-            echo 'login true';
+            
 
             $setLoginUser = $this->loginHelper->loginSosmed(2,$user); 
 
 
-            redirect($basedomain);
+            redirect($basedomain.'uploadfoto');
         } else {
           /* Save HTTP status for error dialog on connnect page.*/
           // header('Location: ./clearsessions.php');
           redirect($basedomain.'login/index');
         }
     }
+
+
+    
 
 
     function twitterRedirect()
@@ -224,6 +233,8 @@ class login extends Controller {
             echo 'Could not connect to Twitter. Refresh the page or try again later.';
         }
     }
+
+    
 
     /**
      * @todo create new user

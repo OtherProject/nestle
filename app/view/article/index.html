@@ -2,7 +2,7 @@
 	{if $article}
 	{foreach $article as $val}
 	<div id="article">
-		<img src="{$basedomain}assets/file/gambar.jpg"/ height="150px" width="100%">
+		<img src="{$basedomain}public_assets/{$val.image}"/ height="150px" width="100%">
 		<div id="deskripsi">
 			<span class="title">{$val.title}</span><br/>
 			<span class="date"><span class="kalender">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{$val.changeDate}</span><br/>
@@ -81,7 +81,7 @@
 					$.each(data.res, function(i,val){
 
 						html += '<div id="article">';
-						html += '	<img src="'+basedomain+'assets/file/gambar.jpg"/ height="150px" width="100%">';
+						html += '	<img src="'+basedomain+'public_assets/'+val.image+'"/ height="150px" width="100%">';
 						html += '	<div id="deskripsi">';
 						html += '		<span class="title">'+val.title+'</span><br/>';
 						html += '		<span class="date"><span class="kalender">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>'+val.changeDate+'</span><br/>';
