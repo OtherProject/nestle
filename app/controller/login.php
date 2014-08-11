@@ -163,7 +163,7 @@ class login extends Controller {
             $_SESSION['status'] = 'verified';
           // header('Location: ./index.php');
             // pr('berhasil login');
-
+            $_SESSION['twitter-status'] = true;
             /* Get user access tokens out of the session. */
             $access_token = $_SESSION['access_token'];
 
