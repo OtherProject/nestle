@@ -158,15 +158,19 @@ class article extends Controller {
 	public function uplFrame(){
 		global $CONFIG;
 
+		// pr($_FILES);
+
+		// exit;
 		//upload file
 		if(!empty($_FILES)){
 			if($_FILES['file_image']['name'] != ''){
 				$image = uploadFile('file_image','frame','image');
 
+				;
 				$data['title'] = $image['real_name'];
-				$data['typealbum'] = 2;
-				$data['content'] = $image['full_name'];
-				$data['files'] = $CONFIG['admin']['app_url'].$image['folder_name'].$image['full_name'];
+				$data['gallerytype'] = 1;
+				$data['files'] = $image['full_name'];
+				$data['content'] = $CONFIG['admin']['app_url'].$image['folder_name'].$image['full_name'];
 				$data['created_date'] = date("Y-m-d H:i:s");
 				$data['n_status'] = 1;
 

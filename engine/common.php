@@ -198,18 +198,18 @@ function uploadFile($data,$path=null,$ext){
 		($_FILES[$data]["size"] / $CONFIG[$key]['max_filesize']);
 		$_FILES[$data]["tmp_name"];
 
-		if (file_exists($pathFile. $_FILES[$data]["name"])){
-			$result = array(
-				'status' => '0',
-				'message' => 'File exist.',
-				'full_path' => $pathFile,
-				'full_name' => $filename,
-				'raw_name' => $shufflefilename,
-                'real_name' => $_FILES[$data]["name"],
-                'folder_name' => $pathFolder
-			);
-			return $result;
-		}else{
+		// if (file_exists($pathFile. $_FILES[$data]["name"])){
+		// 	$result = array(
+		// 		'status' => '0',
+		// 		'message' => 'File exist.',
+		// 		'full_path' => $pathFile,
+		// 		'full_name' => $filename,
+		// 		'raw_name' => $shufflefilename,
+  //               'real_name' => $_FILES[$data]["name"],
+  //               'folder_name' => $pathFolder
+		// 	);
+		// 	return $result;
+		// }else{
 		
 			move_uploaded_file($_FILES[$data]["tmp_name"],$pathFile . $filename);
 			$result = array(
@@ -221,8 +221,10 @@ function uploadFile($data,$path=null,$ext){
                 'real_name' => $_FILES[$data]["name"],
                 'folder_name' => $pathFolder
 			);
+
+			// pr($result);exit;
 			return $result;
-		}
+		// }
 	}
 	
 	return $filename;

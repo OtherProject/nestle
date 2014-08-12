@@ -8,11 +8,14 @@ class home extends Controller {
 	public function __construct()
 	{
 		parent::__construct();
+
+		global $app_domain;
 		$this->loadmodule();
 		$this->view = $this->setSmarty();
 		$sessionAdmin = new Session;
 		$this->admin = $sessionAdmin->get_session();
 		// $this->validatePage();
+		$this->view->assign('app_domain',$app_domain);
 	}
 	public function loadmodule()
 	{
@@ -51,7 +54,7 @@ class home extends Controller {
 	public function frame(){
 
 		$data = $this->models->get_frameList();
-
+		// pr($data);
 		$this->view->assign('data',$data);
 
 		return $this->loadView('listFrame');

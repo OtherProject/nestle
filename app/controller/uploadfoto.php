@@ -34,7 +34,58 @@ class uploadfoto extends Controller {
     // pr($_SESSION);
 		global $CONFIG, $basedomain;
 
-		
+    FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);
+    $helper = new FacebookRedirectLoginHelper($basedomain.'uploadfoto/index/?get=true');
+    $session = false;
+    if(isset($_GET['get'])){
+      $session = $helper->getSessionFromRedirect();
+      
+      /* Buat posting message */
+      
+      // $post = (new FacebookRequest(
+     //      $session, 'POST', '/me/feed',array ('message' => 'This is a test message from bot',)
+     //    ))->execute()->getGraphObject();
+
+
+      $album = (new FacebookRequest(
+                  $session,'GET','/me/photos'
+                ))->execute()->getGraphObject();
+      /*
+      $album = (new FacebookRequest(
+                  $session,'GET','/me/albums'
+                ))->execute()->getGraphObject();*/
+      
+
+      $userAlbum = $album->getPropertyAsArray('data');
+
+     
+      foreach ($userAlbum as $key => $value) {
+       
+        $data[$key]['id'] = $value->getProperty('id');
+        $data[$key]['from'] = $value->getProperty('from');
+        $data[$key]['name'] = $value->getProperty('name');
+        $data[$key]['picture'] = $value->getProperty('picture');
+        $data[$key]['source'] = $value->getProperty('source');
+        $data[$key]['height'] = $value->getProperty('height');
+        $data[$key]['width'] = $value->getProperty('width');
+        // $data[$key]['images'] = $value->getProperty('images');
+
+      }
+      // pr($data);
+      $this->view->assign('albumfb',$data);
+
+    }else{
+      $loginUrl = $helper->getLoginUrl(array('scope' => 'user_photos,publish_actions',)); 
+      $this->view->assign('accessUrlFb',$loginUrl);
+    }
+        
+
+
+		if (isset($_SESSION['fb-logout'])){
+      $this->view->assign('fbalbum',true);
+    }else{
+      $this->view->assign('fbalbum',false);
+    }
 
   	return $this->loadView('upload/upload');
   }
@@ -59,7 +110,7 @@ class uploadfoto extends Controller {
 
 	 function share(){
 
-		global $CONFIG, $basedomain, $IMAGE;
+		global $CONFIG, $basedomain, $IMAGE, $LOCALE;
 
 		// pr($_SESSION);
 		
@@ -89,7 +140,7 @@ class uploadfoto extends Controller {
 
         
         $arr["source"] = '@' . realpath($file_path);
-        $arr["message"] = 'test from app';
+        $arr["message"] = $LOCALE['fb']['status-message'];
 
         $post = (new FacebookRequest(
                 $session, 'POST', '/me/photos',$arr
@@ -306,6 +357,37 @@ class uploadfoto extends Controller {
       }else{
         print json_encode(array('status'=>false));
       }
+    
+
+    exit;
+  }
+
+  function getFromFb()
+  {
+    global $IMAGE;
+    
+    $fileName = _p('fileName'); 
+    $idPhoto = sha1($fileName).'.jpg'; 
+
+      $url = $fileName;
+      $img = $IMAGE[0]['pathfile'].$idPhoto;
+
+      $download = file_put_contents($img, file_get_contents($url));
+
+      
+      if ($download>0){
+
+        $saveUserFoto = $this->contentHelper->updateUserFoto(false,$idPhoto,true);
+
+        if ($saveUserFoto){
+          print json_encode(array('status'=>true));
+        }else{
+          print json_encode(array('status'=>false));
+        }
+      }else{
+        print json_encode(array('status'=>false));
+      }
+      
     
 
     exit;

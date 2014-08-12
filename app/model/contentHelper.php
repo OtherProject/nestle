@@ -113,7 +113,7 @@ class contentHelper extends Database {
 	{
 
 		$useraccount = $this->user['default'];
-
+		
 		$date = date('Y-m-d H:i:s');
 		// pr($useraccount);
 		$title = "Upload foto from local store";
@@ -139,17 +139,32 @@ class contentHelper extends Database {
 	{
 		
 		$sql = "SELECT * FROM {$this->prefix}_news_content_repo WHERE gallerytype = 1 
-				AND n_status = 1 {$filter} ORDER BY created_date DESC ";
+				AND n_status = 1 {$filter} ORDER BY created_date DESC LIMIT 4";
 		$res = $this->fetch($sql,1);
 		if ($res) return $res;
 		return false;
 	}
 
-	function updateUserFoto($id, $filename)
+	function updateUserFoto($id, $filename, $fromonline=false)
 	{
 		
-		$sql = "UPDATE {$this->prefix}_news_content_repo SET thumbnail = '{$filename}' WHERE id = {$id} LIMIT 1";
-		$res = $this->query($sql);
+		if ($fromonline){
+
+			$useraccount = $this->user['default'];
+		
+			$date = date('Y-m-d H:i:s');
+			// pr($useraccount);
+			$title = "Upload foto from album facebook";
+			$sql = "INSERT INTO {$this->prefix}_news_content_repo (title,typealbum, files, userid, created_date, n_status)
+					VALUES ('{$title}', 1, '{$filename}', {$useraccount['id']}, '{$date}',1)";
+			// pr($sql);
+			$res = $this->query($sql);
+
+		}else{
+			$sql = "UPDATE {$this->prefix}_news_content_repo SET thumbnail = '{$filename}' WHERE id = {$id} LIMIT 1";
+			$res = $this->query($sql);
+		}
+		
 		if ($res) return true;
 		return false;
 	}
