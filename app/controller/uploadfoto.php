@@ -372,8 +372,16 @@ class uploadfoto extends Controller {
       $url = $fileName;
       $img = $IMAGE[0]['pathfile'].$idPhoto;
 
-      $download = file_put_contents($img, file_get_contents($url));
+      $ch = curl_init($url);
+      $fp = fopen($img, 'wb');
+      curl_setopt($ch, CURLOPT_FILE, $fp);
+      curl_setopt($ch, CURLOPT_HEADER, 0);
+      curl_exec($ch);
+      curl_close($ch);
+      fclose($fp);
 
+      // $download = file_put_contents($img, file_get_contents($url));
+      $download = 1;
       
       if ($download>0){
 
@@ -382,10 +390,10 @@ class uploadfoto extends Controller {
         if ($saveUserFoto){
           print json_encode(array('status'=>true));
         }else{
-          print json_encode(array('status'=>false));
+          print json_encode(array('status'=>false,'msg'=>'1'));
         }
       }else{
-        print json_encode(array('status'=>false));
+        print json_encode(array('status'=>false,'msg'=>'2'));
       }
       
     

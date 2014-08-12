@@ -207,6 +207,7 @@ body{
 	width:170px;
 	height:125px;
 	overflow:hidden;
+	position: relative;
 }
 #wrapframeright{
 	margin:0 auto;
