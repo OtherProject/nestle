@@ -22,6 +22,7 @@ class uploadfoto extends Controller {
 		$this->view->assign('basedomain',$basedomain);
     $session = new Session();
     $this->user = $session->get_session();
+
     }
 	
 	function loadmodule()
@@ -33,6 +34,7 @@ class uploadfoto extends Controller {
 
     // pr($_SESSION);
 		global $CONFIG, $basedomain;
+    if (!$this->user){redirect($basedomain); exit;}
 
     FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);
     $helper = new FacebookRedirectLoginHelper($basedomain.'uploadfoto/index/?get=true');
@@ -91,7 +93,9 @@ class uploadfoto extends Controller {
   }
   function chooseframe(){
 
-    
+    global $basedomain;
+    if (!$this->user){redirect($basedomain); exit;}
+
 		$getMyPhoto = $this->contentHelper->getMyPhoto();
     if ($getMyPhoto){
       // pr($getMyPhoto);
@@ -113,7 +117,8 @@ class uploadfoto extends Controller {
 		global $CONFIG, $basedomain, $IMAGE, $LOCALE;
 
 		// pr($_SESSION);
-		
+		if (!$this->user){redirect($basedomain); exit;}
+
     $file_path = "";
     $getMyPhoto = $this->contentHelper->getMyPhoto();
     if ($getMyPhoto){
@@ -294,7 +299,8 @@ class uploadfoto extends Controller {
 		global $CONFIG, $basedomain;
 
 		// pr($_SESSION);
-		
+		if (!$this->user){redirect($basedomain); exit;}
+
 		$getMyPhoto = $this->contentHelper->getMyPhoto();
     if ($getMyPhoto){
       // pr($getMyPhoto);

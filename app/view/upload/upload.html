@@ -3,8 +3,9 @@
 
 <div id="wrapperhome">
 	<div id="slides" align="center">
+		<input type="file" name="fotoupload" style="display:none" id="fotoupload">
 		<div id="imgupload"><img src="{$basedomain}assets/file/slide-4.png"/></div>
-		 <input type="file" name="fotoupload" style="display:none" id="fotoupload">
+		 
 		 <div id="divbtnslide">
 		 <a href="javascript:void(0)" class="btnpinkslide">Select File</a>&nbsp;&nbsp;&nbsp;{if $fbalbum}<span class="fontNunito">or</span>&nbsp;&nbsp;&nbsp;
 		<a href="{$accessUrlFb}" class="btnblueslide">Facebook Album</a>{/if}
@@ -17,30 +18,46 @@
 			{/if}
 		</div>
 		<div id="divcheckslide">
-		<input type="checkbox" name="checkboxG2" id="checkboxG2" class="css-checkbox" checked="checked"/><label for="checkboxG2" class="css-label"></label><strong>Saya setuju dengan peraturan dan ketentuan yang berlaku</strong>
-		<input type='submit' name='submit' id='submitfoto' style='display:none'>
+		<input type="checkbox" name="checkboxG2" id="checkboxG2" class="css-checkbox" akses="1" checked="checked"/><label for="checkboxG2" class="css-label"></label><strong>Saya setuju dengan peraturan dan ketentuan yang berlaku</strong>
+		
 		</div>
+		<input type='submit' name='submit' id='submitfoto' style='display:none'>
 	</div>
 </div>
 </form>
 
 <script type="text/javascript">
 {literal}
+
+
 	$(document).on('click','.btnpinkslide', function(){
 
 		$('#fotoupload').trigger('click');
 	})
 
+	$(document).on('click','#checkboxG2', function(){
+
+		var test = $(this).attr('akses');
+		if (test==0){
+			$(this).attr('akses',1);
+		}else{
+			$(this).attr('akses',0);
+		}
+		
+	})
+
 	$(document).on('click','.selectPhoto', function(){
+
 
 		var fileName = $(this).attr('src');
 		
+
 		var loading = "<img src='"+basedomain+"assets/images/loading.gif' />";
 		$('#imgupload').html(loading);
 		$.post(basedomain+'uploadfoto/getFromFb',{fileName:fileName}, function(data){
 
 			
-			
+
 			if (data.status==true){
 				
 				    window.location.href = basedomain+'uploadfoto/chooseframe';
@@ -50,6 +67,8 @@
 		},"JSON")
 	})
 
+	
+		
 	$(document).on('change','#fotoupload', function(){
 
 		var uploadoptions = {
@@ -78,8 +97,20 @@
 
 		$("#uploadImagetolocal").ajaxForm(uploadoptions);
 		setTimeout(function() {
-		    $("#submitfoto").trigger('click');
-		}, 1000);
+
+			var getAgree = parseInt($('#checkboxG2').attr('akses'));
+			if (getAgree<1){
+
+				$('#imgupload').html('please check');
+				return false;
+			}else{
+
+				$('#divbtnslide').html('');
+				$('#divcheckslide').html('');
+				$("#submitfoto").trigger('click');
+			}
+		    
+		}, 500);
 	})
 {/literal}
 </script>

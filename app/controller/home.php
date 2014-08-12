@@ -18,6 +18,9 @@ class home extends Controller {
 		$this->loadmodule();
 		$this->view = $this->setSmarty();
 		$this->view->assign('basedomain',$basedomain);
+    $userdata = $this->isUserOnline();
+    $this->user = $userdata['default'];
+    
     }
 	
 	function loadmodule()
@@ -56,7 +59,7 @@ class home extends Controller {
         
 
        	// pr($post);
-      	
+     $this->view->assign('user',$this->user);	
 
   	return $this->loadView('home');
   }
@@ -103,7 +106,7 @@ class home extends Controller {
 
       }else{
           
-        $loginUrl = $helper->getLoginUrl(array('scope' => 'email,user_photos,publish_actions',)); 
+        $loginUrl = $helper->getLoginUrl(array('scope' => 'email',)); 
         $this->view->assign('accessUrlFb',$loginUrl);
         
 

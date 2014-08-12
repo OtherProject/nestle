@@ -41,7 +41,7 @@ class Controller extends Application{
 		if ($this->configkey=='dashboard')$this->view->assign('dashboard',$this->isAdminOnline());
 		
 		// $this->inject();
-		// pr($this->isAdminOnline());
+		// pr($this->isUserOnline());
 		
 		if (isset($_SESSION['fb-logout'])){
 			$this->view->assign('logoutUrl',@$_SESSION['fb-logout']);
