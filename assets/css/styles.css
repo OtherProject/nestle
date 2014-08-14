@@ -17,9 +17,23 @@ body{
 	
 	
 }
+.imgLogo{
+	margin:0 auto;
+	margin-top:-100px;
+	margin-left:20px;
+	border:0px solid #fff";
+}
+#wrapperheader{
+	margin:0 auto;
+	width:980px;
+	height:120px;
+	border:0px solid #FDFBFC;
+	border-radius:15px;
+	overflow:hidden;
+}
 #header{
 	margin:0 auto;
-	margin-top:30px;
+	margin-top:25px;
 	width:950px;
 	height:60px;
 	border:10px solid #FDFBFC;
@@ -53,7 +67,8 @@ body{
 }
 #wrapperhome{
 	margin: 0 auto;
-	margin-top:25px;
+	margin-top:-10px;
+	margin-bottom:-100px;
 	width:1120px;
 	height:450px;
 	background-image:url(../img/bg_home.PNG);
@@ -207,7 +222,6 @@ body{
 	width:170px;
 	height:125px;
 	overflow:hidden;
-	position: relative;
 }
 #wrapframeright{
 	margin:0 auto;
@@ -497,7 +511,7 @@ body{
 }
 #footer{
 	margin:0 auto;
-	margin-bottom:23px;
+	margin-bottom:50px;
 	width:1350px;
 	height:189px;
 	border:0px solid #FFF;
