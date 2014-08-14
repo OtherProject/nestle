@@ -161,10 +161,12 @@ class article extends Controller {
 		//upload file
 		if(!empty($_FILES)){
 			if($_FILES['file_image']['name'] != ''){
-				$image = uploadFile('file_image','frame','image');
+				($_POST['gallerytype'] == 1) ? $type = 'frame' : $type = 'cover';
+				$image = uploadFile('file_image',$type,'image');
 
 				$data['title'] = $image['real_name'];
 				$data['typealbum'] = 2;
+				$data['gallerytype'] = $_POST['gallerytype'];
 				$data['content'] = $image['full_name'];
 				$data['files'] = $CONFIG['admin']['app_url'].$image['folder_name'].$image['full_name'];
 				$data['created_date'] = date("Y-m-d H:i:s");

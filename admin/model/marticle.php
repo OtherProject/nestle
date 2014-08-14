@@ -157,6 +157,10 @@ class marticle extends Database {
 		$query = "SELECT * FROM nestle_news_content_repo ORDER BY created_date DESC";
 
 		$result = $this->fetch($query,1);
+
+		foreach ($result as $key => $value) {
+			($value['gallerytype'] == 1) ? $result[$key]['gallerytype'] = 'frame' : $result[$key]['gallerytype'] = 'cover';
+		}
 		
 		return $result;
 	}
