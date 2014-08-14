@@ -72,6 +72,7 @@ class loginHelper extends Database {
             $$key = $value;
         }
         
+        $date = date('Y-m-d H:i:s');
         $sql = "SELECT * FROM social_member WHERE sosmed_id = '{$data['id']}' AND usertype = {$sosmed} LIMIT 1";
         // pr($sql);
         $result = $this->fetch($sql);
@@ -81,15 +82,15 @@ class loginHelper extends Database {
         }else{
 
             if ($sosmed==1){
-                $sql = "INSERT IGNORE INTO social_member (sosmed_id, name, email, middle_name, last_name, sex, link, usertype,n_status) 
-                        VALUES ('{$id}','{$first_name}','{$email}','{$middle_name}','{$last_name}','{$gender}','{$link}',1,1)";
+                $sql = "INSERT IGNORE INTO social_member (sosmed_id, name, email, register_date, middle_name, last_name, sex, link, usertype,n_status) 
+                        VALUES ('{$id}','{$first_name}','{$email}','{$date}', '{$middle_name}','{$last_name}','{$gender}','{$link}',1,1)";
                 // pr($sql);
                 $res = $this->query($sql);
                 
             }else{
 
-                $sql = "INSERT IGNORE INTO social_member (sosmed_id, name, username, description, link, city, usertype,n_status)
-                        VALUES ('{$data['id']}', '{$data['name']}', '{$data['screen_name']}', '{$data['description']}','{$data['url']}','{$data['location']}',2,1)";
+                $sql = "INSERT IGNORE INTO social_member (sosmed_id, name, register_date, username, description, link, city, usertype,n_status)
+                        VALUES ('{$data['id']}', '{$data['name']}', '{$date}',  '{$data['screen_name']}', '{$data['description']}','{$data['url']}','{$data['location']}',2,1)";
                 // pr($sql);
                 $res = $this->query($sql);
             }
