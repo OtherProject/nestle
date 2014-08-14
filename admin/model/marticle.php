@@ -137,7 +137,7 @@ class marticle extends Database {
 	
 	function frame_inp($data){
 
-		foreach ($data as $key => $val) {
+		foreach ($data[0] as $key => $val) {
 			$tmpfield[] = $key;
 			$tmpvalue[] = "'$val'";
 		}
@@ -149,6 +149,23 @@ class marticle extends Database {
 
 		$result = $this->query($query);
 
+		$queryid = "SELECT id FROM nestle_news_content_repo ORDER BY created_date DESC LIMIT 1";
+
+		$id = $this->fetch($queryid,0);
+
+		$data[1]['otherid'] = $id['id'];
+
+		foreach ($data[1] as $key => $val) {
+			$tmpfield2[] = $key;
+			$tmpvalue2[] = "'$val'";
+		}
+
+		$field2 = implode(',', $tmpfield2);
+		$value2 = implode(',', $tmpvalue2);
+
+		$query2= "INSERT INTO nestle_news_content_repo ({$field2}) VALUES ($value2)";
+
+		$result = $this->query($query2);
 		return true;
 	}
 
@@ -158,10 +175,13 @@ class marticle extends Database {
 
 		$result = $this->fetch($query,1);
 
-		foreach ($result as $key => $value) {
-			($value['gallerytype'] == 1) ? $result[$key]['gallerytype'] = 'frame' : $result[$key]['gallerytype'] = 'cover';
+		foreach ($result as $key => $val) {
+			$query = "SELECT * FROM nestle_news_content_repo WHERE gallerytype = 2 AND n_status = 1 AND otherid = {$val['id']} LIMIT 1";
+			$res = $this->fetch($query,0);
+			$result[$key]['cover'] = $res['files'];
+			$result[$key]['covername'] = $res['title'];
 		}
-		
+
 		return $result;
 	}
 }

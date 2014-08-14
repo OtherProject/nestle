@@ -158,28 +158,41 @@ class article extends Controller {
 	public function uplFrame(){
 		global $CONFIG;
 
-		// pr($_FILES);
-
-		// exit;
 		//upload file
 		if(!empty($_FILES)){
-			if($_FILES['file_image']['name'] != ''){
-				($_POST['gallerytype'] == 1) ? $type = 'frame' : $type = 'cover';
-				$image = uploadFile('file_image',$type,'image');
+			if($_FILES['file_frame']['name'] != ''){
+				$image = uploadFile('file_frame','frame','image');
 
-				;
-				$data['title'] = $image['real_name'];
-				$data['typealbum'] = 2;
-				$data['gallerytype'] = $_POST['gallerytype'];
-				$data['content'] = $image['full_name'];
-				$data['files'] = $CONFIG['admin']['app_url'].$image['folder_name'].$image['full_name'];
-				$data['created_date'] = date("Y-m-d H:i:s");
-				$data['n_status'] = 1;
+				$data[0]['title'] = $image['real_name'];
+				$data[0]['typealbum'] = 2;
+				$data[0]['gallerytype'] = 1;
+				$data[0]['content'] = $image['full_name'];
+				$data[0]['files'] = $image['full_name'];
+				$data[0]['created_date'] = date("Y-m-d H:i:s");
+				$data[0]['n_status'] = 1;
+
+			} else {
+				echo "<script>alert('You have to choose frame file');window.location.href='".$CONFIG['admin']['base_url']."article/upload'</script>";
+			}
+
+			if($_FILES['file_cover']['name'] != ''){
+				$image = uploadFile('file_cover','cover','image');
+
+				$data[1]['title'] = $image['real_name'];
+				$data[1]['typealbum'] = 2;
+				$data[1]['gallerytype'] = 2;
+				$data[1]['content'] = $image['full_name'];
+				$data[1]['files'] = $image['full_name'];
+				$data[1]['created_date'] = date("Y-m-d H:i:s");
+				$data[1]['n_status'] = 1;
+
+			} else {
+				echo "<script>alert('You have to choose cover file');window.location.href='".$CONFIG['admin']['base_url']."article/upload'</script>";
+			}
 
 				$data = $this->models->frame_inp($data);
 
 				echo "<script>alert('Files has been uploaded');window.location.href='".$CONFIG['admin']['base_url']."home/frame'</script>";
-			}
 		} else {
 
 			echo "<script>alert('No file has been selected');window.location.href='".$CONFIG['admin']['base_url']."article/upload'</script>";

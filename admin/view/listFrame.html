@@ -12,9 +12,9 @@
 			<table class="table table-striped table-bordered media-table">
                 <thead>
                     <tr>
-                        <th style="width: 150px">Image</th>
-                        <th>File Name</th>
-                        <th>Type</th>
+                        <th style="width: 150px">Frame</th>
+                        <th style="width: 150px">Cover</th>
+                        <th>Name</th>
                         <th>Date</th>
                     </tr>
                 </thead>
@@ -24,15 +24,24 @@
                         <td>
                         	<div class="thumbnail">
 	                        	<div class="thumbnail-view">
-	                        		<a class="thumbnail-view-hover ui-lightbox" href="{$var.files}">
+	                        		<a class="thumbnail-view-hover ui-lightbox" href="{$app_domain}public_assets/frame/{$var.files}">
 	                        		</a>
 
-						            <img src="{$var.files}" width="125" alt="Gallery Image" />
+						            <img height="100px" src="{$app_domain}public_assets/frame/{$var.files}" width="125" alt="Gallery Image" />
 						        </div>
 						    </div> <!-- /.thumbnail -->
                         </td>
+                        <td>
+                            <div class="thumbnail">
+                                <div class="thumbnail-view">
+                                    <a class="thumbnail-view-hover ui-lightbox" href="{$app_domain}public_assets/cover/{$var.cover}">
+                                    </a>
+
+                                    <img height="100px" src="{$app_domain}public_assets/cover/{$var.cover}" width="125" alt="Gallery Image" />
+                                </div>
+                            </div> <!-- /.thumbnail -->
+                        </td>
                         <td>{$var.title}</td>
-                        <td>{$var.gallerytype}</td>
                         <td>{dateFormat($var.created_date,'article-day')}</td>
                     </tr>
                    {/foreach}
