@@ -18,7 +18,12 @@
 						<li><img src="{$basedomain}assets/file/slide-1.png" alt="slide-1"/></li>
 						<li><img src="{$basedomain}assets/file/slide-2.png" alt="slide-2" />
 						<br/>
-						<a href="{$basedomain}home/connect" class="btnpinkslide">Ikuti Sekarang</a>
+						{if $user}
+							<a href="{$basedomain}uploadfoto/pilihframe" class="btnpinkslide">Ikuti Sekarang</a>
+						{else}
+							<a href="{$basedomain}home/connect" class="btnpinkslide">Ikuti Sekarang</a>
+						{/if}
+						
 	
 						</li>
 					</ul>

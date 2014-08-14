@@ -113,7 +113,7 @@ class contentHelper extends Database {
 	{
 
 		$useraccount = $this->user['default'];
-
+		
 		$date = date('Y-m-d H:i:s');
 		// pr($useraccount);
 		$title = "Upload foto from local store";
@@ -138,17 +138,73 @@ class contentHelper extends Database {
 	function getFrame()
 	{
 		
-		$sql = "SELECT * FROM {$this->prefix}_news_content_repo WHERE gallerytype = 1 
-				AND n_status = 1 {$filter} ORDER BY created_date DESC ";
+		$sql = "SELECT * FROM {$this->prefix}_news_content_repo WHERE gallerytype IN (1) 
+				AND n_status = 1 {$filter} ORDER BY created_date DESC LIMIT 4";
 		$res = $this->fetch($sql,1);
-		if ($res) return $res;
+		if ($res){
+
+			foreach ($res as $key => $value) {
+				$sql1 = "SELECT * FROM {$this->prefix}_news_content_repo WHERE gallerytype IN (2) 
+						AND n_status = 1 AND otherid = {$value['id']} {$filter} ORDER BY created_date DESC LIMIT 1";
+				$res1 = $this->fetch($sql1);
+
+				$res[$key]['cover'] = $res1;
+			}
+
+
+			return $res;	
+		} 
 		return false;
 	}
 
-	function updateUserFoto($id, $filename)
+	function getCreateImage()
+	{
+		$useraccount = $this->user['default'];
+		$sql1 = "SELECT * FROM {$this->prefix}_createimage WHERE userid = {$useraccount['id']} ORDER BY created_date DESC LIMIT 1";
+		$res1 = $this->fetch($sql1);
+
+		
+		if ($res1) return $res1;
+		return false;
+	}
+
+	function updateUserFoto($id, $filename, $fromonline=false)
 	{
 		
-		$sql = "UPDATE {$this->prefix}_news_content_repo SET thumbnail = '{$filename}' WHERE id = {$id} LIMIT 1";
+		if ($fromonline){
+
+			$useraccount = $this->user['default'];
+		
+			$date = date('Y-m-d H:i:s');
+			// pr($useraccount);
+			$title = "Upload foto from album facebook";
+			$sql = "INSERT INTO {$this->prefix}_news_content_repo (title,typealbum, files, userid, created_date, n_status)
+					VALUES ('{$title}', 1, '{$filename}', {$useraccount['id']}, '{$date}',1)";
+			// pr($sql);
+			$res = $this->query($sql);
+
+		}else{
+			// $sql = "UPDATE {$this->prefix}_news_content_repo SET thumbnail = '{$filename}' WHERE id = {$id} LIMIT 1";
+			$sql = "UPDATE {$this->prefix}_createimage SET profil = '{$filename}' WHERE id = {$id} LIMIT 1";
+			// pr($sql);
+
+			$res = $this->query($sql);
+		}
+		
+		if ($res) return true;
+		return false;
+	}
+
+	function updateUserFrame($data=array())
+	{
+
+		$useraccount = $this->user['default'];
+		
+		$date = date('Y-m-d H:i:s');
+
+		$sql = "INSERT INTO {$this->prefix}_createimage (userid,cover, frame, created_date, n_status)
+				VALUES ({$useraccount['id']}, '{$data['cover']}', '{$data['frame']}', '{$date}',1)";
+		// pr($sql);
 		$res = $this->query($sql);
 		if ($res) return true;
 		return false;

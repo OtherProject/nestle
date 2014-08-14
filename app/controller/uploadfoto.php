@@ -22,6 +22,7 @@ class uploadfoto extends Controller {
 		$this->view->assign('basedomain',$basedomain);
     $session = new Session();
     $this->user = $session->get_session();
+
     }
 	
 	function loadmodule()
@@ -33,14 +34,70 @@ class uploadfoto extends Controller {
 
     // pr($_SESSION);
 		global $CONFIG, $basedomain;
+    if (!$this->user){redirect($basedomain); exit;}
 
-		
+    FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);
+    $helper = new FacebookRedirectLoginHelper($basedomain.'uploadfoto/index/?get=true');
+    $session = false;
+    if(isset($_GET['get'])){
+      $session = $helper->getSessionFromRedirect();
+      
+      /* Buat posting message */
+      
+      // $post = (new FacebookRequest(
+     //      $session, 'POST', '/me/feed',array ('message' => 'This is a test message from bot',)
+     //    ))->execute()->getGraphObject();
+
+
+      $album = (new FacebookRequest(
+                  $session,'GET','/me/photos'
+                ))->execute()->getGraphObject();
+      /*
+      $album = (new FacebookRequest(
+                  $session,'GET','/me/albums'
+                ))->execute()->getGraphObject();*/
+      
+
+      $userAlbum = $album->getPropertyAsArray('data');
+
+     
+      foreach ($userAlbum as $key => $value) {
+       
+        $data[$key]['id'] = $value->getProperty('id');
+        $data[$key]['from'] = $value->getProperty('from');
+        $data[$key]['name'] = $value->getProperty('name');
+        $data[$key]['picture'] = $value->getProperty('picture');
+        $data[$key]['source'] = $value->getProperty('source');
+        $data[$key]['height'] = $value->getProperty('height');
+        $data[$key]['width'] = $value->getProperty('width');
+        // $data[$key]['images'] = $value->getProperty('images');
+
+      }
+      // pr($data);
+      $this->view->assign('albumfb',$data);
+
+    }else{
+      $loginUrl = $helper->getLoginUrl(array('scope' => 'user_photos,publish_actions',)); 
+      $this->view->assign('accessUrlFb',$loginUrl);
+    }
+        
+
+
+		if (isset($_SESSION['fb-logout'])){
+      $this->view->assign('fbalbum',true);
+    }else{
+      $this->view->assign('fbalbum',false);
+    }
 
   	return $this->loadView('upload/upload');
   }
   function chooseframe(){
 
-    
+    /* old flow */
+
+    global $basedomain;
+    if (!$this->user){redirect($basedomain); exit;}
+
 		$getMyPhoto = $this->contentHelper->getMyPhoto();
     if ($getMyPhoto){
       // pr($getMyPhoto);
@@ -56,18 +113,70 @@ class uploadfoto extends Controller {
   	return $this->loadView('upload/chooseframe');
   }
 
+  function pilihframe(){
 
-	 function share(){
+    global $basedomain;
+    if (!$this->user){redirect($basedomain); exit;}
 
-		global $CONFIG, $basedomain, $IMAGE;
-
-		// pr($_SESSION);
-		
-    $file_path = "";
     $getMyPhoto = $this->contentHelper->getMyPhoto();
     if ($getMyPhoto){
       // pr($getMyPhoto);
-      $file_path = $IMAGE[0]['imageframed'].$getMyPhoto['thumbnail'];
+      
+      $this->view->assign('myfoto',$getMyPhoto);
+    }
+
+    $getFrame = $this->contentHelper->getFrame();
+    // pr($getFrame);
+    foreach ($getFrame as $key => $value) {
+
+      if ($value['cover']){
+        
+        $imgFrame[] = $value;
+      }
+    }
+    // pr($imgFrame);
+    $this->view->assign('frame',$imgFrame);
+   
+
+    return $this->loadView('upload/chooseframe');
+  }
+
+  function uploadprofile(){
+
+    global $basedomain;
+    if (!$this->user){redirect($basedomain); exit;}
+
+    $getMyPhoto = $this->contentHelper->getMyPhoto();
+    if ($getMyPhoto){
+      // pr($getMyPhoto);
+      
+      $this->view->assign('myfoto',$getMyPhoto);
+    }
+
+    $getCover = $this->contentHelper->getCreateImage();
+    // pr($getCover);
+
+    $getFrame = $this->contentHelper->getFrame();
+    // pr($getFrame);
+    $this->view->assign('frame',$getFrame);
+    $this->view->assign('cover',$getCover);
+   
+
+    return $this->loadView('upload/uploadProfile');
+  }
+
+	 function share(){
+
+		global $CONFIG, $basedomain, $IMAGE, $LOCALE;
+
+		// pr($_SESSION);
+		if (!$this->user){redirect($basedomain); exit;}
+
+    $file_path = "";
+    $getMyPhoto = $this->contentHelper->getCreateImage();
+    if ($getMyPhoto){
+      // pr($getMyPhoto);
+      $file_path = $IMAGE[0]['imageframed'].$getMyPhoto['profil'];
 
       $this->view->assign('myfoto',$getMyPhoto);
     }
@@ -89,7 +198,7 @@ class uploadfoto extends Controller {
 
         
         $arr["source"] = '@' . realpath($file_path);
-        $arr["message"] = 'test from app';
+        $arr["message"] = $LOCALE['fb']['status-message'];
 
         $post = (new FacebookRequest(
                 $session, 'POST', '/me/photos',$arr
@@ -243,11 +352,12 @@ class uploadfoto extends Controller {
 		global $CONFIG, $basedomain;
 
 		// pr($_SESSION);
-		
-		$getMyPhoto = $this->contentHelper->getMyPhoto();
+		if (!$this->user){redirect($basedomain); exit;}
+
+		$getMyPhoto = $this->contentHelper->getCreateImage();
     if ($getMyPhoto){
       // pr($getMyPhoto);
-      $file_path = $getMyPhoto['thumbnail'];
+      $file_path = $getMyPhoto['profil'];
 
       $this->view->assign('myfoto',$getMyPhoto);
 
@@ -309,6 +419,144 @@ class uploadfoto extends Controller {
     
 
     exit;
+  }
+
+  function getFromFb()
+  {
+    global $IMAGE;
+    
+    $fileName = _p('fileName'); 
+    $idPhoto = sha1($fileName).'.jpg'; 
+
+      $url = $fileName;
+      $img = $IMAGE[0]['pathfile'].$idPhoto;
+
+      $ch = curl_init($url);
+      $fp = fopen($img, 'wb');
+      curl_setopt($ch, CURLOPT_FILE, $fp);
+      curl_setopt($ch, CURLOPT_HEADER, 0);
+      curl_exec($ch);
+      curl_close($ch);
+      fclose($fp);
+
+      // $download = file_put_contents($img, file_get_contents($url));
+      $download = 1;
+      
+      if ($download>0){
+
+        $saveUserFoto = $this->contentHelper->updateUserFoto(false,$idPhoto,true);
+
+        if ($saveUserFoto){
+          print json_encode(array('status'=>true));
+        }else{
+          print json_encode(array('status'=>false,'msg'=>'1'));
+        }
+      }else{
+        print json_encode(array('status'=>false,'msg'=>'2'));
+      }
+      
+    
+
+    exit;
+  }
+
+  function saveFrame()
+  {
+
+    $data['cover'] = _p('cover');
+    $data['frame'] = _p('frame');
+
+
+      $saveUserFoto = $this->contentHelper->updateUserFrame($data);
+
+      if ($saveUserFoto){
+        print json_encode(array('status'=>true));
+      }else{
+        print json_encode(array('status'=>false,'msg'=>'1'));
+      }
+
+    exit;
+  }
+
+  function cropImage()
+  {
+    global $basedomain;
+
+    $targ_w = $targ_h = 150;
+   //  $targ_w = 120;
+   // $targ_h = 120;
+    $jpeg_quality = 90;
+
+    
+    $src = $basedomain.'public_assets/'.$_GET['file'];
+    
+    $img_r = imagecreatefromjpeg($src);
+    $dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+
+    imagecopyresampled($dst_r,$img_r,0,0,$_GET['x'],$_GET['y'],
+    $targ_w,$targ_h,$_GET['w'],$_GET['h']);
+
+    header('Content-type: image/jpeg');
+    imagejpeg($dst_r,null,$jpeg_quality);
+
+
+    exit;
+   
+  }
+
+  function getCropImage()
+  {
+
+    global $CONFIG, $basedomain;
+
+    $x = _p('x');
+    $y = _p('y');
+    $w = _p('w');
+    $h = _p('h');
+    // echo $w.$h;exit;
+    $getMyPhoto = $this->contentHelper->getMyPhoto();
+    $getFrame = $this->contentHelper->getCreateImage();
+
+      if ($getMyPhoto){
+        $src = $getMyPhoto['files'];
+      }
+
+      //crop photo
+      $file = $src;
+      $cropped = "cropped_" . $file;
+      $image = new Imagick($CONFIG['default']['upload_path'].$file);
+      $image->cropImage($w, $h, $x, $y);
+      $image->writeImage($CONFIG['default']['upload_path'].$cropped);
+      // smart_resize_image($CONFIG['default']['upload_path'].$cropped,180,181);
+     
+      //overlaying
+      $framename = $getFrame['frame'];
+      
+      $_POST['fileid'] = $getFrame['id']; 
+      $_POST['frameName'] = $framename; 
+      $_POST['fileName'] = $cropped; 
+      $this->generateImage();
+      exit;
+  }
+
+  function cropedProfile(){
+
+    global $basedomain;
+    if (!$this->user){redirect($basedomain); exit;}
+
+    $getMyPhoto = $this->contentHelper->getCreateImage();
+    if ($getMyPhoto){
+      // pr($getMyPhoto);
+      
+      $this->view->assign('myfoto',$getMyPhoto);
+    }
+
+    $getFrame = $this->contentHelper->getCreateImage();
+    // pr($getFrame);
+    $this->view->assign('frame',$getFrame);
+   
+
+    return $this->loadView('upload/cropedProfile');
   }
 }
 

@@ -158,12 +158,16 @@ class article extends Controller {
 	public function uplFrame(){
 		global $CONFIG;
 
+		// pr($_FILES);
+
+		// exit;
 		//upload file
 		if(!empty($_FILES)){
 			if($_FILES['file_image']['name'] != ''){
 				($_POST['gallerytype'] == 1) ? $type = 'frame' : $type = 'cover';
 				$image = uploadFile('file_image',$type,'image');
 
+				;
 				$data['title'] = $image['real_name'];
 				$data['typealbum'] = 2;
 				$data['gallerytype'] = $_POST['gallerytype'];

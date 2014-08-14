@@ -33,6 +33,7 @@ class Controller extends Application{
 		
 		$this->view = $CODEKIR['smarty'];
 		$this->view->assign('basedomain',$basedomain);
+		$this->view->assign('app_domain',$app_domain);
 		$this->view->assign('page',$DATA[$this->configkey]);
 		
 		if ($this->configkey=='default')$this->view->assign('user',$this->isUserOnline());
@@ -40,7 +41,7 @@ class Controller extends Application{
 		if ($this->configkey=='dashboard')$this->view->assign('dashboard',$this->isAdminOnline());
 		
 		// $this->inject();
-		// pr($this->isAdminOnline());
+		// pr($this->isUserOnline());
 		
 		if (isset($_SESSION['fb-logout'])){
 			$this->view->assign('logoutUrl',@$_SESSION['fb-logout']);
