@@ -93,6 +93,8 @@ class uploadfoto extends Controller {
   }
   function chooseframe(){
 
+    /* old flow */
+
     global $basedomain;
     if (!$this->user){redirect($basedomain); exit;}
 
@@ -111,6 +113,57 @@ class uploadfoto extends Controller {
   	return $this->loadView('upload/chooseframe');
   }
 
+  function pilihframe(){
+
+    global $basedomain;
+    if (!$this->user){redirect($basedomain); exit;}
+
+    $getMyPhoto = $this->contentHelper->getMyPhoto();
+    if ($getMyPhoto){
+      // pr($getMyPhoto);
+      
+      $this->view->assign('myfoto',$getMyPhoto);
+    }
+
+    $getFrame = $this->contentHelper->getFrame();
+    // pr($getFrame);
+    foreach ($getFrame as $key => $value) {
+
+      if ($value['cover']){
+        
+        $imgFrame[] = $value;
+      }
+    }
+    // pr($imgFrame);
+    $this->view->assign('frame',$imgFrame);
+   
+
+    return $this->loadView('upload/chooseframe');
+  }
+
+  function uploadprofile(){
+
+    global $basedomain;
+    if (!$this->user){redirect($basedomain); exit;}
+
+    $getMyPhoto = $this->contentHelper->getMyPhoto();
+    if ($getMyPhoto){
+      // pr($getMyPhoto);
+      
+      $this->view->assign('myfoto',$getMyPhoto);
+    }
+
+    $getCover = $this->contentHelper->getCreateImage();
+    // pr($getCover);
+
+    $getFrame = $this->contentHelper->getFrame();
+    // pr($getFrame);
+    $this->view->assign('frame',$getFrame);
+    $this->view->assign('cover',$getCover);
+   
+
+    return $this->loadView('upload/uploadProfile');
+  }
 
 	 function share(){
 
@@ -120,10 +173,10 @@ class uploadfoto extends Controller {
 		if (!$this->user){redirect($basedomain); exit;}
 
     $file_path = "";
-    $getMyPhoto = $this->contentHelper->getMyPhoto();
+    $getMyPhoto = $this->contentHelper->getCreateImage();
     if ($getMyPhoto){
       // pr($getMyPhoto);
-      $file_path = $IMAGE[0]['imageframed'].$getMyPhoto['thumbnail'];
+      $file_path = $IMAGE[0]['imageframed'].$getMyPhoto['profil'];
 
       $this->view->assign('myfoto',$getMyPhoto);
     }
@@ -301,10 +354,10 @@ class uploadfoto extends Controller {
 		// pr($_SESSION);
 		if (!$this->user){redirect($basedomain); exit;}
 
-		$getMyPhoto = $this->contentHelper->getMyPhoto();
+		$getMyPhoto = $this->contentHelper->getCreateImage();
     if ($getMyPhoto){
       // pr($getMyPhoto);
-      $file_path = $getMyPhoto['thumbnail'];
+      $file_path = $getMyPhoto['profil'];
 
       $this->view->assign('myfoto',$getMyPhoto);
 
@@ -405,6 +458,105 @@ class uploadfoto extends Controller {
     
 
     exit;
+  }
+
+  function saveFrame()
+  {
+
+    $data['cover'] = _p('cover');
+    $data['frame'] = _p('frame');
+
+
+      $saveUserFoto = $this->contentHelper->updateUserFrame($data);
+
+      if ($saveUserFoto){
+        print json_encode(array('status'=>true));
+      }else{
+        print json_encode(array('status'=>false,'msg'=>'1'));
+      }
+
+    exit;
+  }
+
+  function cropImage()
+  {
+    global $basedomain;
+
+    $targ_w = $targ_h = 150;
+   //  $targ_w = 120;
+   // $targ_h = 120;
+    $jpeg_quality = 90;
+
+    
+    $src = $basedomain.'public_assets/'.$_GET['file'];
+    
+    $img_r = imagecreatefromjpeg($src);
+    $dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+
+    imagecopyresampled($dst_r,$img_r,0,0,$_GET['x'],$_GET['y'],
+    $targ_w,$targ_h,$_GET['w'],$_GET['h']);
+
+    header('Content-type: image/jpeg');
+    imagejpeg($dst_r,null,$jpeg_quality);
+
+
+    exit;
+   
+  }
+
+  function getCropImage()
+  {
+
+    global $CONFIG, $basedomain;
+
+    $x = _p('x');
+    $y = _p('y');
+    $w = _p('w');
+    $h = _p('h');
+    // echo $w.$h;exit;
+    $getMyPhoto = $this->contentHelper->getMyPhoto();
+    $getFrame = $this->contentHelper->getCreateImage();
+
+      if ($getMyPhoto){
+        $src = $getMyPhoto['files'];
+      }
+
+      //crop photo
+      $file = $src;
+      $cropped = "cropped_" . $file;
+      $image = new Imagick($CONFIG['default']['upload_path'].$file);
+      $image->cropImage($w, $h, $x, $y);
+      $image->writeImage($CONFIG['default']['upload_path'].$cropped);
+      // smart_resize_image($CONFIG['default']['upload_path'].$cropped,180,181);
+     
+      //overlaying
+      $framename = $getFrame['frame'];
+      
+      $_POST['fileid'] = $getFrame['id']; 
+      $_POST['frameName'] = $framename; 
+      $_POST['fileName'] = $cropped; 
+      $this->generateImage();
+      exit;
+  }
+
+  function cropedProfile(){
+
+    global $basedomain;
+    if (!$this->user){redirect($basedomain); exit;}
+
+    $getMyPhoto = $this->contentHelper->getCreateImage();
+    if ($getMyPhoto){
+      // pr($getMyPhoto);
+      
+      $this->view->assign('myfoto',$getMyPhoto);
+    }
+
+    $getFrame = $this->contentHelper->getCreateImage();
+    // pr($getFrame);
+    $this->view->assign('frame',$getFrame);
+   
+
+    return $this->loadView('upload/cropedProfile');
   }
 }
 

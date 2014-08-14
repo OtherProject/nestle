@@ -3,45 +3,50 @@
 	<div id="user" >
 		<div id="userContent">
 		 <div id="imgsmpl">
-			<img src="{$basedomain}public_assets/cover/{$frame[0].cover.files}" width="100%" height="100%" class="coverImg"/>
+			<img src="{$basedomain}public_assets/cover/{$frame.cover}" width="100%" height="100%" class="coverImg"/>
 		 </div>
-		 <div id="wrapimgframe">
-			<div id="wrapframeleft">
-				<div id="imgframe">
-					{*}
-					<img src="" width="100%" height="100%" fname="{$myfoto.files}" class="bigImage" fid="{$myfoto.id}"/>
-					{/*}
-				</div>
-			</div>
-			<div id="" style="float: left;
-    height: 125px;
-    margin-left: -150;
+		 <div id="wrapimgframe" >
+			<div id="wrapframeleft" >
+				<div style="background-color: #fff;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 2px 2px #888888;
+    height: 120px;
+    margin: 0 auto;
     overflow: hidden;
-    width: 130;
-    position: relative;">
-				<div id="frame">
+    width: 123px;" >
+    			<div id="frame imgframe" style="opacity:1;z-index:999;position:relative">
 					
-					<img src="{$basedomain}public_assets/frame/{$frame[0].files}" width="100%" height="100%" id="framedinamis"/>
+					<img width="100%" src="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" fname="{$myfoto.profile}" class="bigImage1" fid="{$myfoto.id}" id="profilePicture"/>
+					
+				</div>
+
+    			<div id="frame" style="position:relative;z-index:10;margin-top:-120px">
+					
+					<img src="{$basedomain}public_assets/frame/{$frame[0].files}" width="100%" height="100%" id="framedinamis" />
+				</div>
+
+					
+
 				</div>
 			</div>
 
 			<div id="wrapframeright">
 				<div id="descimgframespace">&nbsp;</div>
 				<div id="descimgframe" align>
-					Silahkan pilih frame yang Ibu dan Ayah suka
+					Hasil Profile foto yang sudah dipilih
 				</div>
 			</div>
 		 </div>
 		 <div id="wrapcontentuser">
 			<div id="contentdesc">
-				
+				{*}
 				{if $frame}
 				{foreach $frame as $val}
 				<div id="framesmall"><a href="javascript:void(0)"><img src="{$basedomain}public_assets/frame/{$val.files}" width="100%" height="100%" class="chooseFrame" fname="{$val.files}" linkcover="{$val.cover.files}"/></a></div>
 				{/foreach}
 				{/if}
 				
-
+				{/*}
 
 				{*}
 				<div id="framesmall">&nbsp;</div>
@@ -49,9 +54,11 @@
 				<div id="framesmall">&nbsp;</div>{/*}
 			</div>
 			<div id="btn-desc" align="right">
+				
 				<a href="javascript:void(0)" class="btnpinkslide continueFrame" fid="{$frame[0].files}" cid="{$frame[0].cover.files}">Continue</a>
+				
 			</div>
-		 
+
 		</div>
 		</div>
 	</div>
@@ -84,17 +91,18 @@
 		var loading = "<img src='"+basedomain+"assets/images/loading.gif' />";
 		$('#user').html(loading);
 
-		$.post(basedomain+'uploadfoto/saveFrame',{cover:cover, frame:frame}, function(data){
+		// $.post(basedomain+'uploadfoto/saveFrame',{cover:cover, frame:frame}, function(data){
 
-			if (data.status==true){
+		// 	if (data.status==true){
 				
-				    window.location.href = basedomain+'uploadfoto';
+				    window.location.href = basedomain+'uploadfoto/share';
 				
-			}
+		// 	}
 
-		},"JSON")
+		// },"JSON")
 		
 	})
+
 
 	/*
 
