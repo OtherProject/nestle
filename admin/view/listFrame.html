@@ -5,19 +5,44 @@
 <div id="content-container">
 
 	<div class="row">
+		<div class="col-md-12">
 
-		{foreach $data as $var}
-		<div class="col-md-3 col-sm-6">
-			<div class="thumbnail">
-				<div class="thumbnail-view">
-					<a href="{$app_domain}public_assets/frame/{$var.files}" class="thumbnail-view-hover ui-lightbox"></a>
-		            <img src="{$app_domain}public_assets/frame/{$var.files}" style="width: 100%" alt="Gallery Image" />
-		        </div>
-	          </div>					
+			<div class="table-responsive">
+
+			<table class="table table-striped table-bordered media-table">
+                <thead>
+                    <tr>
+                        <th style="width: 150px">Image</th>
+                        <th>File Name</th>
+                        <th>Type</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                	{foreach $data as $var}
+                    <tr>
+                        <td>
+                        	<div class="thumbnail">
+	                        	<div class="thumbnail-view">
+	                        		<a class="thumbnail-view-hover ui-lightbox" href="{$var.files}">
+	                        		</a>
+
+						            <img src="{$var.files}" width="125" alt="Gallery Image" />
+						        </div>
+						    </div> <!-- /.thumbnail -->
+                        </td>
+                        <td>{$var.title}</td>
+                        <td>{$var.gallerytype}</td>
+                        <td>{dateFormat($var.created_date,'article-day')}</td>
+                    </tr>
+                   {/foreach}
+                </tbody>
+               </table>
+
+              </div> <!-- /.table-responsive -->
 
 		</div> <!-- /.col -->
-		{/foreach}
 
-	</div>
+	</div> <!-- /.row -->
 
 </div>
