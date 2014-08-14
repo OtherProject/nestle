@@ -304,7 +304,8 @@ class uploadfoto extends Controller {
                         'multipart' => true
                         ));
             
-            
+            $updateStatus = $this->contentHelper->updateCreateImageStatus();
+            // usleep(500);
             redirect($basedomain.'uploadfoto/changephoto');
         } else {
           /* Save HTTP status for error dialog on connnect page.*/

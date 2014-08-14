@@ -209,5 +209,17 @@ class contentHelper extends Database {
 		if ($res) return true;
 		return false;
 	}
+
+	function updateCreateImageStatus()
+	{
+		$useraccount = $this->user['default'];
+
+		$user = $this->getCreateImage();
+
+		$sql = "UPDATE {$this->prefix}_createimage SET n_status = 2 WHERE id = {$user['id']} AND userid = {$user['userid']} LIMIT 1";
+		$res = $this->query($sql);
+		if ($res) return true;
+		return false;
+	}
 }
 ?>

@@ -190,7 +190,7 @@ class login extends Controller {
             $setLoginUser = $this->loginHelper->loginSosmed(2,$user); 
 
 
-            redirect($basedomain.'uploadfoto');
+            redirect($basedomain.'uploadfoto/pilihframe');
         } else {
           /* Save HTTP status for error dialog on connnect page.*/
           // header('Location: ./clearsessions.php');
