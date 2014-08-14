@@ -18,6 +18,8 @@ class article extends Controller {
 		$this->loadmodule();
 		$this->view = $this->setSmarty();
 		$this->view->assign('basedomain',$basedomain);
+    $userdata = $this->isUserOnline();
+    $this->user = $userdata['default'];
     }
 	
 	function loadmodule()
@@ -66,6 +68,7 @@ class article extends Controller {
       $this->view->assign('article',$getArticle);
       $this->view->assign('prevNextArticle',$getNextArticle);
       $this->view->assign('getRandomArticle',$getRandomArticle);
+      $this->view->assign('user',$this->user);
 
     	return $this->loadView('article/detail');
     }

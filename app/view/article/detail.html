@@ -19,8 +19,14 @@
 		
 	</div>
 	<div id="wrapbtn" align="center">
-	<a href="{$basedomain}home/connect" class="btn-f">&nbsp;</a>&nbsp;&nbsp;&nbsp;
-	<a href="{$basedomain}home/connect" class="btn-t">&nbsp;</a>
+	{if $user}
+		<a href="{$basedomain}uploadfoto/pilihframe" class="btn-f">&nbsp;</a>&nbsp;&nbsp;&nbsp;
+		<a href="{$basedomain}uploadfoto/pilihframe" class="btn-t">&nbsp;</a>
+	{else}
+		<a href="{$basedomain}home/connect" class="btn-f">&nbsp;</a>&nbsp;&nbsp;&nbsp;
+		<a href="{$basedomain}home/connect" class="btn-t">&nbsp;</a>
+	{/if}
+	
 	</div>
 	<div id="wrapbtn" align="right">
 

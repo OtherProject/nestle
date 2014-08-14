@@ -23,6 +23,11 @@ jQuery(function ($) {
 
 		return false;
 	});
+	$('#basic-modal .basic3').click(function (e) {
+		$('#basic-modal-content.privacy').modal();
+
+		return false;
+	});
 	$('#basic-modal .global-popup').click(function (e) {
 		$('#basic-modal-content.global').modal();
 
