@@ -144,7 +144,8 @@
 		var idframe = $('#idframecover').val();
 
 		var loading = "<img src='"+basedomain+"assets/images/loading.gif' width='50px'/>";
-		$('#loadingbar').html(loading);
+		$('#userContent').attr('align','center');
+		$('#userContent').html(loading);
 
 		$.post(basedomain+'uploadfoto/getCropImage',{x:x, y:y, w:w, h:h, idframe:idframe}, function(data){
 

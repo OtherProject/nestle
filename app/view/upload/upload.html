@@ -52,7 +52,7 @@
 		var fileName = $(this).attr('src');
 		
 
-		var loading = "<img src='"+basedomain+"assets/images/loading.gif' />";
+		var loading = "<img src='"+basedomain+"assets/images/loading.gif' width='50px'/>";
 		$('#imgupload').html(loading);
 		$.post(basedomain+'uploadfoto/getFromFb',{fileName:fileName}, function(data){
 
@@ -76,7 +76,7 @@
 			beforeSubmit: function(data) { 
 				
 				
-				var loading = "<img src='"+basedomain+"assets/images/loading.gif' />";
+				var loading = "<img src='"+basedomain+"assets/images/loading.gif' width='50px'/>";
 				$('#imgupload').html(loading);
 				
 				

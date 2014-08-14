@@ -88,8 +88,9 @@
 		var frame = $(this).attr('fid');
 		
 		
-		var loading = "<img src='"+basedomain+"assets/images/loading.gif' />";
-		$('#user').html(loading);
+		var loading = "<img src='"+basedomain+"assets/images/loading.gif' width='50px'/>";
+		$('#userContent').attr('align','center');
+		$('#userContent').html(loading);
 
 		// $.post(basedomain+'uploadfoto/saveFrame',{cover:cover, frame:frame}, function(data){
 
