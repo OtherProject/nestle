@@ -101,7 +101,7 @@ class home extends Controller {
 
         }
         
-        redirect($basedomain.'uploadfoto/chooseframe');
+        redirect($basedomain.'uploadfoto/pilihframe');
         
 
       }else{

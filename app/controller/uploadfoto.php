@@ -211,6 +211,7 @@ class uploadfoto extends Controller {
         */  
           
           // pr($album);
+       
         redirect($basedomain.'uploadfoto/changephoto');
 
       }else{
@@ -229,7 +230,12 @@ class uploadfoto extends Controller {
 
     }
 		
-  	return $this->loadView('upload/share');
+    $getFrame = $this->contentHelper->getCreateImage();
+    // pr($getFrame);
+    $this->view->assign('frame',$getFrame);
+
+  	// return $this->loadView('upload/share');
+    return $this->loadView('upload/previewProfile');
   }
 
   function twitterCallBackShare()
@@ -364,7 +370,12 @@ class uploadfoto extends Controller {
 
     }
 
+    $getFrame = $this->contentHelper->getCreateImage();
+    // pr($getFrame);
+    $this->view->assign('frame',$getFrame);
+
   	return $this->loadView('upload/changephoto');
+    // return $this->loadView('upload/gantiProfile');
   }
 	
 
