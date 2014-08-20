@@ -858,6 +858,7 @@ select:focus {
 
 .styled-select select {
    background: transparent;
+   padding-top: 5px;
    width: 195px;
   font-family:NunitoRegular;
   font-size: 13px;

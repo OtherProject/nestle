@@ -189,8 +189,15 @@ class login extends Controller {
 
             $setLoginUser = $this->loginHelper->loginSosmed(2,$user); 
 
+            $getUserInfo = $this->loginHelper->getUserInfo($setLoginUser['id']);
+            if ($getUserInfo['verified']>0){
+              redirect($basedomain.'uploadfoto/pilihframe');
+            }else{
+              redirect($basedomain.'home/formRegister');
+            }
 
-            redirect($basedomain.'uploadfoto/pilihframe');
+            // redirect($basedomain.'uploadfoto/pilihframe');
+            
         } else {
           /* Save HTTP status for error dialog on connnect page.*/
           // header('Location: ./clearsessions.php');

@@ -202,8 +202,14 @@ class contentHelper extends Database {
 
 		$useraccount = $this->user['default'];
 
-		$sql = "UPDATE social_member SET phone_number = '{$data['telp']}', StreetName = '{$data['alamat']}', verified = 1 WHERE id = {$useraccount['id']} LIMIT 1";
-		pr($sql);
+		if ($useraccount['usertype']>1){
+			$sql = "UPDATE social_member SET email = '{$data['email']}', phone_number = '{$data['telp']}', StreetName = '{$data['alamat']}', verified = 1 WHERE id = {$useraccount['id']} LIMIT 1";
+		
+		}else{
+			$sql = "UPDATE social_member SET phone_number = '{$data['telp']}', StreetName = '{$data['alamat']}', verified = 1 WHERE id = {$useraccount['id']} LIMIT 1";
+			
+		}
+		// pr($sql);
 		$res = $this->query($sql);
 
 		if ($res){
@@ -212,7 +218,7 @@ class contentHelper extends Database {
 
 				$sql = "INSERT INTO nestle_child (userid, name, birthdate, n_status)
 						VALUES ({$useraccount['id']}, '{$data['childName'][$i]}','{$data['childDate'][$i]}',1) ";
-				pr($sql);
+				// pr($sql);
 				$res = $this->query($sql);
 			}
 

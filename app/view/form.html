@@ -5,16 +5,16 @@
 		 <div id="formregister">
 			<form method="POST" action="{$basedomain}home/inputForm">
 			<div class="formLeft">
-				 <div>
-					<span  class="input-list style-5 clearfix"><input type="text" placeholder="Nama Lengkap" name="nama" size="45" value="{$user.name}" readonly></span>
+				 <div >
+					<span  class="input-list style-5 clearfix"><input type="text" placeholder="Nama Lengkap" name="nama" size="40" value="{$user.name}" readonly></span>
 				</div>
 				<div>
 					<span  class="style-5">
-						<input type="email" placeholder="Email" name="email" size="45"  value="{$user.email}" {if $user.email}readonly{/if}>
+						<input type="email" placeholder="Email" name="email" size="40"  value="{$user.email}" {if $user.email}readonly{/if} required>
 					</span>
 				</div>
 				<div style="border:1px solid #EEECED">
-					<span  class="style-5"><input type="text" placeholder="No. Telp" name="telp" size="20" ></span>
+					<span  class="style-5"><input type="text" placeholder="No. Telp" name="telp" size="17" ></span>
 					<span  class="style-5">
 					<!--<input type="text" placeholder="No. Telp" size="20">-->
 						<div class="styled-select">
@@ -40,13 +40,13 @@
 						<input type="text" placeholder="Nama anak" name="childName[]" size="15" required>
 					</span>
 					<span  class="style-5" style="border:0px solid #000;">
-						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" id="postdate"  size="15" ><img src="{$basedomain}assets/img/kalender.png" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
+						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" id="postdate"  size="15" required><img src="{$basedomain}assets/img/kalender.png" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
 					</span>
 					</div>
 
 					<div style="display:none" id="dataAnak2">
 					<span  class="style-5">
-						<input type="text" placeholder="Nama anak" name="childName[]" size="15" >
+						<input type="text" placeholder="Nama anak" name="childName[]" size="15" id="childName1">
 					</span>
 					<span  class="style-5" style="border:0px solid #000;">
 						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" id="postdate1"  size="15" ><img src="{$basedomain}assets/img/kalender.png" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
@@ -55,7 +55,7 @@
 
 					<div style="display:none" id="dataAnak3">
 					<span  class="style-5">
-						<input type="text" placeholder="Nama anak" name="childName[]" size="15" >
+						<input type="text" placeholder="Nama anak" name="childName[]" size="15" id="childName2">
 					</span>
 					<span  class="style-5" style="border:0px solid #000;">
 						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" id="postdate2" size="15" ><img src="{$basedomain}assets/img/kalender.png" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
@@ -69,7 +69,7 @@
 
 
 				<div class="formRbottom" align="right"><br/>
-				<input type="checkbox" name="checkboxG2" id="checkboxG2" class="css-checkbox" akses="1" checked="checked"/><label for="checkboxG2" class="css-label"></label><strong>I agree with Terms & Condition applied</strong></span>
+				<input type="checkbox" name="checkboxG2" id="checkboxG2" class="css-checkbox" akses="1" checked="checked" required/><label for="checkboxG2" class="css-label"></label><strong>I agree with <u>Terms & Condition</u> applied</strong></span>
 				<input type="submit" class="btnpinkslide" value="Submit"/>
 				</div>
 			</div>
@@ -95,11 +95,18 @@
 			if (jlh == 2){
 				$('#dataAnak2').css('display','block');
 				$('#dataAnak3').css('display','none');
+				$('#childName1').attr('required','required');
+				$('#postdate1').attr('required','required');
+				
 			}
 
 			if (jlh == 3){
 				$('#dataAnak2').css('display','block');
 				$('#dataAnak3').css('display','block');
+				$('#childName1').attr('required','required');
+				$('#childName2').attr('required','required');
+				$('#postdate1').attr('required','required');
+				$('#postdate2').attr('required','required');
 			}
 
 		})
