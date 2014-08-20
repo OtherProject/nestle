@@ -190,6 +190,8 @@ class login extends Controller {
             $setLoginUser = $this->loginHelper->loginSosmed(2,$user); 
 
             $getUserInfo = $this->loginHelper->getUserInfo($setLoginUser['id']);
+            $this->log('welcome','login success',$getUserInfo['id']);
+
             if ($getUserInfo['verified']>0){
               redirect($basedomain.'uploadfoto/pilihframe');
             }else{

@@ -34,7 +34,8 @@ class home extends Controller {
 
 		// pr($_SESSION);
 
-    
+    if ($this->user['id'])$this->log('surf','home');
+
 		FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);
     $helper = new FacebookRedirectLoginHelper($basedomain.'home/index/?get=true');
     $session = false;
@@ -103,8 +104,10 @@ class home extends Controller {
         // pr($setLoginUser);
         }
         
-
         $getUserInfo = $this->loginHelper->getUserInfo($setLoginUser['id']);
+        
+        $this->log('welcome','login success',$getUserInfo['id']);
+
         if ($getUserInfo['verified']>0){
           redirect($basedomain.'uploadfoto/pilihframe');
         }else{
@@ -136,7 +139,8 @@ class home extends Controller {
 	
   function formRegister()
   {
-
+    global $basedomain;
+    
     $getUserInfo = $this->loginHelper->getUserInfo();
     if ($getUserInfo['verified']>0){
       redirect($basedomain.'uploadfoto/pilihframe');

@@ -79,6 +79,12 @@ class loginHelper extends Database {
         $result = $this->fetch($sql);
         if ($result){
 
+            $loginCount = intval($result['login_count'] +1);
+            $lastLogin = date('Y-m-d H:i:s');
+            
+            $sqlu = "UPDATE social_member SET last_login = '{$lastLogin}' ,login_count = {$loginCount} WHERE id = {$result['id']} LIMIT 1";
+            $res = $this->query($sqlu);
+
             $dataSession = $result;
         }else{
 
@@ -126,5 +132,7 @@ class loginHelper extends Database {
         if ($res1) return $res1;
         return false;
     }
+
+   
 }
 ?>

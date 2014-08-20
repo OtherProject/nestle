@@ -282,7 +282,7 @@ class Controller extends Application{
 	function log($action='surf',$comment)
 	{
 		$getHelper = new helper_model;
-
+		
 		$getHelper->logActivity($action,$comment);
 
 	}

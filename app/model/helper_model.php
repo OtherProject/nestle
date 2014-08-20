@@ -8,7 +8,7 @@ class helper_model extends Database {
 	{
 		$session = new Session;
 		$getSessi = $session->get_session();
-		$this->user = $getSessi['login'];
+		$this->user = $getSessi['default'];
 
 	}
 
@@ -106,25 +106,29 @@ class helper_model extends Database {
     }
     */
     
-    function logActivity($action='surf', $comment=null)
+    function logActivity($action='surf', $comment=null, $userid=false)
     {
-    	$sql = "SELECT id FROM code_activity WHERE activityValue = '{$action}' LIMIT 1 ";
-    	$res = $this->fetch($sql,0,1);
-    	if ($res){
+        $sql = "SELECT id FROM activity WHERE activityValue = '{$action}' LIMIT 1 ";
+        // pr($sql);
+        $res = $this->fetch($sql);
+        if ($res){
 
-    		$date = date('Y-m-d H:i:s'); 
-    		$source = $_SERVER['REMOTE_ADDR'];
-    		$comment = htmlentities($comment, ENT_QUOTES);
-    		
-    		$ins = "INSERT INTO code_activity_log (userid, activityId, activityDesc, source, datetimes, n_status)
-    				VALUES ({$this->user['id']}, {$res['id']}, '{$comment}', '{$source}', '{$date}',1)";
-    		$result = $this->query($ins,1);
+            $date = date('Y-m-d H:i:s'); 
+            $source = $_SERVER['REMOTE_ADDR'];
+            $comment = htmlentities($comment, ENT_QUOTES);
+            
+            if ($userid) $user = $userid;
+            else $user = $this->user['id'];
 
-    		if ($result) return true;
-    		return false;
-    	}
+            $ins = "INSERT INTO activity_log (userid, activityId, activityDesc, source, datetimes, n_status)
+                    VALUES ({$user}, {$res['id']}, '{$comment}', '{$source}', '{$date}',1)";
+            $result = $this->query($ins);
 
-    	return false;
+            if ($result) return true;
+            return false;
+        }
+
+        return false;
     }
 }
 ?>
