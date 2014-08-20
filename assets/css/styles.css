@@ -718,7 +718,7 @@ input[type="text"] {
   margin-left:10px;
   font-family:NunitoRegular;
   font-size: 13px;
-  color:#BAB8B9;
+  color:#000;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -743,7 +743,7 @@ input[type="email"] {
   margin-left:10px;
   font-family:NunitoRegular;
   font-size: 13px;
-  color:#BAB8B9;
+  color:#000;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -769,7 +769,7 @@ textarea {
   margin-left:10px;
   font-family:NunitoRegular;
   font-size: 13px;
-  color:#BAB8B9;
+  color:#000;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -789,6 +789,29 @@ textarea:focus {
 
 select:focus {
   outline: none;
+}
+.colorgrey{
+
+	color:#BAB8B9;
+}
+.colorblack{
+
+	color:#000;
+}
+::-webkit-input-placeholder {
+   color: #BAB8B9;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #BAB8B9;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #BAB8B9;  
+}
+
+:-ms-input-placeholder {  
+   color: #BAB8B9;  
 }
 /* ============================================================
   STYLE 5
@@ -862,7 +885,6 @@ select:focus {
    width: 195px;
   font-family:NunitoRegular;
   font-size: 13px;
-  color:#BAB8B9;
    line-height: 1;
    height: 34px;
    -webkit-appearance: none;
