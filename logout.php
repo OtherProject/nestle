@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-//tes
+//tesaaaa
 
 if (isset($_SESSION['twitter-status'])){
 	echo "<script>window.open('http://www.twitter.com/logout', 'testing', 'height=400,width=1000')</script>";
