@@ -26,13 +26,15 @@ class home extends Controller {
 	function loadmodule()
 	{
     $this->loginHelper = $this->loadModel('loginHelper');
+    $this->contentHelper = $this->loadModel('contentHelper');
 	}
 	function index(){
 
 		global $CONFIG, $basedomain;
 
 		// pr($_SESSION);
-		
+
+    
 		FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);
     $helper = new FacebookRedirectLoginHelper($basedomain.'home/index/?get=true');
     $session = false;
@@ -98,10 +100,17 @@ class home extends Controller {
         
         // pr($user);
         $setLoginUser = $this->loginHelper->loginSosmed(1,$user); 
-
+        // pr($setLoginUser);
         }
         
-        redirect($basedomain.'uploadfoto/pilihframe');
+
+        $getUserInfo = $this->loginHelper->getUserInfo($setLoginUser['id']);
+        if ($getUserInfo['verified']>0){
+          redirect($basedomain.'uploadfoto/pilihframe');
+        }else{
+          redirect($basedomain.'home/formRegister');
+        }
+        
         
 
       }else{
@@ -125,6 +134,28 @@ class home extends Controller {
   	return $this->loadView('connect');
   }
 	
+  function formRegister()
+  {
+
+    $getUserInfo = $this->loginHelper->getUserInfo();
+    if ($getUserInfo['verified']>0){
+      redirect($basedomain.'uploadfoto/pilihframe');
+    }
+
+    $this->view->assign('user',$this->user);
+    return $this->loadView('form');
+  }
+
+  function inputForm()
+  {
+
+    global $basedomain;
+
+    $inputData=$this->contentHelper->registerUser($_POST); 
+    if ($inputData)redirect($basedomain.'uploadfoto/pilihframe');
+
+  }
+
   function postToSocmed()
   {
     FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);

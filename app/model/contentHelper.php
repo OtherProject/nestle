@@ -8,35 +8,7 @@ class contentHelper extends Database {
 		$this->user = $session->get_session();
 	}
 
-	function getNews()
-	{
-		
-		$sql = "SELECT n.title, cr.friendlyUrl FROM tbl_news n LEFT JOIN code_url_redirect cr ON n.id = cr.articleId
-				WHERE cr.n_status = 1";
-		$res = $this->fetch($sql,1);
-		if ($res) return $res;
-		return false;
-	}
 	
-	function readNews($url=false)
-	{
-		if(!$url) return false;
-		
-		$urlArticle = clean($url);
-		global $CONFIG;
-		
-		if ($CONFIG['uri']['short']) $field = " shortUrl ";
-		if ($CONFIG['uri']['friendly']) $field = " friendlyUrl ";
-		
-		
-		$sql = "SELECT n.* FROM tbl_news n LEFT JOIN code_url_redirect cr 
-				ON n.id = cr.articleId WHERE cr.{$field} = '{$urlArticle}' LIMIT 1";
-		// pr($sql);
-		$res = $this->fetch($sql);
-		if ($res) return $res;
-		return false;
-		
-	}
 	
 	function getArticle($id=false, $start=0, $limit=3)
 	{
@@ -65,10 +37,10 @@ class contentHelper extends Database {
 	{
 
 		if(!$id) return false;
-		$sql = "select id from nestle_news_content 
+		$sql = "SELECT id FROM {$this->prefix}_news_content 
 				where ( 
-				        id = IFNULL((select min(id) from nestle_news_content where id > {$id}),0) 
-				        or  id = IFNULL((select max(id) from nestle_news_content where id < {$id}),0)
+				        id = IFNULL((SELECT min(id) from {$this->prefix}_news_content WHERE id > {$id}),0) 
+				        OR  id = IFNULL((SELECT max(id) from {$this->prefix}_news_content WHERE id < {$id}),0)
 				      )";
 		$res = $this->fetch($sql,1);
 		// pr($res);
@@ -221,5 +193,36 @@ class contentHelper extends Database {
 		if ($res) return true;
 		return false;
 	}
+
+	function registerUser($data)
+	{
+
+		
+		$jumlhAnak = intval($data['jmlhAnak']);
+
+		$useraccount = $this->user['default'];
+
+		$sql = "UPDATE social_member SET phone_number = '{$data['telp']}', StreetName = '{$data['alamat']}', verified = 1 WHERE id = {$useraccount['id']} LIMIT 1";
+		pr($sql);
+		$res = $this->query($sql);
+
+		if ($res){
+
+			for($i=0; $i<=$jumlhAnak-1; $i++){
+
+				$sql = "INSERT INTO nestle_child (userid, name, birthdate, n_status)
+						VALUES ({$useraccount['id']}, '{$data['childName'][$i]}','{$data['childDate'][$i]}',1) ";
+				pr($sql);
+				$res = $this->query($sql);
+			}
+
+			return true;
+			
+		}
+
+		return false;
+	}
+
+	
 }
 ?>

@@ -1,0 +1,107 @@
+
+<div id="wrapperhome">
+	<div id="slides">
+		 <div id="imgupload"><img src="{$basedomain}assets/file/slide-form.png"/></div>
+		 <div id="formregister">
+			<form method="POST" action="{$basedomain}home/inputForm">
+			<div class="formLeft">
+				 <div>
+					<span  class="input-list style-5 clearfix"><input type="text" placeholder="Nama Lengkap" name="nama" size="45" value="{$user.name}" readonly></span>
+				</div>
+				<div>
+					<span  class="style-5">
+						<input type="email" placeholder="Email" name="email" size="45"  value="{$user.email}" {if $user.email}readonly{/if}>
+					</span>
+				</div>
+				<div style="border:1px solid #EEECED">
+					<span  class="style-5"><input type="text" placeholder="No. Telp" name="telp" size="20" ></span>
+					<span  class="style-5">
+					<!--<input type="text" placeholder="No. Telp" size="20">-->
+						<div class="styled-select">
+							<select name="jmlhAnak" id="jmlhAnak">
+								<option value=""> Jumlah anak</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+							</select>
+						</div>
+					</span>
+				</div>
+				<div>
+					<span  class="input-list style-5 clearfix"><textarea placeholder="Alamat" name="alamat" width="365" ></textarea></span>
+					</div>
+				 
+			</div>
+			
+			<div class="formRight">
+				<div class="formRtop">
+					<div>
+					<span  class="style-5">
+						<input type="text" placeholder="Nama anak" name="childName[]" size="15" required>
+					</span>
+					<span  class="style-5" style="border:0px solid #000;">
+						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" id="postdate"  size="15" ><img src="{$basedomain}assets/img/kalender.png" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
+					</span>
+					</div>
+
+					<div style="display:none" id="dataAnak2">
+					<span  class="style-5">
+						<input type="text" placeholder="Nama anak" name="childName[]" size="15" >
+					</span>
+					<span  class="style-5" style="border:0px solid #000;">
+						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" id="postdate1"  size="15" ><img src="{$basedomain}assets/img/kalender.png" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
+					</span>
+					</div>
+
+					<div style="display:none" id="dataAnak3">
+					<span  class="style-5">
+						<input type="text" placeholder="Nama anak" name="childName[]" size="15" >
+					</span>
+					<span  class="style-5" style="border:0px solid #000;">
+						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" id="postdate2" size="15" ><img src="{$basedomain}assets/img/kalender.png" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
+					</span>
+					</div>
+
+				</div>
+				
+					
+				
+
+
+				<div class="formRbottom" align="right"><br/>
+				<input type="checkbox" name="checkboxG2" id="checkboxG2" class="css-checkbox" akses="1" checked="checked"/><label for="checkboxG2" class="css-label"></label><strong>I agree with Terms & Condition applied</strong></span>
+				<input type="submit" class="btnpinkslide" value="Submit"/>
+				</div>
+			</div>
+			</form>
+		 </div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	{literal}
+
+		$(document).on('change', '#jmlhAnak', function(){
+
+			var jlh = $(this).val();
+			console.log(jlh);
+
+			if (jlh == 1){
+				$('#dataAnak2').css('display','none');
+				$('#dataAnak3').css('display','none');
+			}
+
+			if (jlh == 2){
+				$('#dataAnak2').css('display','block');
+				$('#dataAnak3').css('display','none');
+			}
+
+			if (jlh == 3){
+				$('#dataAnak2').css('display','block');
+				$('#dataAnak3').css('display','block');
+			}
+
+		})
+	{/literal}	
+</script>
