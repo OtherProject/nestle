@@ -120,6 +120,8 @@ class helper_model extends Database {
             if ($userid) $user = $userid;
             else $user = $this->user['id'];
 
+            if (!$userid) return false;
+
             $ins = "INSERT INTO activity_log (userid, activityId, activityDesc, source, datetimes, n_status)
                     VALUES ({$user}, {$res['id']}, '{$comment}', '{$source}', '{$date}',1)";
             $result = $this->query($ins);

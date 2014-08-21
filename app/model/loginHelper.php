@@ -121,10 +121,11 @@ class loginHelper extends Database {
     
     function getUserInfo($id=false){
 
+        $userid = false;
         if ($id) $userid = $id;
         else $userid = $this->user['default']['id'];
 
-
+        if (!$userid) return false;
         $sql1 = "SELECT * FROM social_member WHERE id = {$userid} LIMIT 1";
         // pr($sql1);
         $res1 = $this->fetch($sql1);

@@ -69,10 +69,23 @@
 		var name = $(this).attr('fname');
 		var frame = $(this).attr('src');
 
-		$('.coverImg').attr('src',imgFullpath);
-		$('#framedinamis').attr('src',frame);
-		$('.continueFrame').attr('fid',name);
-		$('.continueFrame').attr('cid',link);
+		var loading = basedomain+"assets/images/loading.gif";
+		
+		$('.coverImg').attr('src',loading);
+		// $('.coverImg').attr('width','50px');
+
+		setTimeout(function(){
+			
+			
+
+			$('.coverImg').attr('src',imgFullpath);
+			$('#framedinamis').attr('src',frame);
+			$('.continueFrame').attr('fid',name);
+			$('.continueFrame').attr('cid',link);
+
+		}, 1000);
+
+		
 		
 	})
 
