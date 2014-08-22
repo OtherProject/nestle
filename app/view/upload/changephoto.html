@@ -3,7 +3,34 @@
 	<div id="user" >
 		<div id="userContent">
 		 <div id="divsmpl">
-			<img src="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" width="100%" height="100%"/>
+			<img src="{$basedomain}public_assets/cover/{$myfoto.cover}" width="100%" height="100%"/>
+		 </div>
+		 <div id="wrapimgframe">
+			<div id="wrapframeleft">
+				<div id="imgframe">
+					{*}
+					<img src="" width="100%" height="100%" fname="{$myfoto.files}" class="bigImage" fid="{$myfoto.id}"/>
+					{/*}
+				</div>
+			</div>
+			<div id="" style="float: left;
+    height: 125px;
+    margin-left: -148;
+    overflow: hidden;
+    width: 110;
+    margin-top:-10px;
+    position: relative;">
+
+				<div id="frame">
+					
+					<img src="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" width="100%" height="100%" id="framedinamis"/>
+				</div>
+			</div>
+
+			<div id="wrapframeright">
+				<div id="descimgframespace">&nbsp;</div>
+				
+			</div>
 		 </div>
 		 <div id="wrapcontentuser">
 			<div id="contentuserdesc">
@@ -24,10 +51,18 @@
 	
 	$(document).on('click','.btnpinkslide', function(){
 
-		var link = $(this).attr('idfile');
-		var cover = $(this).attr('idcover');
-		window.open(link,'_blank');
-		window.open(cover,'_blank');
+		window.location.href=basedomain+'home/thanks';
+		
+		// setTimeout(function(){
+			
+			var link = $(this).attr('idfile');
+			var cover = $(this).attr('idcover');
+			window.open(link,'_blank');
+			window.open(cover,'_blank');
+			
+		// }, 1000);
+
+		
 	})
 {/literal}
 </script>
