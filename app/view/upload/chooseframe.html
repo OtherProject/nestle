@@ -71,14 +71,17 @@
 
 		var loading = basedomain+"assets/images/loading.gif";
 		
+		$('#imgsmpl').attr('align','center');
 		$('.coverImg').attr('src',loading);
-		// $('.coverImg').attr('width','50px');
+		$('.coverImg').attr('width','15%');
+		$('.coverImg').attr('height','30%');
 
 		setTimeout(function(){
 			
 			
-
 			$('.coverImg').attr('src',imgFullpath);
+			$('.coverImg').attr('width','100%');
+			$('.coverImg').attr('height','100%');
 			$('#framedinamis').attr('src',frame);
 			$('.continueFrame').attr('fid',name);
 			$('.continueFrame').attr('cid',link);
