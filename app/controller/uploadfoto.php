@@ -212,11 +212,16 @@ class uploadfoto extends Controller {
        //    ))->execute()->getGraphObject();
 
         
-        $arr["source"] = '@' . realpath($file_path);
+        // $arr["source"] = '@' . realpath($file_path);
         $arr["message"] = $LOCALE['fb']['status-message'];
 
+        /*
         $post = (new FacebookRequest(
                 $session, 'POST', '/me/photos',$arr
+              ))->execute()->getGraphObject();
+        */
+        $post = (new FacebookRequest(
+                $session, 'POST', '/me/feed',$arr
               ))->execute()->getGraphObject();
 
         /*
@@ -230,7 +235,8 @@ class uploadfoto extends Controller {
         redirect($basedomain.'uploadfoto/changephoto');
 
       }else{
-        $loginUrl = $helper->getLoginUrl(array('scope' => 'user_photos,publish_actions',)); 
+        $loginUrl = $helper->getLoginUrl(array('scope' => 'publish_actions',)); 
+        // $loginUrl = $helper->getLoginUrl(array('scope' => 'email,public_profile,user_friends',)); 
         $this->view->assign('accessUrl',$loginUrl);
       }
     

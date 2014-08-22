@@ -48,7 +48,7 @@
     			<div id="loadingbar" align="center"></div>
     			<div id="frame imgframe" style="opacity:0.4;z-index:999;position:relative">
 					
-					<img src="{$basedomain}public_assets/{$myfoto.files}" fname="{$myfoto.files}" class="bigImage1" fid="{$myfoto.id}" id="profilePicture"/>
+					<img src="{$basedomain}public_assets/{$myfoto.files}" fname="{$myfoto.files}" class="bigImage1" fid="{$myfoto.id}" id="profilePicture" width=""/>
 					
 				</div>
 
@@ -144,7 +144,18 @@ var imageCrop = "{$myfoto.files}";
           data.scale = parseFloat(data.scale.toFixed(4));
           for(var k in data) { $('#'+k).val(data[k]); }
         });
-      
+      	
+      	var loading = basedomain+"assets/images/loading.gif";
+		
+		$('#profilePicture').attr('src',loading);
+		$('#profilePicture').attr('width','50px');
+		setTimeout(function(){
+			
+			var image = basedomain+'public_assets/'+imageCrop;
+			$('#profilePicture').attr('src',image);
+
+		}, 1000);
+
     });
 
 
@@ -208,19 +219,7 @@ var imageCrop = "{$myfoto.files}";
 		
 	})
 
-	$(document).ready(function(){
 
-		var loading = basedomain+"assets/images/loading.gif";
-		
-		$('#profilePicture').attr('src',loading);
-		// $('#profilePicture').attr('width','50px');
-		setTimeout(function(){
-			
-			var image = basedomain+'public_assets/'+imageCrop;
-			$('#profilePicture').attr('src',image);
-
-		}, 1000);
-	})
 	
 	/*
 
