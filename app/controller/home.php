@@ -199,6 +199,10 @@ class home extends Controller {
 
     
   }
+  function thanks(){
+    return $this->loadView('thanks');
+
+  }
 }
 
 ?>
