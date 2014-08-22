@@ -212,7 +212,7 @@ class uploadfoto extends Controller {
        //    ))->execute()->getGraphObject();
 
         
-        // $arr["source"] = '@' . realpath($file_path);
+        $arr["source"] = '@' . realpath($file_path);
         $arr["message"] = $LOCALE['fb']['status-message'];
 
         /*
@@ -293,44 +293,54 @@ class uploadfoto extends Controller {
             // pr('berhasil login');
 
             /* Get user access tokens out of the session. */
-            $access_token = $_SESSION['access_token'];
+            $access_token_tw = $_SESSION['access_token'];
 
             /* Create a TwitterOauth object with consumer/user tokens. */
-            $connection = new TwitterOAuth($CONFIG['twitter']['CONSUMER_KEY'], $CONFIG['twitter']['CONSUMER_SECRET'], $access_token['oauth_token'], $access_token['oauth_token_secret']);
+            // $connection = new TwitterOAuth($CONFIG['twitter']['CONSUMER_KEY'], $CONFIG['twitter']['CONSUMER_SECRET'], $access_token_tw['oauth_token'], $access_token_tw['oauth_token_secret']);
 
             /* If method is set change API call made. Test is called by default. */
             $content = $connection->get('account/verify_credentials');
             // pr($content);
             
             
-            $getMyPhoto = $this->contentHelper->getMyPhoto();
+            $getMyPhoto = $this->contentHelper->getCreateImage();
+            // pr($getMyPhoto);
             if ($getMyPhoto){
               // pr($getMyPhoto);
-              $file_path = $IMAGE[0]['imageframed'].$getMyPhoto['thumbnail'];
+              $file_path = $IMAGE[0]['imageframed'].$getMyPhoto['profil'];
 
             }
 
-
+            $params = array();
             $params['media[]'] = "@{$file_path}";
-            $params['status'] = 'test API image upload ';
+            $params['status'] = 'share image';
             
+            // pr($params);
             
-            $access_token = $_SESSION['access_token'];
-
+            // $access_token = $_SESSION['access_token'];
+            // pr($access_token_tw);
             $tmhOAuth = new \tmhOAuth(array(
                         'consumer_key' => $CONFIG['twitter']['CONSUMER_KEY'],
                         'consumer_secret' => $CONFIG['twitter']['CONSUMER_SECRET'],
-                        'token' => $access_token['oauth_token'],
-                        'secret' => $access_token['oauth_token_secret'],
+                        'token' => $access_token_tw['oauth_token'],
+                        'secret' => $access_token_tw['oauth_token_secret'],
                         ));
-
+           
             $response = $tmhOAuth->user_request(array(
                         'method' => 'POST',
                         'url' => $tmhOAuth->url("1.1/statuses/update_with_media"),
                         'params' => $params,
                         'multipart' => true
                         ));
-            
+             /*
+            $response = $tmhOAuth->user_request(array(
+                        'method' => 'POST',
+                        'url' => $tmhOAuth->url("1.1/statuses/update"),
+                        'params' => $params,
+                        'multipart' => true
+                        ));*/
+
+            // pr($response);
             $updateStatus = $this->contentHelper->updateCreateImageStatus();
             // usleep(500);
             redirect($basedomain.'uploadfoto/changephoto');
