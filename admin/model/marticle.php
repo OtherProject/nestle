@@ -173,7 +173,7 @@ class marticle extends Database {
 
 		global $CONFIG;
 
-		$query = "SELECT * FROM nestle_news_content_repo WHERE gallerytype = 1 AND n_status = 1 ORDER BY created_date DESC LIMIT 4";
+		$query = "SELECT * FROM nestle_news_content_repo WHERE gallerytype = 1 AND n_status = 1 ORDER BY created_date DESC";
 
 		$result = $this->fetch($query,1);
 
