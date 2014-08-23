@@ -155,6 +155,12 @@ class article extends Controller {
 
 	}
 
+	public function uploadtwt(){
+
+		return $this->loadView('uploadFrameTwt');
+
+	}
+
 	public function uplFrame(){
 		global $CONFIG;
 
@@ -163,8 +169,8 @@ class article extends Controller {
 			if($_FILES['file_frame']['name'] != ''){
 				$image = uploadFile('file_frame','frame','image');
 
-				$data[0]['title'] = $image['real_name'];
-				$data[0]['typealbum'] = 2;
+				$data[0]['title'] = $_POST['title'];
+				$data[0]['typealbum'] = $_POST['typealbum'];
 				$data[0]['gallerytype'] = 1;
 				$data[0]['content'] = $image['full_name'];
 				$data[0]['files'] = $image['full_name'];
@@ -178,8 +184,8 @@ class article extends Controller {
 			if($_FILES['file_cover']['name'] != ''){
 				$image = uploadFile('file_cover','cover','image');
 
-				$data[1]['title'] = $image['real_name'];
-				$data[1]['typealbum'] = 2;
+				$data[1]['title'] = $_POST['title'];
+				$data[1]['typealbum'] = $_POST['typealbum'];
 				$data[1]['gallerytype'] = 2;
 				$data[1]['content'] = $image['full_name'];
 				$data[1]['files'] = $image['full_name'];

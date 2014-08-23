@@ -15,6 +15,8 @@
                         <th style="width: 150px">Frame</th>
                         <th style="width: 150px">Cover</th>
                         <th>Name</th>
+                        <th>Use For</th>
+                        <th>File info</th>
                         <th>Date</th>
                     </tr>
                 </thead>
@@ -42,6 +44,14 @@
                             </div> <!-- /.thumbnail -->
                         </td>
                         <td>{$var.title}</td>
+                        <td>{$var.typealbum}</td>
+                        <td class="file-info">
+                            <span><strong>Frame</strong></span> <br />
+                            <span><strong>Dimensions:</strong> {$var.frHeight} x {$var.frWidth}</span>
+                            <hr>
+                            <span><strong>Cover</strong></span> <br />
+                            <span><strong>Dimensions:</strong> {$var.covHeight} x {$var.covWidth}</span>
+                        </td>
                         <td>{dateFormat($var.created_date,'article-day')}</td>
                     </tr>
                    {/foreach}

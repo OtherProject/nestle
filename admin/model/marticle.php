@@ -171,6 +171,8 @@ class marticle extends Database {
 
 	function get_frameList(){
 
+		global $CONFIG;
+
 		$query = "SELECT * FROM nestle_news_content_repo WHERE gallerytype = 1 AND n_status = 1 ORDER BY created_date DESC LIMIT 4";
 
 		$result = $this->fetch($query,1);
@@ -180,6 +182,17 @@ class marticle extends Database {
 			$res = $this->fetch($query,0);
 			$result[$key]['cover'] = $res['files'];
 			$result[$key]['covername'] = $res['title'];
+
+			//typealbum
+			if($val['typealbum'] == 4){
+				$result[$key]['typealbum'] = 'Facebook';
+			} elseif ($val['typealbum'] == 5) {
+				$result[$key]['typealbum'] = 'Twitter';
+			}
+			
+			//dimension
+			list($result[$key]['frWidth'], $result[$key]['frHeight'], $type, $attr) = getimagesize($CONFIG['admin']['upload_path']."frame/".$result[$key]['files']);
+			list($result[$key]['covWidth'], $result[$key]['covHeight'], $type, $attr) = getimagesize($CONFIG['admin']['upload_path']."cover/".$res['files']);
 		}
 
 		return $result;
