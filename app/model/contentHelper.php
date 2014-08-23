@@ -107,9 +107,16 @@ class contentHelper extends Database {
 		return false;
 	}
 
-	function getFrame()
+	function getFrame($flag=4)
 	{
-		
+
+		/* 
+			flag 4 for facebook cover
+			flag 5 for twitter cover
+		*/
+			
+		$filter = " AND typealbum IN ({$flag}) ";
+
 		$sql = "SELECT * FROM {$this->prefix}_news_content_repo WHERE gallerytype IN (1) 
 				AND n_status = 1 {$filter} ORDER BY created_date DESC LIMIT 4";
 		$res = $this->fetch($sql,1);
