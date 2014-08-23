@@ -144,7 +144,12 @@ class uploadfoto extends Controller {
     }
     // pr($imgFrame);
     $this->view->assign('frame',$imgFrame);
-   
+    
+    if (isset($_SESSION['fb-logout'])){
+      $this->view->assign('coverfb',1);
+    }else{
+      $this->view->assign('coverfb',0);
+    }
 
     return $this->loadView('upload/chooseframe');
   }
@@ -176,6 +181,11 @@ class uploadfoto extends Controller {
       // redirect($basedomain.'uploadfoto/uploadprofile');
     }
     
+    if (isset($_SESSION['fb-logout'])){
+      $this->view->assign('coverfb',1);
+    }else{
+      $this->view->assign('coverfb',0);
+    }
 
     return $this->loadView('upload/uploadProfile');
   }
@@ -254,7 +264,12 @@ class uploadfoto extends Controller {
     $getFrame = $this->contentHelper->getCreateImage();
     // pr($getFrame);
     $this->view->assign('frame',$getFrame);
-
+    
+    if (isset($_SESSION['fb-logout'])){
+      $this->view->assign('coverfb',1);
+    }else{
+      $this->view->assign('coverfb',0);
+    }
   	// return $this->loadView('upload/share');
     return $this->loadView('upload/previewProfile');
   }
@@ -404,7 +419,12 @@ class uploadfoto extends Controller {
     $getFrame = $this->contentHelper->getCreateImage();
     // pr($getFrame);
     $this->view->assign('frame',$getFrame);
-
+    
+    if (isset($_SESSION['fb-logout'])){
+      $this->view->assign('coverfb',1);
+    }else{
+      $this->view->assign('coverfb',0);
+    }
   	return $this->loadView('upload/changephoto');
     // return $this->loadView('upload/gantiProfile');
   }
@@ -598,6 +618,11 @@ class uploadfoto extends Controller {
     // pr($getFrame);
     $this->view->assign('frame',$getFrame);
    
+    if (isset($_SESSION['fb-logout'])){
+      $this->view->assign('coverfb',1);
+    }else{
+      $this->view->assign('coverfb',0);
+    }
 
     return $this->loadView('upload/cropedProfile');
   }

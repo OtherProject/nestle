@@ -1,11 +1,11 @@
 
 <div id="wrapperhome2">
 	<div id="user" >
-		<div id="userContent">
-		 <div id="imgsmpl">
+		<div id="{if $coverfb}userContent{else}userContenttw{/if}">
+		 <div id="{if $coverfb}imgsmpl{else}imgsmpltw{/if}">
 			<img src="{$basedomain}public_assets/cover/{$frame[0].cover.files}" width="100%" height="100%" class="coverImg"/>
 		 </div>
-		 <div id="wrapimgframe">
+		 <div id="{if $coverfb}wrapimgframeFB{else}wrapimgframe{/if}" >
 			<div id="wrapframeleft">
 				<div id="imgframe">
 					{*}
@@ -27,8 +27,8 @@
 				</div>
 			</div>
 
-			<div id="wrapframeright">
-				<div id="descimgframespace">&nbsp;</div>
+			<div id="{if $coverfb}wrapframerightFB{else}wrapframeright{/if}">
+				<div id="{if $coverfb}descimgframespaceFB{else}descimgframespace{/if}">&nbsp;</div>
 				<div id="descimgframe" align>
 					Silahkan pilih frame yang Ibu dan Ayah suka
 				</div>
@@ -60,6 +60,9 @@
 </div>
 
 <script type="text/javascript">
+
+var coverfb = {$coverfb};
+
 {literal}
 	
 	$(document).on('click','.chooseFrame', function(){
@@ -70,8 +73,11 @@
 		var frame = $(this).attr('src');
 
 		var loading = basedomain+"assets/images/loading.gif";
-		
-		$('#imgsmpl').attr('align','center');
+		if(coverfb){
+			$('#imgsmpl').attr('align','center');
+		}else{
+			$('#imgsmpltw').attr('align','center');			
+		}
 		$('.coverImg').attr('src',loading);
 		$('.coverImg').attr('width','15%');
 		$('.coverImg').attr('height','30%');
@@ -100,9 +106,13 @@
 		
 		
 		var loading = "<img src='"+basedomain+"assets/images/loading.gif' width='50px'/>";
-		$('#userContent').attr('align','center');
-		$('#userContent').html(loading);
-
+		if(coverfb){
+			$('#userContent').attr('align','center');
+			$('#userContent').html(loading);
+		}else{
+			$('#userContenttw').attr('align','center');
+			$('#userContenttw').html(loading);
+		}
 		$.post(basedomain+'uploadfoto/saveFrame',{cover:cover, frame:frame}, function(data){
 
 			if (data.status==true){

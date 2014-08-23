@@ -91,7 +91,7 @@ class loginHelper extends Database {
             if ($sosmed==1){
                 $sql = "INSERT IGNORE INTO social_member (sosmed_id, name, email, register_date, middle_name, last_name, sex, link, usertype,n_status) 
                         VALUES ('{$id}','{$first_name}','{$email}','{$date}', '{$middle_name}','{$last_name}','{$gender}','{$link}',1,1)";
-                // pr($sql);
+                pr($sql);
                 $res = $this->query($sql);
                 
             }else{

@@ -1,11 +1,11 @@
 
 <div id="wrapperhome2">
 	<div id="user" >
-		<div id="userContent">
-		 <div id="imgsmpl">
+		<div id="{if $coverfb}userContent{else}userContenttw{/if}">
+		 <div id="{if $coverfb}imgsmpl{else}imgsmpltw{/if}">
 			<img src="{$basedomain}public_assets/cover/{$frame.cover}" width="100%" height="100%" class="coverImg"/>
 		 </div>
-		 <div id="wrapimgframe" >
+		 <div id="{if $coverfb}wrapimgframeFB{else}wrapimgframe{/if}" >
 			<div id="wrapframeleft" >
 				<div style="background-color: #fff;
     border: 2px solid #FFFFFF;
@@ -32,8 +32,8 @@
 				</div>
 			</div>
 
-			<div id="wrapframeright">
-				<div id="descimgframespace">&nbsp;</div>
+			<div id="{if $coverfb}wrapframerightFB{else}wrapframeright{/if}">
+				<div id="{if $coverfb}descimgframespaceFB{else}descimgframespace{/if}">&nbsp;</div>
 				<div id="descimgframe" align>
 					<div class="tittledesc">Share ke Social Media</div>
 				<div class="isidesc">Silahkan share foto baru si kecil lewat facebook maupun twitter</div>

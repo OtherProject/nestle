@@ -1,11 +1,11 @@
 
 <div id="wrapperhome2">
 	<div id="user" >
-		<div id="userContent">
-		 <div id="imgsmpl">
+		<div id="{if $coverfb}userContent{else}userContenttw{/if}">
+		 <div id="{if $coverfb}imgsmpl{else}imgsmpltw{/if}">
 			<img src="{$basedomain}public_assets/cover/{$cover.cover}" width="100%" height="100%" class="coverImg"/>
 		 </div>
-		 <div id="wrapimgframe" >
+		 <div id="{if $coverfb}wrapimgframeFB{else}wrapimgframe{/if}" >
 			<div id="wrapframeleft" >
 				<div style="background-color: #fff;
     border: 2px solid #FFFFFF;
@@ -17,7 +17,7 @@
     width: 123px;" >
     			<div id="loadingbar" align="center"></div>
     			<div id="frame imgframe" style="opacity:0.4;z-index:999;position:relative">
-					
+					<img src="{$basedomain}public_assets/{$myfoto.files}" fname="{$myfoto.files}" class="bigImage1" fid="{$myfoto.id}" id="loader" width=""/>
 					<img src="{$basedomain}public_assets/{$myfoto.files}" fname="{$myfoto.files}" class="bigImage1" fid="{$myfoto.id}" id="profilePicture" width=""/>
 					
 				</div>
@@ -46,8 +46,8 @@
 				</div>
 			</div>-->
 
-			<div id="wrapframeright">
-				<div id="descimgframespace">&nbsp;</div>
+			<div id="{if $coverfb}wrapframerightFB{else}wrapframeright{/if}">
+				<div id="{if $coverfb}descimgframespaceFB{else}descimgframespace{/if}">&nbsp;</div>
 				<div id="descimgframe" align>
 					Sesuaikan foto dengan framenya
 				</div>
@@ -81,7 +81,7 @@
 			<input type="hidden" id="w" name="w" value="400"/>
 			<input type="hidden" id="h" name="h" value="300"/>
 			<input type="hidden" id="idframecover" name="idframecover" value="{$cover.id}"/>
-			<input type="submit" value="Crop Image" class="" />
+			<input type="submit" value="Crop Image" style="display:none" />
 		</form>
 
 		</div>
@@ -159,11 +159,15 @@ var imageCrop = "{$myfoto.files}";
 
 		var loading = basedomain+"assets/images/loading.gif";
 		
-		$('#profilePicture').attr('src',loading);
-		$('#profilePicture').attr('width','50px');
-		
+		$('#loader').attr('src',loading);
+		$('#loader').attr('width','100%');
+		$('#profilePicture').css('display','none');
+		$('#framedinamis').css('display','none');
+
 		setTimeout(function(){
-			
+			 $('#loader').css('display','none');
+			 $('#profilePicture').css('display','');
+			 $('#framedinamis').css('display','');			 
 			var picture = $('#profilePicture');
 			picture.guillotine({eventOnChange: 'guillotinechange'});
 

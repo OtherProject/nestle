@@ -32,7 +32,7 @@ class home extends Controller {
 
 		global $CONFIG, $basedomain;
 
-		// pr($_SESSION);
+		pr($_SESSION);
 
     if ($this->user['id'])$this->log('surf','home');
 

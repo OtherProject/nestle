@@ -1,11 +1,11 @@
 
 <div id="wrapperhome2">
-	<div id="user" >
-		<div id="userContent">
-		 <div id="divsmpl">
+	<div id="userDownload" >
+		<div id="{if $coverfb}userContent{else}userContenttw{/if}">
+		<div id="{if $coverfb}divsmpl{else}divsmpltw{/if}">
 			<img src="{$basedomain}public_assets/cover/{$myfoto.cover}" width="100%" height="100%"/>
 		 </div>
-		 <div id="wrapimgframe">
+		 <div id="{if $coverfb}wrapimgframeFB{else}wrapimgframe{/if}" >
 			<div id="wrapframeleft">
 				<div id="imgframe">
 					{*}
@@ -32,15 +32,25 @@
 				
 			</div>
 		 </div>
-		 <div id="wrapcontentuser">
+		 <div id="{if $coverfb}wrapcontentuserFB{else}wrapcontentuser{/if}">
 			<div id="contentuserdesc">
 				<div class="tittledesc">Ganti Foto Anda</div>
 				<div class="isidesc">Silahkan ganti profile picture dan facebook cover/twitter header menggunakan gambar yang telah kami sediakan untuk memenangkan berbagai hadiah menarik dari lactogen ActivGro</div>
 			
 			</div>
 			<div id="btn-desc" align="right">
-				<a href="javascript:void(0)" class="btnpinkslide" idfile="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" idcover="{$basedomain}public_assets/cover/{$myfoto.cover}">Download</a>
+				<div style="height:50px"><a href="javascript:void(0)" class="btnpinkslide" idfile="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" idcover="{$basedomain}public_assets/cover/{$myfoto.cover}">Download</a></div>
+				{if $coverfb}
+					<div>
+					<a href="javascript:void(0)" class="btn-fP">Facebook Profile</a>
+					</div>
+				{else}
+					<div>
+					<a href="javascript:void(0)" class="btn-tP">Twitter Profile</a>
+					</div>
+				{/if}
 			</div>
+
 		 
 		</div>
 		</div>

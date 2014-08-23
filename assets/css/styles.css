@@ -129,6 +129,17 @@ body{
 	box-shadow: 0px 0px 15px #888;
 	
 }
+#userDownload{
+	margin:0 auto;
+	background-color:#EEECED;
+	width:743px;
+	height:417px;
+	overflow:hidden;
+	border:15px solid #fdf9f9;
+	border-radius:15px;
+	box-shadow: 0px 0px 15px #888;
+	
+}
 #userContent{
 	margin:0 auto;
 	margin-top:15px;
@@ -137,10 +148,26 @@ body{
 	border:0px solid #fefcfd;
 	overflow:hidden;
 }
+#userContenttw{
+	margin:0 auto;
+	margin-top:15px;
+	width:100%;
+	height:397px;
+	border:0px solid #fefcfd;
+	overflow:hidden;
+}
 #imgsmpl{
 	margin:0 auto;
 	width:610px;
-	height:221px;
+	height:225px;
+	background-color:#fefcfd;
+	border:0px solid #fefcfd;
+	overflow:hidden;
+}
+#imgsmpltw{
+	margin:0 auto;
+	width:100%;
+	height:240px;
 	background-color:#fefcfd;
 	border:0px solid #fefcfd;
 	overflow:hidden;
@@ -153,8 +180,24 @@ body{
 	border:0px solid #fefcfd;
 	overflow:hidden;
 }
+#divsmpltw{
+	margin:0 auto;
+	width:100%;
+	height:240px;
+	background-color:#009bed;
+	border:0px solid #fefcfd;
+	overflow:hidden;
+}
 #wrapcontentuser{
 	margin:0 auto;
+	width:610px;
+	height:125px;
+	border:0px solid #fefcfd;
+	overflow:hidden;
+}
+#wrapcontentuserFB{
+	margin:0 auto;
+	margin-top:-30px;
 	width:610px;
 	height:125px;
 	border:0px solid #fefcfd;
@@ -189,11 +232,12 @@ body{
 }
 #btn-desc{
 	margin:0 auto;
+	margin-top:-20px;
 	float:right;
-	width:180px;
+	width:190px;
 	padding-right:7px;
 	padding-top:30px;
-	height:90px;
+	height:100px;
 	border:0px solid #fefcfd;
 	overflow:hidden;
 }
@@ -210,9 +254,18 @@ body{
 }
 #wrapimgframe{
 	margin:0 auto;
-	margin-top:-70px;
+	margin-top:-80px;
 	width:610px;
 	height:125px;
+	border:0px solid #fefcfd;
+	overflow:auto;
+	position:relative;
+}
+#wrapimgframeFB{
+	margin:0 auto;
+	margin-top:-100px;
+	width:610px;
+	height:155px;
 	border:0px solid #fefcfd;
 	overflow:auto;
 	position:relative;
@@ -232,6 +285,14 @@ body{
 	border:0px solid #000;
 	overflow:hidden;
 }
+#wrapframerightFB{
+	margin:0 auto;
+	float:right;
+	width:430px;
+	height:151px;
+	border:0px solid #000;
+	overflow:hidden;
+}
 #imgframe{
 	/*margin:0 auto;*/
 	margin-left: 23px;
@@ -246,6 +307,12 @@ body{
 	margin:0 auto;
 	width:425px;
 	height:80px;
+	overflow:hidden;
+}
+#descimgframespaceFB{
+	margin:0 auto;
+	width:425px;
+	height:110px;
 	overflow:hidden;
 }
 #descimgframe{
@@ -461,6 +528,40 @@ body{
 }
 .btn-t:hover{
 	background-image:url(../img/btn-thover.JPG);
+	background-color:#48c9fc;
+}
+.btn-fP{
+	font-family: NunitoBold;
+	font-size:18px;
+	text-decoration:none;
+	background-position:center;
+	background-repeat:no-repeat;
+	background-color:#465FA1;
+	color:#fff;
+	padding: 5px 15px;
+	border:3px solid #FFF;
+	border-radius:30px;
+	text-shadow: 1px 2px #8E244A;
+	box-shadow: 0px 6px 10px 0px #C0BEBE;
+}
+.btn-fP:hover{
+	background-color:#2b69bb;
+}
+.btn-tP{
+	font-family: NunitoBold;
+	font-size:18px;
+	text-decoration:none;
+	background-position:center;
+	background-repeat:no-repeat;
+	background-color:#59B6FC;
+	color:#fff;
+	padding: 5px 20px;
+	border:3px solid #FFF;
+	border-radius:30px;
+	text-shadow: 1px 2px #8E244A;
+	box-shadow: 0px 6px 10px 0px #C0BEBE;
+}
+.btn-tP:hover{
 	background-color:#48c9fc;
 }
 .btn-fslide{
