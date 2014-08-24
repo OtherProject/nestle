@@ -17,8 +17,8 @@
     width: 123px;" >
     			<div id="loadingbar" align="center"></div>
     			<div id="frame imgframe" style="opacity:0.4;z-index:999;position:relative">
-					<img src="{$basedomain}public_assets/{$myfoto.files}" fname="{$myfoto.files}" class="bigImage1" fid="{$myfoto.id}" id="loader" width=""/>
-					<img src="{$basedomain}public_assets/{$myfoto.files}" fname="{$myfoto.files}" class="bigImage1" fid="{$myfoto.id}" id="profilePicture" width=""/>
+					{*}<img src="{$basedomain}public_assets/{$myfoto.files}" fname="{$myfoto.files}" class="bigImage1" fid="{$myfoto.id}" id="loader" width=""/>{/*}
+					<img src="{$tmpimage}" fname="{$myfoto.files}" class="bigImage1" fid="{$myfoto.id}" id="profilePicture" width=""/>
 					
 				</div>
 
@@ -126,49 +126,13 @@
 var imageCrop = "{$myfoto.files}";
 
 {literal}
-	reloadAgain();
+	//reloadAgain();
 	
 	jQuery(function() {
-      	var picture = $('#profilePicture');
-
-      
-        picture.guillotine({eventOnChange: 'guillotinechange'});
-
-        // Display inital data
-        picture.guillotine({
-		  width: 100,
-		  height: 100,
-		  init: { x: 35, y: 15, angle: 90 }
-		});
-       
-        
-        // Update data on change
-        picture.on('guillotinechange', function(ev, data, action) {
-          data.scale = parseFloat(data.scale.toFixed(4));
-          for(var k in data) { $('#'+k).val(data[k]); }
-        });
       	
-      	
-      	
-      	
+		var picture = $('#profilePicture');
 
-    });
-   
-	function reloadAgain()
-	{
-
-		var loading = basedomain+"assets/images/loading.gif";
-		
-		$('#loader').attr('src',loading);
-		$('#loader').attr('width','100%');
-		$('#profilePicture').css('display','none');
-		$('#framedinamis').css('display','none');
-
-		setTimeout(function(){
-			 $('#loader').css('display','none');
-			 $('#profilePicture').css('display','');
-			 $('#framedinamis').css('display','');			 
-			var picture = $('#profilePicture');
+		//picture.on('load', function(){
 			picture.guillotine({eventOnChange: 'guillotinechange'});
 
 			// Display inital data
@@ -184,14 +148,63 @@ var imageCrop = "{$myfoto.files}";
 			  data.scale = parseFloat(data.scale.toFixed(4));
 			  for(var k in data) { $('#'+k).val(data[k]); }
 			});
-			
+      	
+      	
+      	//});
+      	
+
+    });
+   
+	function reloadAgain()
+	{
+
+		var loading = basedomain+"assets/images/loading.gif";
 		
-			var image = basedomain+'public_assets/'+imageCrop;
-			$('#profilePicture').attr('src',image);
+		$('#loader').attr('src',loading);
+		$('#loader').attr('width','100%');
+		// $('#profilePicture').css('display','none');
+		// $('#framedinamis').css('display','none');
+		
+		$("#profilePicture").bind('load', function() {
+			// do stuff
+			
+			setTimeout(function(){
+				
+				$('#loader').css('display','none');
+				 // $('#profilePicture').css('display','none');
+				 // $('#profilePicture').css('display','');
+				 // $('#framedinamis').css('display','');			 
+				var picture = $('#profilePicture');
+				picture.guillotine({eventOnChange: 'guillotinechange'});
 
-		}, 2000);
+				// Display inital data
+				picture.guillotine({
+				  width: 100,
+				  height: 100,
+				  init: { x: 35, y: 15, angle: 90 }
+				});
+			   
+				
+				// Update data on change
+				picture.on('guillotinechange', function(ev, data, action) {
+				  data.scale = parseFloat(data.scale.toFixed(4));
+				  for(var k in data) { $('#'+k).val(data[k]); }
+				});
+				
+				var image = basedomain+'public_assets/'+imageCrop;
+				var img = $('#profilePicture');
+				img.on('load', function() { img.guillotine(); });
+				img.attr('src', image);
+				
+				
+				//$('#profilePicture').attr('src',image);
+
+			}, 2000);
+		});
+  
+		
 	}
-
+	
 	$(document).on('click','.chooseFrame', function(){
 
 		var link = $(this).attr('linkcover');

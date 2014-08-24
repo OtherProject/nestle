@@ -133,7 +133,7 @@ class uploadfoto extends Controller {
       $this->view->assign('myfoto',$getMyPhoto);
     }
 
-    $getFrame = $this->contentHelper->getFrame();
+    $getFrame = $this->contentHelper->getFrame(5);
     // pr($getFrame);
     foreach ($getFrame as $key => $value) {
 
@@ -186,7 +186,9 @@ class uploadfoto extends Controller {
     }else{
       $this->view->assign('coverfb',0);
     }
-
+	
+	$tmpimage = $_SESSION['tmpimage'];
+	$this->view->assign('tmpimage',$tmpimage);
     return $this->loadView('upload/uploadProfile');
   }
 
@@ -432,7 +434,10 @@ class uploadfoto extends Controller {
 
 	function ajaxUpload()
   {
-
+	
+	//pr($_POST);exit;
+	
+	$_SESSION['tmpimage'] = $_POST['tmpimage'];
     if (isset($_FILES['fotoupload'])){
 
       $file = uploadFile('fotoupload',null,'image');
