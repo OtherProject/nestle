@@ -264,7 +264,7 @@ class uploadfoto extends Controller {
     $getFrame = $this->contentHelper->getCreateImage();
     // pr($getFrame);
     $this->view->assign('frame',$getFrame);
-    
+
     if (isset($_SESSION['fb-logout'])){
       $this->view->assign('coverfb',1);
     }else{
@@ -419,7 +419,7 @@ class uploadfoto extends Controller {
     $getFrame = $this->contentHelper->getCreateImage();
     // pr($getFrame);
     $this->view->assign('frame',$getFrame);
-    
+
     if (isset($_SESSION['fb-logout'])){
       $this->view->assign('coverfb',1);
     }else{

@@ -203,6 +203,11 @@ class home extends Controller {
     return $this->loadView('thanks');
 
   }
+
+  function privacy(){
+     return $this->loadView('privacy');
+
+  }
 }
 
 ?>
