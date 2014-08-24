@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.15, created on 2014-03-16 09:29:49
+<?php /* Smarty version Smarty-3.1.15, created on 2014-08-23 18:55:08
          compiled from ".\view\login.html" */ ?>
 <?php /*%%SmartyHeaderCode:16845532560fde5b164-12305675%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'fb10ff5d842aab8bd96b606ee75c7477408f86c6' => 
     array (
       0 => '.\\view\\login.html',
-      1 => 1393855823,
+      1 => 1407646469,
       2 => 'file',
     ),
   ),
@@ -15,21 +15,28 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
-  'has_nocache_code' => false,
   'version' => 'Smarty-3.1.15',
   'unifunc' => 'content_532560fdf220a2_37463668',
+  'variables' => 
+  array (
+    'basedomain' => 0,
+  ),
+  'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_532560fdf220a2_37463668')) {function content_532560fdf220a2_37463668($_smarty_tpl) {?><link rel="stylesheet" href="<<?php ?>?=$basedomain?<?php ?>>css/Login.css" type="text/css" />
+<?php if ($_valid && !is_callable('content_532560fdf220a2_37463668')) {function content_532560fdf220a2_37463668($_smarty_tpl) {?><link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['basedomain']->value;?>
+css/Login.css" type="text/css" />
 	<div id="login-container">
 
 	
 	<div id="login">
-		<img width="200px" src="<<?php ?>?=$basedomain?<?php ?>>images/logos/logo-login.png" alt="Logo" />
-		<h3>Welcome to CDC Admin.</h3>
+		<img width="200px" src="<?php echo $_smarty_tpl->tpl_vars['basedomain']->value;?>
+images/logos/logo-login.png" alt="Logo" />
+		<h3>Administrator</h3>
 
 		<h5>Please sign in to get access.</h5>
 
-		<form id="login-form" action="<<?php ?>?=$basedomain?<?php ?>>login/local" class="form" method="post">
+		<form id="login-form" action="<?php echo $_smarty_tpl->tpl_vars['basedomain']->value;?>
+login/local" class="form" method="post">
 
 			<div class="form-group">
 				<label for="login-username">Username</label>
@@ -53,9 +60,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 	</div> <!-- /#login -->
 
-	<a href="#styledModal" data-toggle="modal" id="signup-btn" class="btn btn-lg btn-block">
+	<!--<a href="#styledModal" data-toggle="modal" id="signup-btn" class="btn btn-lg btn-block">
 		Create an Account
-	</a>
+	</a>-->
 
 
 </div> <!-- /#login-container -->
@@ -87,7 +94,8 @@ function checkuser(id){
 <div id="styledModal" class="modal modal-styled fade">
   <div class="modal-dialog" style="width:400px">
     <div class="modal-content">
-	<form id="validate-enhanced" class="form parsley-form" method="post" action="<<?php ?>?=$basedomain?<?php ?>>login/register">
+	<form id="validate-enhanced" class="form parsley-form" method="post" action="<?php echo $_smarty_tpl->tpl_vars['basedomain']->value;?>
+login/register">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3 class="modal-title">Create Admin Account</h3>
