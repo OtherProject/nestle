@@ -117,11 +117,15 @@ class home extends Controller {
         
 
       }else{
-          
+        
         $loginUrl = $helper->getLoginUrl(array('scope' => 'email',)); 
         $this->view->assign('accessUrlFb',$loginUrl);
-        
 
+        if (isset($_GET['login'])){
+          redirect($loginUrl);
+          exit;
+        }
+        
       }
 
       
