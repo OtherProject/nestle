@@ -10,6 +10,10 @@
     font-family: NunitoLight;
     src: url(Nunito-Light.ttf);
 }
+@font-face {
+    font-family: WendyOneRegular;
+    src: url(WendyOne-Regular.ttf);
+}
 body{
 	background-image:  url(../img/tali.png),url(../img/bgfooter.jpg),url(../img/backgorund.jpg),url(../img/pattern.jpg);
 	background-position: center top,bottom,left top,left;
@@ -706,12 +710,36 @@ input[type=checkbox].css-checkbox {
 				-ms-user-select: none;
 				user-select: none;
 			}
+
+.titleSlide{
+	font-family: WendyOneRegular;
+	font-size:28px;
+	color:#DD891F;
+	text-align:left;
+	border:0px solid #FFFDFE;
+	text-shadow:2px 2px 0 #fff,
+		-2px -2px 0 #fff,
+		2px -2px 0 #fff,
+		-2px 2px 0 #fff,
+		0px 2px 0 #fff,
+		2px 0px 0 #fff,
+		0px -2px 0 #fff,
+		-2px 0px 0 #fff,
+		0px 2px 2px #000;
+}
 #contentAbout{
 	margin:0 auto;
 	margin-top:60px;
 	float:right;
 	width:400px;
 	padding-right:20px;
+}
+#contentSlide{
+	margin:0 auto;
+	margin-top:30px;
+	float:right;
+	width:370px;
+	padding-right:50px;
 }
 .titleAbout{
 	font-family: NunitoBold;
@@ -728,10 +756,17 @@ input[type=checkbox].css-checkbox {
 		-2px 0px 0 #fff,
 		0px 2px 2px #000;
 }
+
 .isiAbout{
 	font-family:NunitoRegular;
 	font-size:12px;
 	color:#717172;
+}
+.isiSlide{
+	font-family:NunitoRegular;
+	font-size:12px;
+	color:#717172;
+	text-align:left;
 }
 #imgAbout{
 	margin:0 auto;
