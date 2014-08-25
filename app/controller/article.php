@@ -24,6 +24,7 @@ class article extends Controller {
 	
 	function loadmodule()
 	{
+    $this->loginHelper = $this->loadModel('loginHelper');
     $this->contentHelper = $this->loadModel('contentHelper');
 	}
 	
@@ -47,7 +48,17 @@ class article extends Controller {
 
 		global $CONFIG, $basedomain;
 
+    
+      /* Twitter login */
+
+      if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
+        
+        $this->view->assign('accessUrlTwitter',$basedomain.'login/twitterRedirect');
+
+      }
+
       $id = _g('id');
+      
 		  $getArticle = $this->contentHelper->getArticle($id);
       if ($getArticle){
         foreach ($getArticle as $key => $value) {
