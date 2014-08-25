@@ -133,7 +133,15 @@ class uploadfoto extends Controller {
       $this->view->assign('myfoto',$getMyPhoto);
     }
 
-    $getFrame = $this->contentHelper->getFrame(5);
+    if (isset($_SESSION['fb-logout'])){
+      $this->view->assign('coverfb',1);
+      $flag = 4;
+    }else{
+      $this->view->assign('coverfb',0);
+      $flag = 5;
+    }
+
+    $getFrame = $this->contentHelper->getFrame($flag);
     // pr($getFrame);
     foreach ($getFrame as $key => $value) {
 
@@ -145,11 +153,7 @@ class uploadfoto extends Controller {
     // pr($imgFrame);
     $this->view->assign('frame',$imgFrame);
     
-    if (isset($_SESSION['fb-logout'])){
-      $this->view->assign('coverfb',1);
-    }else{
-      $this->view->assign('coverfb',0);
-    }
+    
 
     return $this->loadView('upload/chooseframe');
   }
