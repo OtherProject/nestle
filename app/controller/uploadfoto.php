@@ -253,7 +253,7 @@ class uploadfoto extends Controller {
       }else{
         $loginUrl = $helper->getLoginUrl(array('scope' => 'publish_actions',)); 
         // $loginUrl = $helper->getLoginUrl(array('scope' => 'email,public_profile,user_friends',)); 
-        $this->view->assign('accessUrl',$loginUrl);
+        $this->view->assign('accessUrl',false);
       }
     
     }else{

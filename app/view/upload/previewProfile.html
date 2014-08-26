@@ -1,4 +1,6 @@
 
+
+
 <div id="wrapperhome2">
 	<div id="user" >
 		<div id="{if $coverfb}userContent{else}userContenttw{/if}">
@@ -57,8 +59,9 @@
 				<div id="framesmall">&nbsp;</div>{/*}
 			</div>
 			<div id="btn-desc" align="right">
-				
-				<a href="{$accessUrl}" class="btnpinkslide" fid="{$frame[0].files}" cid="{$frame[0].cover.files}">Share</a>
+				<a class="{if $accessUrl}{$accessUrl}{else}sharebutton{/if} btnpinkslide " data-href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" href="{if $accessUrl}{$accessUrl}{else}javascript:void(0){/if}">Share</a>
+
+				{*}<a href="{$accessUrl}" class="btnpinkslide" fid="{$frame[0].files}" cid="{$frame[0].cover.files}">Share</a>{/*}
 				
 			</div>
 
@@ -67,9 +70,52 @@
 	</div>
 </div>
 
+<div id="fb-root"></div>
+
+
 <script type="text/javascript">
+// var dataShare = "{$basedomain}public_assets/imageFramed/{$myfoto.profil}";
+var dataShare = "http://qinc.co.id/activegro/assets/file/slide-1-img.png";
+
 {literal}
 	
+
+	$(document).on('click','.sharebutton', function(){
+
+		window.fbAsyncInit = function() {
+	        FB.init({
+	          appId      : '438789519597080',
+	          xfbml      : true,
+	          version    : 'v2.0'
+	        });
+
+	        FB.ui(
+				 {
+				  method: 'share',
+				  href: dataShare
+				}, function(response){
+
+					if (response)window.location.href = basedomain+'uploadfoto/changephoto';
+				});
+
+	      };
+
+		(function(d, s, id){
+		         var js, fjs = d.getElementsByTagName(s)[0];
+		         if (d.getElementById(id)) {return;}
+		         js = d.createElement(s); js.id = id;
+		         js.src = "//connect.facebook.net/en_US/sdk.js";
+		         fjs.parentNode.insertBefore(js, fjs);
+
+		         console.log(fjs);
+	       }
+	    (document, 'script', 'facebook-jssdk'));
+
+
+
+	})
+
+
 	$(document).on('click','.chooseFrame', function(){
 
 		var link = $(this).attr('linkcover');
