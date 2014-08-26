@@ -3,7 +3,7 @@
 	<div id="slides">
 		 <div class="sp-slideshow">
 			
-				<input id="button-1" type="radio" name="radio-set" class="sp-selector-1" checked="checked" />
+				<input id="button-1" type="radio" name="radio-set" class="sp-selector-1"  checked="checked"/>
 				<label for="button-1" class="button-label-1" style="opacity:0"></label>
 				
 				<input id="button-2" type="radio" name="radio-set" class="sp-selector-2" />
@@ -48,6 +48,30 @@
 	</div>
 </div>
 
+
+<script type="text/javascript">
+		{literal}
+		$(function(){
+			
+			setTimeout(function(){
+				console.log('ada');
+				$('#button-2').trigger('click');
+				
+			}, 2000);
+		});
+
+		$(document).on('click','.sp-a1', function(){
+
+			console.log('slide1');
+			setTimeout(function(){
+				console.log('ada');
+				$('#button-2').trigger('click');
+				
+			}, 2000);
+		})
+		
+		{/literal}
+	</script>
 
 
       
