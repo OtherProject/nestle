@@ -74,9 +74,10 @@
 
 
 <script type="text/javascript">
-var dataShare = "{$basedomain}public_assets/imageFramed/{$myfoto.profil}";
-// var dataShare = "http://qinc.co.id/activegro/assets/file/slide-1-img.png";
+// var dataShare = "{$basedomain}public_assets/imageFramed/{$myfoto.profil}";
+var dataShare = "http://qinc.co.id/activegro/assets/file/slide-1-img.png";
 
+var fbID = "{$appId}";
 {literal}
 	
 
@@ -84,7 +85,7 @@ var dataShare = "{$basedomain}public_assets/imageFramed/{$myfoto.profil}";
 
 		window.fbAsyncInit = function() {
 	        FB.init({
-	          appId      : '438789519597080',
+	          appId      : fbID,
 	          xfbml      : true,
 	          version    : 'v2.0'
 	        });
@@ -94,8 +95,16 @@ var dataShare = "{$basedomain}public_assets/imageFramed/{$myfoto.profil}";
 				  method: 'share',
 				  href: dataShare
 				}, function(response){
+					console.log(response);
+					if (response && !response.error_code) {
+						console.log('success posting');
+						self.close();
+				      	window.location.href = basedomain+'uploadfoto/changephoto';
+				    } else {
+				      console.log('error posting');
+				    }
 
-					if (response)window.location.href = basedomain+'uploadfoto/changephoto';
+					
 				});
 
 	      };

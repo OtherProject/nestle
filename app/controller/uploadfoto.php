@@ -272,10 +272,14 @@ class uploadfoto extends Controller {
     $this->view->assign('frame',$getFrame);
 
     if (isset($_SESSION['fb-logout'])){
+      $this->view->assign('appId',$CONFIG['fb']['appId']);
       $this->view->assign('coverfb',1);
     }else{
       $this->view->assign('coverfb',0);
     }
+
+    
+    
   	// return $this->loadView('upload/share');
     return $this->loadView('upload/previewProfile');
   }
