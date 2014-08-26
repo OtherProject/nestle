@@ -495,7 +495,7 @@ class uploadfoto extends Controller {
 
   function getFromFb()
   {
-    global $IMAGE;
+    global $IMAGE,$basedomain;
     
     $fileName = _p('fileName'); 
     $idPhoto = sha1($fileName).'.jpg'; 
@@ -510,6 +510,8 @@ class uploadfoto extends Controller {
       curl_exec($ch);
       curl_close($ch);
       fclose($fp);
+
+      $_SESSION['tmpimage'] = $basedomain.'public_assets/'.$idPhoto;
 
       // $download = file_put_contents($img, file_get_contents($url));
       $download = 1;
