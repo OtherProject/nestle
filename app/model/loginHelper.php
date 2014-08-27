@@ -78,7 +78,7 @@ class loginHelper extends Database {
         // pr($sql);
         $result = $this->fetch($sql);
         if ($result){
-
+            logFile(serialize($result));
             $loginCount = intval($result['login_count'] +1);
             $lastLogin = date('Y-m-d H:i:s');
             
@@ -102,6 +102,8 @@ class loginHelper extends Database {
                 $res = $this->query($sql);
             }
             
+            logFile($sql);
+
             usleep(500);
             $sql = "SELECT * FROM social_member WHERE sosmed_id = '{$data['id']}' LIMIT 1";
             // pr($sql);

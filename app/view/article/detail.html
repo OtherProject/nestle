@@ -18,6 +18,7 @@
 			<a href="{if $prevNextArticle.prev=='#'}javascript:void(0){else}{$basedomain}article/detail/?id={$prevNextArticle.prev}{/if}" class="btnpink">Prev Article</a>
 		
 	</div>
+	
 	<div id="wrapbtn" align="center">
 	{if $user}
 		<a href="{$basedomain}uploadfoto/pilihframe" class="btn-f">&nbsp;</a>&nbsp;&nbsp;&nbsp;
@@ -26,8 +27,9 @@
 		<a href="{$basedomain}home/connect/?login=true" class="btn-f">&nbsp;</a>&nbsp;&nbsp;&nbsp;
 		<a href="{$accessUrlTwitter}" class="btn-t">&nbsp;</a>
 	{/if}
-	
+
 	</div>
+
 	<div id="wrapbtn" align="right">
 
 			<a href="{if $prevNextArticle.next=='#'}javascript:void(0){else}{$basedomain}article/detail/?id={$prevNextArticle.next}{/if}" class="btnpink">Next Article</a>
@@ -77,9 +79,9 @@
 	</div>
 	{/*}
 
-</div>
+</div>{*}
 <div id="wrapperbtn" align="center">
 	<div id="divbtn">
 		<a href="{$basedomain}home/connect" class="btngold loadMore" pid="3">Ikuti Kompetisi Go with Activgro</a>
 	</div>
-</div>
+</div>{/*}
