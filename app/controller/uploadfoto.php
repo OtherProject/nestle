@@ -641,6 +641,25 @@ class uploadfoto extends Controller {
 
     return $this->loadView('upload/cropedProfile');
   }
+
+  function shareTemplate(){
+    global $CONFIG, $basedomain, $IMAGE, $LOCALE;
+
+    // pr($_SESSION);
+    if (!$this->user){redirect($basedomain); exit;}
+
+    $file_path = "";
+    $getMyPhoto = $this->contentHelper->getCreateImage();
+    if ($getMyPhoto){
+      // pr($getMyPhoto);
+      $file_path = $IMAGE[0]['imageframed'].$getMyPhoto['profil'];
+
+      $this->view->assign('myfoto',$getMyPhoto);
+    }
+    
+    return $this->loadView('upload/shareTemplate');
+
+  }
 }
 
 ?>
