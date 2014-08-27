@@ -53,23 +53,48 @@
 		{literal}
 		$(function(){
 			
+			
+
 			setTimeout(function(){
-				console.log('ada');
-				$('#button-2').trigger('click');
+				// panggil slide 2
+				slide2();
 				
-			}, 2000);
+			}, 8000);
+
+			setTimeout(function(){
+				
+				slide1();
+			}, 16000);
 		});
 
-		$(document).on('click','.sp-a1', function(){
+		// $(document).on('click','.sp-a1', function(){
 
-			console.log('slide1');
-			setTimeout(function(){
-				console.log('ada');
-				$('#button-2').trigger('click');
+		// 	console.log('slide1');
+		// 	setTimeout(function(){
+		// 		console.log('ada');
+		// 		$('#button-2').trigger('click');
 				
-			}, 2000);
-		})
+		// 	}, 2000);
+		// })
 		
+		function slide1()
+		{
+			$('#button-1').trigger('click');
+			setTimeout(function(){
+				
+				slide2();
+			}, 16000);
+		}
+
+		function slide2()
+		{
+			$('#button-2').trigger('click');
+			setTimeout(function(){
+				
+				slide1();
+			}, 16000);
+		}
+
 		{/literal}
 	</script>
 
