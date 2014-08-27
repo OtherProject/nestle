@@ -644,11 +644,21 @@ class uploadfoto extends Controller {
 
   function shareTemplate(){
 
-    $myfoto = $_GET['ft'];
+    global $basedomain;
 
-    $this->view->assign('myfoto',$myfoto);
+     $myfoto = $_GET['ft'];
 
-    return $this->loadView('upload/shareTemplate');
+    if(!isset($_GET['fb_action_ids'])){
+
+      $this->view->assign('myfoto',$myfoto);
+
+      return $this->loadView('upload/shareTemplate');
+
+    } else {
+
+      redirect($basedomain."public_assets/imageFramed/".$myfoto);
+
+    }
 
   }
 }
