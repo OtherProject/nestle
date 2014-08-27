@@ -1,5 +1,8 @@
 
-<div id="wrapperfooter" style="border:0px solid #000;position:absolute;bottom:0;width:100%">
+{if $page.page!='article'}
+	{$classfooter="position:absolute;bottom:0;"}
+{/if}
+<div id="wrapperfooter" style="border:0px solid #000;{$classfooter}width:100%">
 
 	<div id="footer" align="center" style="border:0px solid #fff">	
 	<img src="{$basedomain}assets/img/footer.png" style="height:100%"/>
