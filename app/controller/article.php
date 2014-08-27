@@ -143,7 +143,8 @@ class article extends Controller {
       $this->view->assign('prevNextArticle',$getNextArticle);
       $this->view->assign('getRandomArticle',$getRandomArticle);
       $this->view->assign('user',$this->user);
-
+      $this->view->assign('appId',$CONFIG['fb']['appId']);
+      
     	return $this->loadView('article/detail');
     }
 

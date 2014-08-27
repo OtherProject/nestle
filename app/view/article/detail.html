@@ -20,13 +20,30 @@
 	</div>
 	
 	<div id="wrapbtn" align="center">
+
+		<a href="javascript:void(0)" class="btn-f" data-href="{$basedomain}article/detail/?id={$article[0].id}">&nbsp;</a>&nbsp;&nbsp;&nbsp;
+		<a href="{$basedomain}article/detail/?id={$article[0].id}" title="{$article[0].title}" class="btn-t">&nbsp;</a>
+		{*}
 	{if $user}
-		<a href="{$basedomain}uploadfoto/pilihframe" class="btn-f">&nbsp;</a>&nbsp;&nbsp;&nbsp;
-		<a href="{$basedomain}uploadfoto/pilihframe" class="btn-t">&nbsp;</a>
+		<a href="javascript:void(0)" class="btn-f" data-href="{$basedomain}article/detail/?id={$article[0].id}">&nbsp;</a>&nbsp;&nbsp;&nbsp;
+		<a href="javascript:void(0)" class="btn-t">&nbsp;</a>
 	{else}
 		<a href="{$basedomain}home/connect/?login=true" class="btn-f">&nbsp;</a>&nbsp;&nbsp;&nbsp;
 		<a href="{$accessUrlTwitter}" class="btn-t">&nbsp;</a>
 	{/if}
+	
+	    <a href="https://twitter.com/share" id="shareTwitter" class="twitter-share-button" data-lang="en" 
+
+      data-url="{$basedomain}article/detail/?id={$article[0].id}"
+
+      data-via="ActivGro"
+
+      data-text="{$article[0].title}"
+
+      data-count="horizontal" >Tweet</a>{/*}
+	{literal}
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    {/literal}
 
 	</div>
 
@@ -85,3 +102,71 @@
 		<a href="{$basedomain}home/connect" class="btngold loadMore" pid="3">Ikuti Kompetisi Go with Activgro</a>
 	</div>
 </div>{/*}
+
+<script type="text/javascript">
+
+
+	
+var dataShare = "{$basedomain}article/detail/?id={$article[0].id}";
+// var dataShare = "http://qinc.co.id/activegro/assets/file/slide-1-img.png";
+
+var fbID = "{$appId}";
+
+{literal}
+	
+
+	$(document).on('click','.btn-f', function(){
+
+		window.fbAsyncInit = function() {
+	        FB.init({
+	          appId      : fbID,
+	          xfbml      : true,
+	          version    : 'v2.0'
+	        });
+
+	        FB.ui(
+				 {
+				  method: 'share',
+				  href: dataShare
+				}, function(response){
+					
+					
+				});
+
+	      };
+
+		(function(d, s, id){
+		         var js, fjs = d.getElementsByTagName(s)[0];
+		         if (d.getElementById(id)) {return;}
+		         js = d.createElement(s); js.id = id;
+		         js.src = "//connect.facebook.net/en_US/sdk.js";
+		         fjs.parentNode.insertBefore(js, fjs);
+
+		         console.log(fjs);
+	       }
+	    (document, 'script', 'facebook-jssdk'));
+
+
+
+	})
+
+
+	$('a.btn-t').click(function(e){
+	 
+	//We tell our browser not to follow that link
+	e.preventDefault();
+	 
+	//We get the URL of the link
+	var loc = $(this).attr('href');
+	 
+	//We get the title of the link
+	var title = escape($(this).attr('title'));
+	 
+	//We trigger a new window with the Twitter dialog, in the middle of the page
+	window.open('http://twitter.com/share?url=' + loc + '&text=' + title + '&', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+	 
+	});
+
+
+{/literal}
+</script>
