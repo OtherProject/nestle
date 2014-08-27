@@ -648,7 +648,7 @@ class uploadfoto extends Controller {
 
      $myfoto = $_GET['ft'];
 
-    if(!isset($_GET['fb_action_ids'])){
+    if(count($_GET) == 2){
 
       $this->view->assign('myfoto',$myfoto);
 
