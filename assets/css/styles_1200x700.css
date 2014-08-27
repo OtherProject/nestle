@@ -15,10 +15,15 @@
     src: url(WendyOne-Regular.ttf);
 }
 body{
-	background-image:  url(../img/footer.png),url(../img/footerlong.png),url(../img/tali.png),url(../img/bgfooter.jpg),url(../img/backgorund.jpg),url(../img/pattern.jpg);
+	background-image:  url(../img/tali.png),url(../img/bgfooter.jpg),url(../img/backgorund.jpg),url(../img/pattern.jpg);
+	background-position: center top,bottom,left top,left;
+	background-repeat: no-repeat,repeat-x,repeat-x,repeat;
+	
+	/*
+		background-image:  url(../img/footer.png),url(../img/footerlong.png),url(../img/tali.png),url(../img/bgfooter.jpg),url(../img/backgorund.jpg),url(../img/pattern.jpg);
 	background-position: center bottom,center bottom,center top,bottom,left top,left;
 	background-repeat: no-repeat,repeat-x,no-repeat,repeat-x,repeat-x,repeat;
-	
+	*/
 	
 }
 .imgLogo{
@@ -72,7 +77,7 @@ body{
 #wrapperhome{
 	margin: 0 auto;
 	margin-top:-20px;
-	margin-bottom:-100px;
+	margin-bottom:-70px;
 	width:1120px;
 	height:370px;
 	background-image:url(../img/bg_home.PNG);
@@ -85,7 +90,7 @@ body{
 #wrapperhome2{
 	margin: 0 auto;
 	margin-top:-20px;
-	margin-bottom:-100px;
+	margin-bottom:-70px;
 	width:1120px;
 	height:430px;
 	background-image:url(../img/bg_home2.PNG);
@@ -460,7 +465,7 @@ body{
 .fontNunito{
 	font-family: NunitoBold;
 	font-weight:bold;
-	font-size:18px;
+	font-size:16px;
 	color:#888687;
 }
 #divbtn a{
@@ -468,7 +473,7 @@ body{
 }
 .btngold{
 	font-family: NunitoBold;
-	font-size:18px;
+	font-size:16px;
 	text-decoration:none;
 	background-color:#FFC000;
 	color:#fff;
@@ -480,7 +485,7 @@ body{
 }
 .btnpink{
 	font-family: NunitoBold;
-	font-size:18px;
+	font-size:16px;
 	text-decoration:none;
 	background-color:#F73E82;
 	color:#fff;
@@ -493,7 +498,7 @@ body{
 
 .btnpink:hover{
 	font-family: NunitoBold;
-	font-size:18px;
+	font-size:16px;
 	text-decoration:none;
 	background-color:#FD698B;
 	color:#fff;
@@ -503,7 +508,7 @@ body{
 }
 .btnpinkslide{
 	font-family: NunitoBold;
-	font-size:18px;
+	font-size:16px;
 	text-decoration:none;
 	background-color:#F73E82;
 	color:#fff;
@@ -518,7 +523,7 @@ body{
 }
 .btnblueslide{
 	font-family: NunitoBold;
-	font-size:18px;
+	font-size:16px;
 	text-decoration:none;
 	background-color:#24599F;
 	color:#fff;
@@ -533,7 +538,7 @@ body{
 }
 .btn-f{
 	font-family: NunitoBold;
-	font-size:18px;
+	font-size:16px;
 	text-decoration:none;
 	background-image:url(../img/btn-f.JPG);
 	background-position:center;
@@ -552,7 +557,7 @@ body{
 }
 .btn-t{
 	font-family: NunitoBold;
-	font-size:18px;
+	font-size:16px;
 	text-decoration:none;
 	background-image:url(../img/btn-t.JPG);
 	background-position:center;
@@ -571,7 +576,7 @@ body{
 }
 .btn-fP{
 	font-family: NunitoBold;
-	font-size:18px;
+	font-size:16px;
 	text-decoration:none;
 	background-position:center;
 	background-repeat:no-repeat;
@@ -588,7 +593,7 @@ body{
 }
 .btn-tP{
 	font-family: NunitoBold;
-	font-size:18px;
+	font-size:16px;
 	text-decoration:none;
 	background-position:center;
 	background-repeat:no-repeat;
@@ -605,7 +610,7 @@ body{
 }
 .btn-fslide{
 	font-family: NunitoBold;
-	font-size:18px;
+	font-size:16px;
 	text-decoration:none;
 	background-image:url(../img/btn-f.JPG);
 	background-position: 15px 0px; 
@@ -624,7 +629,7 @@ body{
 }
 .btn-tslide{
 	font-family: NunitoBold;
-	font-size:18px;
+	font-size:16px;
 	text-decoration:none;
 	background-image:url(../img/btn-t.JPG);
 	background-position: 15px 0px; 
@@ -643,14 +648,14 @@ body{
 }
 #footer{
 	margin:0 auto;
-	margin-bottom:50px;
-	width:1350px;
+	margin-bottom:0px;
+	width:100%;
 	height:189px;
 	border:0px solid #FFF;
 	
-	/*background-image:url(../img/footer.png);
-	background-position:center;
-	background-repeat:no-repeat;*/
+	background-image:url(../img/footerlong.png);
+	background-position:center bottom;
+	background-repeat:repeat-x;
 }
 #deskripsi{
 	padding:15px;
@@ -797,6 +802,7 @@ input[type=checkbox].css-checkbox {
 	font-family:NunitoBold;
 	color:#fff;
 	margin:0 auto;
+	margin-bottom: 0px;
 	border:0px solid #000;
 	margin-top:-35px;
 	z-index:999;
@@ -832,6 +838,7 @@ input[type=checkbox].css-checkbox {
 }
 #formregister{
 	margin:0 auto;
+	margin-top:-10px;
 	height:245px;
 	border:0px solid #000;
 }
@@ -840,7 +847,7 @@ input[type=checkbox].css-checkbox {
 	margin-left:10px;
 	height:243px;
 	float:left;
-	width:361px;
+	width:301px;
 	border:0px solid #000;
 }
 
@@ -848,23 +855,23 @@ input[type=checkbox].css-checkbox {
 	margin:0 auto;
 	height:243px;
 	float:right;
-	width:361px;
+	width:301px;
 	border:0px solid #000;
 }
 .formRtop{
 	margin:0 auto;
 	min-height:100px;
-	width:355px;
+	width:295px;
 	border:0px solid #000;
 }
 .formRbottom{
 	font-family:NunitoBold;
-	font-size:13px;
+	font-size:11px;
 	color:#737172;
 	margin-right:50px;
 	margin:0 auto;
 	height:100px;
-	width:315px;
+	width:255px;
 	border:0px solid #000;
 }
 
@@ -883,7 +890,7 @@ input[type="text"] {
   margin-top:10px;
   margin-left:10px;
   font-family:NunitoRegular;
-  font-size: 13px;
+  font-size: 11px;
   color:#000;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -908,7 +915,7 @@ input[type="email"] {
   margin-top:10px;
   margin-left:10px;
   font-family:NunitoRegular;
-  font-size: 13px;
+  font-size: 11px;
   color:#000;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -930,11 +937,11 @@ textarea {
   display: block;
   background-color:#FCFAFB;
   margin: 0;
-  width:345px;
+  width:285px;
   margin-top:10px;
   margin-left:10px;
   font-family:NunitoRegular;
-  font-size: 13px;
+  font-size: 11px;
   color:#000;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1050,7 +1057,7 @@ select:focus {
    padding-top: 5px;
    width: 195px;
   font-family:NunitoRegular;
-  font-size: 13px;
+  font-size: 11px;
    line-height: 1;
    height: 34px;
    -webkit-appearance: none;
@@ -1058,10 +1065,10 @@ select:focus {
   border: solid 0px #fff;
    }
    .styled-select {
-   margin-top:95px;
-   margin-left:187px;
+   margin-top:90px;
+   margin-left:127px;
    width: 170px;
-   height: 34px;
+   height: 30px;
    overflow: hidden;
    background: url(../img/arrow-s.png) no-repeat right #FCFAFB;
    border: 0px solid #ccc;
