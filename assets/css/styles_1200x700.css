@@ -18,10 +18,14 @@ body{
 		margin:0;
 	padding:0;
 	height:100%;
+	background-image:  url(../img/tali.png),url(../img/backgorund.jpg),url(../img/pattern.jpg);
+	background-position: center top,left top,left;
+	background-repeat: no-repeat,repeat-x,repeat;
+	/*
 	background-image:  url(../img/tali.png),url(../img/bgfooter.jpg),url(../img/backgorund.jpg),url(../img/pattern.jpg);
 	background-position: center top,bottom,left top,left;
 	background-repeat: no-repeat,repeat-x,repeat-x,repeat;
-	
+	*/
 	/*
 		background-image:  url(../img/footer.png),url(../img/footerlong.png),url(../img/tali.png),url(../img/bgfooter.jpg),url(../img/backgorund.jpg),url(../img/pattern.jpg);
 	background-position: center bottom,center bottom,center top,bottom,left top,left;
@@ -78,9 +82,11 @@ body{
 	border:0px solid #000;
 }
 #wrapperhome{
+	position:absolute;
 	margin: 0 auto;
-	margin-top:-20px;
-	margin-bottom:-70px;
+	top: 100; left: 0; bottom: 0; right: 0;
+	/*margin-top:-20px;
+	margin-bottom:-70px;*/
 	width:1120px;
 	height:370px;
 	background-image:url(../img/bg_home.PNG);
@@ -88,10 +94,13 @@ body{
 	background-repeat:no-repeat;
 	overflow:auto;
 	border:0px solid #000;
+	z-index:999;
 }
 
 #wrapperhome2{
 	margin: 0 auto;
+	position: absolute;
+	top: 100; left: 0; bottom: 0; right: 0;
 	margin-top:-20px;
 	margin-bottom:-70px;
 	width:1120px;
@@ -101,6 +110,7 @@ body{
 	background-repeat:no-repeat;
 	overflow:auto;
 	border:0px solid #000;
+	z-index:999;
 }
 #wrapdetailarticle{
 	margin: 0 auto;
@@ -133,6 +143,7 @@ body{
 
 #user{
 	margin:0 auto;
+	margin-top: 20px;
 	background-color:#EEECED;
 	width:607px;
 	height:374px;
@@ -144,6 +155,7 @@ body{
 }
 #userPrivacy{
 	margin:0 auto;
+	margin-top: 20px;
 	background-color:#EEECED;
 	width:607px;
 	height:324px;
@@ -155,6 +167,7 @@ body{
 }
 #userDownload{
 	margin:0 auto;
+	margin-top: 10px;
 	background-color:#EEECED;
 	width:627px;
 	height:387px;
@@ -356,7 +369,7 @@ body{
 	float:left;
 	background-color:#EEECED;
 	width:245px;
-	height:365px;
+	height:327px;;
 	border:15px solid #FFFDFE;
 	border-radius:15px;
 	box-shadow: 0px 2px 15px #888;
@@ -649,16 +662,31 @@ body{
 	background-image:url(../img/btn-thover.JPG);
 	background-color:#48c9fc;
 }
+#wrapperfooter{
+	
+	 /* Safari 4-5, Chrome 1-9 */ 
+	 background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0896E8), to(#57C5F8)); 
+	 /* Safari 5.1, Chrome 10+ */ 
+	 background: -webkit-linear-gradient(top, #0896E8, #57C5F8); 
+	 /* Firefox 3.6+ */ 
+	 background: -moz-linear-gradient(top, #0896E8, #57C5F8); 
+	 /* IE 10 */ 
+	 background: -ms-linear-gradient(top, #0896E8, #57C5F8); 
+	 /* Opera 11.10+ */ 
+	 background: -o-linear-gradient(top, #0896E8, #57C5F8);
+}
 #footer{
 	margin:0 auto;
 	margin-bottom:0px;
 	width:100%;
 	height:189px;
-	border:0px solid #FFF;
+	border:1px solid #FFF;
 	
 	background-image:url(../img/footerlong.png);
 	background-position:center bottom;
 	background-repeat:repeat-x;
+	
+	 z-index:10;
 }
 #deskripsi{
 	padding:15px;
