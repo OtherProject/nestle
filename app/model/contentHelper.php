@@ -41,7 +41,7 @@ class contentHelper extends Database {
 				where ( 
 				        id = IFNULL((SELECT min(id) from {$this->prefix}_news_content WHERE id > {$id}),0) 
 				        OR  id = IFNULL((SELECT max(id) from {$this->prefix}_news_content WHERE id < {$id}),0)
-				      )";
+				      ) AND n_status = 1";
 		$res = $this->fetch($sql,1);
 		// pr($res);
 		if ($res){
