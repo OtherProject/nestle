@@ -3,7 +3,7 @@
     src: url(Nunito-Bold.ttf);
 }
 @font-face {
-    font-family: NunitoRegular;
+    font-family: Nunito;
     src: url(Nunito-Regular.ttf);
 }
 @font-face {
@@ -11,7 +11,7 @@
     src: url(Nunito-Light.ttf);
 }
 @font-face {
-    font-family: WendyOneRegular;
+    font-family: Wendy One;
     src: url(WendyOne-Regular.ttf);
 }
 body{
@@ -260,12 +260,12 @@ body{
 }
 .tittledesc{
 	font-size:16px;
-	font-family: NunitoBold;
+	font-family: Nunito;
 	font-weight:bold;
 }
 .isidesc{
 	font-size:13px;
-	font-family: NunitoRegular;	
+	font-family: Nunito;	
 }
 #btn-desc{
 	margin:0 auto;
@@ -354,7 +354,8 @@ body{
 }
 #descimgframe{
 	margin:0 auto;
-	font-family: NunitoBold;
+	font-family: Nunito;
+	font-weight:bold;
 	color:#646466;
 	float:left;
 	border:0px solid #fff;
@@ -405,7 +406,8 @@ body{
 	border-radius:15px;
 }
 #articleDesc .title{
-	font-family: NunitoBold;
+	font-family: Nunito;
+	font-weight:bold;
 	font-size:32px;
 	color:#009CF1;
 	border:0px solid #FFFDFE;
@@ -427,17 +429,20 @@ body{
 	margin-top:0px;
 }
 #articleDesc .date{
-	font-family: NunitoLight;
+	font-family: Nunito;
+	font-weight:lighter;
 	font-size:14px;
 	color:#B7B7B7;
 }
 #articleDesc .more{
-	font-family: NunitoBold;
+	font-family: Nunito;
+	font-weight:bold;
 	font-size:15px;
 	color:#F73D84;
 }
 #articleDesc .brief{
-	font-family: NunitoLight;
+	font-family: Nunito;
+	font-weight:lighter;
 	font-size:13px;
 	color:#7F7F81;
 }
@@ -473,13 +478,13 @@ body{
 	margin: 0 auto;
 	margin-top:30px;
 	border:0px solid #000;
-	font-family: NunitoBold;
+	font-family: Nunito;
 	font-weight:bold;
 	font-size:13px;
 	color:#626061;
 }
 .fontNunito{
-	font-family: NunitoBold;
+	font-family: Nunito;
 	font-weight:bold;
 	font-size:16px;
 	color:#888687;
@@ -488,7 +493,8 @@ body{
 	text-decoration:none;
 }
 .btngold{
-	font-family: NunitoBold;
+	font-family: Nunito;
+	font-weight:bold;
 	font-size:16px;
 	text-decoration:none;
 	background-color:#FFC000;
@@ -500,7 +506,8 @@ body{
 	box-shadow: 0px 6px 10px 0px #007DCA;
 }
 .btnpink{
-	font-family: NunitoBold;
+	font-family: Nunito;
+	font-weight:bold;
 	font-size:16px;
 	text-decoration:none;
 	background-color:#F73E82;
@@ -513,7 +520,8 @@ body{
 }
 
 .btnpink:hover{
-	font-family: NunitoBold;
+	font-family: Nunito;
+	font-weight:bold;
 	font-size:16px;
 	text-decoration:none;
 	background-color:#FD698B;
@@ -523,7 +531,8 @@ body{
 	border-radius:30px;
 }
 .btnpinkslide{
-	font-family: NunitoBold;
+	font-family: Nunito;
+	font-weight:bold;
 	font-size:16px;
 	text-decoration:none;
 	background-color:#F73E82;
@@ -538,7 +547,8 @@ body{
 	background-color:#FD698B;
 }
 .btnblueslide{
-	font-family: NunitoBold;
+	font-family: Nunito;
+	font-weight:bold;
 	font-size:16px;
 	text-decoration:none;
 	background-color:#24599F;
@@ -553,7 +563,8 @@ body{
 	background-color:#2964b3;
 }
 .btn-f{
-	font-family: NunitoBold;
+	font-family: Nunito;
+	font-weight:bold;
 	font-size:16px;
 	text-decoration:none;
 	background-image:url(../img/btn-f.JPG);
@@ -572,7 +583,8 @@ body{
 	background-color:#2b69bb;
 }
 .btn-t{
-	font-family: NunitoBold;
+	font-family: Nunito;
+	font-weight:bold;
 	font-size:16px;
 	text-decoration:none;
 	background-image:url(../img/btn-t.JPG);
@@ -591,7 +603,8 @@ body{
 	background-color:#48c9fc;
 }
 .btn-fP{
-	font-family: NunitoBold;
+	font-family: Nunito;
+	font-weight:bold;
 	font-size:16px;
 	text-decoration:none;
 	background-position:center;
@@ -608,7 +621,8 @@ body{
 	background-color:#2b69bb;
 }
 .btn-tP{
-	font-family: NunitoBold;
+	font-family: Nunito;
+	font-weight:bold;
 	font-size:16px;
 	text-decoration:none;
 	background-position:center;
@@ -625,7 +639,8 @@ body{
 	background-color:#48c9fc;
 }
 .btn-fslide{
-	font-family: NunitoBold;
+	font-family: Nunito;
+	font-weight:bold;
 	font-size:16px;
 	text-decoration:none;
 	background-image:url(../img/btn-f.JPG);
@@ -644,7 +659,8 @@ body{
 	background-color:#2b69bb;
 }
 .btn-tslide{
-	font-family: NunitoBold;
+	font-family: Nunito;
+	font-weight:bold;
 	font-size:16px;
 	text-decoration:none;
 	background-image:url(../img/btn-t.JPG);
@@ -692,12 +708,14 @@ body{
 	padding:15px;
 }
 #deskripsi .title{
-	font-family: NunitoBold;
+	font-family: Nunito;
+	font-weight:bold;
 	font-size:17px;
 	color:#009CF1;
 }
 #deskripsi .date{
-	font-family: NunitoLight;
+	font-family: Nunito;
+	font-weight:lighter;
 	font-size:14px;
 	color:#B7B7B7;
 }
@@ -715,17 +733,20 @@ body{
 	margin-top:100px;
 }
 #deskripsi .more{
-	font-family: NunitoBold;
+	font-family: Nunito;
+	font-weight:bold;
 	font-size:15px;
 	color:#F73D84;
 }
 #deskripsi .brief{
-	font-family: NunitoLight;
+	font-family: Nunito;
+	font-weight:lighter;
 	font-size:13px;
 	color:#7F7F81;
 }
 .pembatas{
-	font-family: NunitoBold;
+	font-family: Nunito;
+	font-weight:bold;
 	font-size:30px;
 	color:#fff;
 }
@@ -762,7 +783,7 @@ input[type=checkbox].css-checkbox {
 			}
 
 .titleSlide{
-	font-family: WendyOneRegular;
+	font-family: Wendy One;
 	font-size:28px;
 	color:#DD891F;
 	text-align:left;
@@ -792,7 +813,7 @@ input[type=checkbox].css-checkbox {
 	padding-right:20px;
 }
 .titleAbout{
-	font-family: WendyOneRegular;
+	font-family: Wendy One;
 	font-size:32px;
 	color:#de9e32;
 	border:0px solid #FFFDFE;
@@ -808,12 +829,12 @@ input[type=checkbox].css-checkbox {
 }
 
 .isiAbout{
-	font-family:NunitoRegular;
+	font-family:Nunito;
 	font-size:12px;
 	color:#717172;
 }
 .isiSlide{
-	font-family:NunitoRegular;
+	font-family:Nunito;
 	font-size:12px;
 	color:#717172;
 	padding-left:30px;
@@ -830,7 +851,8 @@ input[type=checkbox].css-checkbox {
 }
 #titlefooter{
 	font-size:13px;
-	font-family:NunitoBold;
+	font-family:Nunito;
+	font-weight:bold;
 	color:#fff;
 	margin:0 auto;
 	margin-bottom: 0px;
@@ -848,7 +870,8 @@ input[type=checkbox].css-checkbox {
 }
 
 #titlefooterleft{
-	font-family:NunitoBold;
+	font-family:Nunito;
+	font-weight:bold;
 	color:#fff;
 	margin:0 auto;
 	margin-left:30px;
@@ -859,7 +882,8 @@ input[type=checkbox].css-checkbox {
 }
 
 #titlefooterright{
-	font-family:NunitoBold;
+	font-family:Nunito;
+	font-weight:bold;
 	color:#fff;
 	margin:0 auto;
 	border:0px solid #000;
@@ -896,7 +920,8 @@ input[type=checkbox].css-checkbox {
 	border:0px solid #000;
 }
 .formRbottom{
-	font-family:NunitoBold;
+	font-family:Nunito;
+	font-weight:bold;
 	font-size:11px;
 	color:#737172;
 	margin-right:50px;
@@ -920,7 +945,7 @@ input[type="text"] {
   margin: 0;
   margin-top:10px;
   margin-left:10px;
-  font-family:NunitoRegular;
+  font-family:Nunito;
   font-size: 11px;
   color:#000;
   -webkit-appearance: none;
@@ -945,7 +970,7 @@ input[type="email"] {
   margin: 0;
   margin-top:10px;
   margin-left:10px;
-  font-family:NunitoRegular;
+  font-family:Nunito;
   font-size: 11px;
   color:#000;
   -webkit-appearance: none;
@@ -971,7 +996,7 @@ textarea {
   width:285px;
   margin-top:10px;
   margin-left:10px;
-  font-family:NunitoRegular;
+  font-family:Nunito;
   font-size: 11px;
   color:#000;
   -webkit-appearance: none;
@@ -1021,7 +1046,7 @@ select:focus {
   STYLE 5
 ============================================================ */
 .style-5 input[type="text"] {
-  font-family:NunitoRegular;
+  font-family:Nunito;
   padding: 8px;
   float:left;
   border: solid 0px #fff;
@@ -1041,7 +1066,7 @@ select:focus {
   box-shadow: inset 1px 1px 2px 0 #F3F1F2;
 }
 .style-5 input[type="email"] {
-  font-family:NunitoRegular;
+  font-family:Nunito;
   padding: 8px;
   float:left;
   border: solid 0px #fff;
@@ -1061,7 +1086,7 @@ select:focus {
   box-shadow: inset 1px 1px 2px 0 #F3F1F2;
 }
 .style-5 textarea {
-  font-family:NunitoRegular;
+  font-family:Nunito;
   padding: 8px;
   float:left;
   border: solid 0px #fff;
@@ -1087,12 +1112,12 @@ select:focus {
    background: transparent;
    padding-top: 5px;
    width: 195px;
-  font-family:NunitoRegular;
+  font-family:Nunito;
   font-size: 11px;
    line-height: 1;
    height: 34px;
    -webkit-appearance: none;
-   font-family:NunitoRegular;
+   font-family:Nunito;
   border: solid 0px #fff;
    }
    .styled-select {

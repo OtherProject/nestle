@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Oxygen+Mono);
 @font-face {
-    font-family: NunitoBold;
+    font-family: Nunito;
     src: url(Nunito-Bold.ttf);
 }
 /* Starter CSS for Menu */
@@ -71,7 +71,8 @@
 /* Custom CSS Styles */
 #cssmenu {
   background: #F73E82;
-  font-family: NunitoBold;
+  font-family: Nunito;
+  font-weight:bold;
   font-size: 15px;
 }
 #cssmenu > ul {
