@@ -835,12 +835,12 @@ input[type=checkbox].css-checkbox {
 }
 .isiSlide{
 	font-family:Nunito;
-	font-size:12px;
+	font-size:13px;
 	color:#717172;
 	padding-left:30px;
 	padding-right:10px;
 	text-align:left;
-	line-height: 2;
+	line-height: 1.5;
 }
 #imgAbout{
 	margin:0 auto;
