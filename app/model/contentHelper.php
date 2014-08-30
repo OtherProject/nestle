@@ -210,10 +210,10 @@ class contentHelper extends Database {
 		$useraccount = $this->user['default'];
 
 		if ($useraccount['usertype']>1){
-			$sql = "UPDATE social_member SET email = '{$data['email']}', phone_number = '{$data['telp']}', StreetName = '{$data['alamat']}', verified = 1 WHERE id = {$useraccount['id']} LIMIT 1";
+			$sql = "UPDATE social_member SET name = '{$data['nama']}', email = '{$data['email']}', phone_number = '{$data['telp']}', StreetName = '{$data['alamat']}', verified = 1 WHERE id = {$useraccount['id']} LIMIT 1";
 		
 		}else{
-			$sql = "UPDATE social_member SET phone_number = '{$data['telp']}', StreetName = '{$data['alamat']}', verified = 1 WHERE id = {$useraccount['id']} LIMIT 1";
+			$sql = "UPDATE social_member SET name = '{$data['nama']}', phone_number = '{$data['telp']}', StreetName = '{$data['alamat']}', verified = 1 WHERE id = {$useraccount['id']} LIMIT 1";
 			
 		}
 		// pr($sql);
