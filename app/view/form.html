@@ -6,11 +6,11 @@
 			<form method="POST" action="{$basedomain}home/inputForm">
 			<div class="formLeft">
 				 <div >
-					<span  class="input-list style-5 clearfix"><input type="text" placeholder="Nama Lengkap" name="nama" size="35" value="{$user.name}" ></span>
+					<span  class="input-list style-5 clearfix"><input type="text" placeholder="Nama Lengkap" name="nama" size="39" value="{$user.name}" ></span>
 				</div>
 				<div>
 					<span  class="style-5">
-						<input type="email" placeholder="Email" name="email" size="35"  value="{$user.email}" {if $user.email}readonly{/if} required>
+						<input type="email" placeholder="Email" name="email" size="39"  value="{$user.email}" {if $user.email}readonly{/if} required>
 					</span>
 				</div>
 				<div style="border:1px solid #EEECED">
@@ -69,7 +69,8 @@
 
 
 				<div class="formRbottom" align="right"><br/>
-				<input type="checkbox" name="checkboxG2" id="checkboxG2" class="css-checkbox" akses="1" checked="checked" required/><label for="checkboxG2" class="css-label"></label><strong>Saya menyetujui <span  id='basic-modal'><a href='#' class='basic2'><u>Syarat dan Ketentuan</u></a></span>yang berlaku.</strong></span>
+
+				<input type="checkbox" name="checkboxG2" id="checkboxG2" class="css-checkbox" akses="1" checked="checked" required/><label for="checkboxG2" class="css-label"></label><strong>Saya menyetujui <span  id='basic-modal'><a href='#' class='basic2'><u>Syarat dan Ketentuan</u></a></span> yang berlaku.</strong><br/>
 				<input type="submit" class="btnpinkslide" value="Submit"/>
 				</div>
 			</div>

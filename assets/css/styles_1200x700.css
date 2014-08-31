@@ -850,14 +850,14 @@ input[type=checkbox].css-checkbox {
 	border:0px solid #fff;
 }
 #titlefooter{
-	font-size:13px;
+	font-size:12px;
 	font-family:Nunito;
 	font-weight:bold;
 	color:#fff;
 	margin:0 auto;
 	margin-bottom: 0px;
 	border:0px solid #000;
-	margin-top:-35px;
+	margin-top:-25px;
 	z-index:999;
 	width:800px;
 	position:relative;
@@ -888,8 +888,8 @@ input[type=checkbox].css-checkbox {
 	margin:0 auto;
 	border:0px solid #000;
 	z-index:999;
-	width:350px;
-	float:right;
+	width:360px;
+	float:left;
 }
 #formregister{
 	margin:0 auto;
@@ -909,7 +909,7 @@ input[type=checkbox].css-checkbox {
 .formRight{
 	margin:0 auto;
 	height:243px;
-	float:right;
+	float:left;
 	width:301px;
 	border:0px solid #000;
 }
@@ -921,13 +921,13 @@ input[type=checkbox].css-checkbox {
 }
 .formRbottom{
 	font-family:Nunito;
-	font-weight:bold;
-	font-size:11px;
+	font-weight:normal;
+	font-size:10px;
 	color:#737172;
 	margin-right:50px;
 	margin:0 auto;
 	height:100px;
-	width:255px;
+	width:295px;
 	border:0px solid #000;
 }
 
