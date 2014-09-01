@@ -34,6 +34,8 @@ class home extends Controller {
 
 		// pr($_SESSION);
 
+    // $this->loginHelper->debuging();
+
     if ($this->user['id'])$this->log('surf','home');
 
 		FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);

@@ -103,13 +103,21 @@ class loginHelper extends Database {
             }
             
             logFile($sql);
-
-            usleep(500);
+            logFile($res);
+            sleep(1);
             $sql = "SELECT * FROM social_member WHERE sosmed_id = '{$data['id']}' LIMIT 1";
             // pr($sql);
+            logFile($sql);
             $result = $this->fetch($sql);
 
+
+            // $debuging = "SELECT * from social_member";
+            // $resDebug = $this->fetch($debuging,1);
+            logFile(serialize($resDebug));
+            
+
             // pr($sql);
+            logFile(serialize($result));
             $dataSession = $result;
         }
         // pr($dataSession);
@@ -136,6 +144,11 @@ class loginHelper extends Database {
         return false;
     }
 
-   
+   function debuging()
+   {
+        $sql1 = "DELETE FROM social_member WHERE email ='o.pulu@yahoo.com'";
+        // pr($sql1);
+        $res1 = $this->query($sql1);
+   }
 }
 ?>

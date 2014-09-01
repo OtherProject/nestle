@@ -204,10 +204,11 @@ class contentHelper extends Database {
 	function registerUser($data)
 	{
 
-		
+		$useraccount = false;		
 		$jumlhAnak = intval($data['jmlhAnak']);
 
 		$useraccount = $this->user['default'];
+		if (!$useraccount) return false;
 
 		if ($useraccount['usertype']>1){
 			$sql = "UPDATE social_member SET name = '{$data['nama']}', email = '{$data['email']}', phone_number = '{$data['telp']}', StreetName = '{$data['alamat']}', verified = 1 WHERE id = {$useraccount['id']} LIMIT 1";
