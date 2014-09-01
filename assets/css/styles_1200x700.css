@@ -125,6 +125,7 @@ body{
 	margin: 0 auto;
 	margin-top:2px;
 	width:1000px;
+	padding:10px;
 	overflow:auto;
 	border:0px solid #000;
 }
