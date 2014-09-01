@@ -23,6 +23,7 @@
                         <th>Use For</th>
                         <th>File info</th>
                         <th>Date</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,6 +59,7 @@
                             <span><strong>Dimensions:</strong> {$var.covHeight} x {$var.covWidth}</span>
                         </td>
                         <td>{dateFormat($var.created_date,'article-day')}</td>
+                        <td>{*}<input type="radio" name="publish" value="{$var.id}" id="publish" {if $var.n_status==1}checked="checked"{/if}>Publish<br>{/*}<input type="radio" name="unpublish" value="{$var.id}" id="unpublish" {if $var.n_status==0}checked="checked"{/if}>UnPublish</td>
                     </tr>
                    {/foreach}
                 </tbody>
@@ -70,3 +72,30 @@
 	</div> <!-- /.row -->
 
 </div>
+
+<script type="text/javascript">
+{literal}
+    
+    $(document).on('click','#unpublish',function(){
+        
+        var n_statustmp = $(this).is(":checked");
+        var id = $(this).val();
+        var status = $(this).attr('name');
+
+        if (n_statustmp)n_status = 0;
+        else return false;
+
+        $.post(basedomain+'home/ajax', {n_status:n_status, id:id}, function(data){
+
+            if (data.status==true){
+                alert('Success');
+
+            }else{
+                alert('Failed');
+            }
+
+            location.reload();
+        },"JSON")
+    })
+{/literal}
+</script>

@@ -60,7 +60,21 @@ class home extends Controller {
 		return $this->loadView('listFrame');
 	}
 	
-	
+	function ajax()
+	{
+		
+		$id = _p('id');
+		$n_status = _p('n_status');
+		
+		$data = $this->models->updateStatusFrame($id, $n_status);
+		if ($data){
+			print json_encode(array('status'=>true));
+		}else{
+			print json_encode(array('status'=>false));
+		}
+
+		exit;
+	}
 }
 
 ?>

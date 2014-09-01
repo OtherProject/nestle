@@ -191,11 +191,24 @@ class marticle extends Database {
 			}
 			
 			//dimension
-			list($result[$key]['frWidth'], $result[$key]['frHeight'], $type, $attr) = getimagesize($CONFIG['admin']['upload_path']."frame/".$result[$key]['files']);
-			list($result[$key]['covWidth'], $result[$key]['covHeight'], $type, $attr) = getimagesize($CONFIG['admin']['upload_path']."cover/".$res['files']);
+			list($result[$key]['frWidth'], $result[$key]['frHeight'], $type, $attr) = @getimagesize($CONFIG['admin']['upload_path']."frame/".$result[$key]['files']);
+			list($result[$key]['covWidth'], $result[$key]['covHeight'], $type, $attr) = @getimagesize($CONFIG['admin']['upload_path']."cover/".$res['files']);
 		}
 
 		return $result;
+	}
+
+	function updateStatusFrame($id=false,$n_status=0)
+	{
+		if (!$id) return false;
+
+
+		$query2= "UPDATE nestle_news_content_repo SET n_status = {$n_status} WHERE id = {$id} LIMIT 1";
+
+		$result = $this->query($query2);
+		if ($result) return true;
+		return false;
+
 	}
 }
 ?>
