@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.15, created on 2014-08-11 13:23:35
+<?php /* Smarty version Smarty-3.1.15, created on 2014-09-01 17:12:53
          compiled from "./view/sidebar.html" */ ?>
 <?php /*%%SmartyHeaderCode:16282585953e468847590e2-58028832%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'd064259dbd57878c55967c97fc189d9b7462e5cb' => 
     array (
       0 => './view/sidebar.html',
-      1 => 1407734338,
+      1 => 1408779836,
       2 => 'file',
     ),
   ),
@@ -73,17 +73,23 @@ article/trash">
 			<li class="dropdown">
 				<a href="javascript:;">
 					<i class="fa fa-picture-o"></i>
-					Picture Frame 
+					Upload Frame & Cover 
 					<span class="caret"></span>
 				</a>				
 				<ul class="sub-nav">
 					<li>
 						<a href="<?php echo $_smarty_tpl->tpl_vars['basedomain']->value;?>
 article/upload">
-							<i class="fa fa-cloud-upload"></i> 
-							Upload Frame
+							<i class="fa fa-facebook"></i> 
+							Facebook
 						</a>
 					</li>
+					<li>
+						<a href="<?php echo $_smarty_tpl->tpl_vars['basedomain']->value;?>
+article/uploadtwt">
+							<i class="fa fa-twitter"></i> 
+							Twitter
+						</a>
 					<li>
 						<a href="<?php echo $_smarty_tpl->tpl_vars['basedomain']->value;?>
 home/frame">

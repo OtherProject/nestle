@@ -13,9 +13,9 @@
 	{/if}
 </div>
 <div id="wrapper">
-	<div id="wrapbtn" align="left">
+	<div id="wrapbtn" align="left" >
 
-			<a href="{if $prevNextArticle.prev=='#'}javascript:void(0){else}{$basedomain}article/detail/?id={$prevNextArticle.prev}{/if}" class="btnpink">Prev Article</a>
+			<a href="{$basedomain}article/detail/?id={$prevNextArticle.prev}" class="btnpink" style="{if $prevNextArticle.prev=='#'}display:none{/if}">Prev Article</a>
 		
 	</div>
 	
@@ -49,14 +49,14 @@
 
 	<div id="wrapbtn" align="right">
 
-			<a href="{if $prevNextArticle.next=='#'}javascript:void(0){else}{$basedomain}article/detail/?id={$prevNextArticle.next}{/if}" class="btnpink">Next Article</a>
+			<a href="{$basedomain}article/detail/?id={$prevNextArticle.next}" class="btnpink" style="{if $prevNextArticle.next=='#'}display:none{/if}">Next Article</a>
 
 	</div>
 
 </div>
 <div id="wrapperpembatas" align="center">
 <span class="pembatas">
-<span class="strip">- - - - - - - - - - - - - - - - - - - -</span>&nbsp;&nbsp;&nbsp;&nbsp;Artikel Lainnya&nbsp;&nbsp;&nbsp;&nbsp;<span class="strip">- - - - - - - - - - - - - - - - - - - -</span>
+<span class="strip">- - - - - - - - - - - - - - - - - - - -</span>&nbsp;&nbsp;&nbsp;&nbsp;Artikel Lainnya&nbsp;&nbsp;&nbsp;&nbsp;<span class="strip">- - - - - - - - - - - - - - - - - - - </span>
 </span>
 </div>
 <div id="wrapper" style="height:400px">
@@ -102,6 +102,13 @@
 		<a href="{$basedomain}home/connect" class="btngold loadMore" pid="3">Ikuti Kompetisi Go with Activgro</a>
 	</div>
 </div>{/*}
+
+<div id="wrapperpembatas" align="center" style="overflow:hidden">
+<span class="pembatas">
+<a href="{$basedomain}home/connect" class="btnpink" style="font-size:12">Ikuti kompetisi Go with ActivGro!</a>
+</span>
+</div>
+
 
 <script type="text/javascript">
 
@@ -163,7 +170,7 @@ var fbID = "{$appId}";
 	var title = escape($(this).attr('title'));
 	 
 	//We trigger a new window with the Twitter dialog, in the middle of the page
-	window.open('http://twitter.com/share?url=' + loc + '&text=' + title + '&', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+	window.open('http://twitter.com/share?url=' + loc + '&text=Ada artikel menarik nih! Yuk baca "' + title + '"&hashtags=GowithActivGro' + '&', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
 	 
 	});
 
