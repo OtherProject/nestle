@@ -1,6 +1,6 @@
 
 <div id="wrapperhome2">
-	<div id="userDownload" >
+	<div id="{if $coverfb}userDownloadFB{else}userDownload{/if}" >
 		<div id="{if $coverfb}userContent{else}userContenttw{/if}">
 		<div id="{if $coverfb}divsmpl{else}divsmpltw{/if}">
 			<img src="{$basedomain}public_assets/cover/{$myfoto.cover}" width="100%" height="100%"/>
@@ -39,11 +39,12 @@
 			
 			</div>
 			<div id="btn-desc" align="right">
-				<div style="height:50px"><a href="javascript:void(0)" class="btnpinkslide" idfile="" idcover="{$basedomain}public_assets/cover/{$myfoto.cover}">Download</a></div>
+				<div style="height:45px"><a href="javascript:void(0)" class="btnpinkslide" idfile="" idcover="{$basedomain}public_assets/cover/{$myfoto.cover}">Download</a></div>
 				{if $coverfb}
 					<div>
 					<a href="javascript:void(0)" class="btn-fP btnpinkslide" idcover="" idfile="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" >Facebook Profile</a>
 					</div>
+					<p>&nbsp;</p>
 				{else}
 					<div>
 					<a href="javascript:void(0)" class="btn-tP btnpinkslide" idcover="" idfile="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" >Twitter Profile</a>

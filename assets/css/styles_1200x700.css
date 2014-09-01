@@ -125,6 +125,7 @@ body{
 	margin: 0 auto;
 	margin-top:2px;
 	width:1000px;
+	padding:10px;
 	overflow:auto;
 	border:0px solid #000;
 }
@@ -153,6 +154,18 @@ body{
 	box-shadow: 0px 0px 15px #888;
 	
 }
+#userthanks{
+	margin:0 auto;
+	margin-top: 20px;
+	background-color:#EEECED;
+	width:607px;
+	height:300px;
+	overflow:hidden;
+	border:15px solid #fdf9f9;
+	border-radius:15px;
+	box-shadow: 0px 0px 15px #888;
+	
+}
 #userPrivacy{
 	margin:0 auto;
 	margin-top: 20px;
@@ -160,6 +173,18 @@ body{
 	width:607px;
 	height:324px;
 	overflow:scroll;
+	border:15px solid #fdf9f9;
+	border-radius:15px;
+	box-shadow: 0px 0px 15px #888;
+	
+}
+#userDownloadFB{
+	margin:0 auto;
+	margin-top: 10px;
+	background-color:#EEECED;
+	width:627px;
+	height:392px;
+	overflow:hidden;
 	border:15px solid #fdf9f9;
 	border-radius:15px;
 	box-shadow: 0px 0px 15px #888;
