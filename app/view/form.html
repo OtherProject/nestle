@@ -14,7 +14,9 @@
 					</span>
 				</div>
 				<div style="border:1px solid #EEECED">
-					<span  class="style-5"><input type="text" placeholder="No. Telp" name="telp" style="width:100px" ></span>
+
+					<span  class="style-5"><input type="text" placeholder="No. Telp" name="telp" style="width:100px" required></span>
+
 					<span  class="style-5">
 					<!--<input type="text" placeholder="No. Telp" size="20">-->
 						<div class="styled-select">
@@ -28,8 +30,9 @@
 					</span>
 				</div>
 				<div>
-					<span  class="input-list style-5 clearfix"><textarea placeholder="Alamat" name="alamat" width="335px" ></textarea></span>
-					</div>
+
+					<span  class="input-list style-5 clearfix"><textarea placeholder="Alamat" name="alamat" width="335px" required></textarea></span>
+			</div>
 				 
 			</div>
 			
@@ -40,7 +43,9 @@
 						<input type="text" placeholder="Nama anak" name="childName[]" style="width:100px" required>
 					</span>
 					<span  class="style-5" style="border:0px solid #000;">
+
 						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" data-beatpicker="true" data-beatpicker-module="icon,clear"  style="width:120px" required><img src="{$basedomain}assets/img/kalender.png" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
+
 					</span>
 					</div>
 
@@ -49,7 +54,7 @@
 						<input type="text" placeholder="Nama anak" name="childName[]" size="12" id="childName1">
 					</span>
 					<span  class="style-5" style="border:0px solid #000;">
-						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" data-beatpicker="true" data-beatpicker-module="icon,clear"  size="12" ><img src="{$basedomain}assets/img/kalender.png" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
+						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" data-beatpicker="true" data-beatpicker-module="icon,clear"  size="12" class="childDate2"><img src="{$basedomain}assets/img/kalender.png" class="date2" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
 					</span>
 					</div>
 
@@ -58,7 +63,7 @@
 						<input type="text" placeholder="Nama anak" name="childName[]" size="12" id="childName2">
 					</span>
 					<span  class="style-5" style="border:0px solid #000;">
-						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" data-beatpicker="true" data-beatpicker-module="icon,clear" size="12" ><img src="{$basedomain}assets/img/kalender.png" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
+						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" data-beatpicker="true" data-beatpicker-module="icon,clear" size="12" class="childDate3"><img src="{$basedomain}assets/img/kalender.png" class="date3" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
 					</span>
 					</div>
 
@@ -82,6 +87,21 @@
 <script type="text/javascript">
 
 	{literal}
+
+		$(document).on('click', '.date1', function(){
+
+			$('.childDate1').trigger('click');
+		})
+
+		$(document).on('click', '.date2', function(){
+
+			$('.childDate2').trigger('click');
+		})
+
+		$(document).on('click', '.date3', function(){
+
+			$('.childDate3').trigger('click');
+		})
 
 		$(document).on('change', '#jmlhAnak', function(){
 
