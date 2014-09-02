@@ -104,7 +104,7 @@ body{
 	margin-top:-20px;
 	margin-bottom:-70px;
 	width:1120px;
-	height:433px;
+	height:446px;
 	background-image:url(../img/bg_home2.PNG);
 	background-position:center;
 	background-repeat:no-repeat;
@@ -183,7 +183,7 @@ body{
 	margin-top: 10px;
 	background-color:#EEECED;
 	width:627px;
-	height:392px;
+	height:405px;
 	overflow:hidden;
 	border:15px solid #fdf9f9;
 	border-radius:15px;
@@ -897,7 +897,7 @@ input[type=checkbox].css-checkbox {
 
 #titlefooterleft{
 	font-family:Nunito;
-	font-weight:bold;
+	font-weight:normal;
 	color:#fff;
 	margin:0 auto;
 	margin-left:30px;
