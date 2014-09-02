@@ -94,6 +94,7 @@ class login extends Controller {
 
         }
         
+        if(!$this->user) {redirect($basedomain."home/connect");exit;}
         return $this->loadView('login');
     }
 	
