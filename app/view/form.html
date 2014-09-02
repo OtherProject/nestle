@@ -6,15 +6,17 @@
 			<form method="POST" action="{$basedomain}home/inputForm">
 			<div class="formLeft">
 				 <div >
-					<span  class="input-list style-5 clearfix"><input type="text" placeholder="Nama Lengkap" name="nama" size="39" value="{$user.name}" required></span>
+					<span  class="input-list style-5 clearfix"><input type="text" placeholder="Nama Lengkap" name="nama" value="{$user.name}" style="width:280px" required></span>
 				</div>
 				<div>
 					<span  class="style-5">
-						<input type="email" placeholder="Email" name="email" size="39"  value="{$user.email}" {if $user.email}readonly{/if} required>
+						<input type="email" placeholder="Email" name="email" value="{$user.email}" {if $user.email}readonly{/if} style="width:280px" required>
 					</span>
 				</div>
 				<div style="border:1px solid #EEECED">
-					<span  class="style-5"><input type="text" placeholder="No. Telp" name="telp" size="12" required></span>
+
+					<span  class="style-5"><input type="text" placeholder="No. Telp" name="telp" style="width:100px" required></span>
+
 					<span  class="style-5">
 					<!--<input type="text" placeholder="No. Telp" size="20">-->
 						<div class="styled-select">
@@ -28,8 +30,9 @@
 					</span>
 				</div>
 				<div>
-					<span  class="input-list style-5 clearfix"><textarea placeholder="Alamat" name="alamat" width="335" required></textarea></span>
-					</div>
+
+					<span  class="input-list style-5 clearfix"><textarea placeholder="Alamat" name="alamat" width="335px" required></textarea></span>
+			</div>
 				 
 			</div>
 			
@@ -37,10 +40,12 @@
 				<div class="formRtop">
 					<div>
 					<span  class="style-5">
-						<input type="text" placeholder="Nama anak" name="childName[]" size="12" required>
+						<input type="text" placeholder="Nama anak" name="childName[]" style="width:100px" required>
 					</span>
 					<span  class="style-5" style="border:0px solid #000;">
-						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" data-beatpicker="true" data-beatpicker-module="icon,clear"  size="12" required class="childDate1"><img src="{$basedomain}assets/img/kalender.png" class="date1" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
+
+						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" data-beatpicker="true" data-beatpicker-module="icon,clear"  style="width:120px" required><img src="{$basedomain}assets/img/kalender.png" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
+
 					</span>
 					</div>
 
