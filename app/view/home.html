@@ -24,8 +24,12 @@
 										<!--<span class="titleSlide">Si Kecil Aktif dan Ceria? Raih Jalan-jalan ke Singapura!</span>-->
 										<img src="{$basedomain}assets/file/title.png" />
 										<p class="isiSlide">Nestl&eacute; LACTOGEN 3 ActivGro mengajak Ibu dan Ayah untuk berbagi momen keceriaan Si Kecil yang aktif di Go with ActivGro dan menangkan hadiah menarik lainnya.<br/><br/>
-										<a href="{$basedomain}home/connect" class="btnpinkslide" style="font-size:12">Tunjukkan keceriannya sekarang juga!</a>
-</p>
+										{if $user}
+											<a href="{$basedomain}uploadfoto/pilihframe" class="btnpinkslide" style="font-size:12">Tunjukkan keceriannya sekarang juga!</a>
+										{else}
+											<a href="{$basedomain}home/connect" class="btnpinkslide" style="font-size:12">Tunjukkan keceriannya sekarang juga!</a>
+										{/if}
+</p>	
 										</div>
 								</div>
 							</div>

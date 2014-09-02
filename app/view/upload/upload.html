@@ -17,8 +17,8 @@
 			</div>
 			{else}
 
-			<a href="javascript:void(0)" class="btnpinkslide">Select File</a>&nbsp;&nbsp;&nbsp;{if $fbalbum}<span class="fontNunito">or</span>&nbsp;&nbsp;&nbsp;
-			<a href="{$accessUrlFb}" class="btnblueslide">Facebook Album</a>{/if}
+			<a href="javascript:void(0)" class="btnpinkslide">Select File</a>&nbsp;&nbsp;&nbsp;{if $fbalbum}<span class="fontNunito">{*}or</span>&nbsp;&nbsp;&nbsp;
+			<a href="{$accessUrlFb}" class="btnblueslide">Facebook Album</a>{/*}{/if}
 			{/if}
 		 
 		</div>
@@ -30,7 +30,6 @@
 		<input type='hidden' name='tmpimage' id='tmpimage' />
 		<input type='submit' name='submit' id='submitfoto' style='display:none'>
 		
-		
 								
 	</div>
 </div>
@@ -38,7 +37,6 @@
 
 <script type="text/javascript">
 {literal}
-
 
 	$(document).on('click','.btnpinkslide', function(){
 
@@ -102,7 +100,20 @@
 						}, 1000);
 						
 						 							
-					}
+					} else {
+							$.modal("<div><center><h3>"+data.message+"</h3></center></div>");
+							$("#simplemodal-container").css({width : '400px', height: '100px',
+																margin: '0 auto',
+																left: '0',
+																bottom: '0',
+																right: '0',
+																'font-family': 'Nunito'});
+							$(".modalCloseImg").remove();
+
+							setTimeout(function() {
+							    window.location.href = basedomain+'uploadfoto';
+							}, 2000);
+						}
 						 
 			}
 			};					

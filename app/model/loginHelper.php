@@ -144,11 +144,13 @@ class loginHelper extends Database {
         return false;
     }
 
-   function debuging()
+   function debuging($email)
    {
-        $sql1 = "DELETE FROM social_member WHERE email ='o.pulu@yahoo.com'";
+        $sql1 = "DELETE FROM social_member WHERE email ='{$email}' LIMIT 1";
         // pr($sql1);
         $res1 = $this->query($sql1);
+        if ($res1) return true;
+        return false;
    }
 }
 ?>

@@ -338,7 +338,7 @@ class uploadfoto extends Controller {
 
             $params = array();
             $params['media[]'] = "@{$file_path}";
-            $params['status'] = 'share image';
+            $params['status'] = 'Senangnya melihat foto Si Kecil ceria! Yuk tunjukkan foto buah hati Anda di bit.ly/GowithActivGro #GowithActivGro';
             
             // pr($params);
             
@@ -452,7 +452,7 @@ class uploadfoto extends Controller {
 
       // pr($file);
       
-      if ($file){
+      if ($file['status'] > 0){
         $saveUserFoto = $this->contentHelper->saveUserFoto($file);
 
         if ($saveUserFoto){
@@ -461,7 +461,7 @@ class uploadfoto extends Controller {
           print json_encode(array('status'=>false));
         }
       }else{
-        print json_encode(array('status'=>false));
+        print json_encode(array('status'=>false,'message'=>'File tidak didukung'));
       }
     }else{
       print json_encode(array('status'=>false));

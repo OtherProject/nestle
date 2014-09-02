@@ -148,7 +148,8 @@ class home extends Controller {
   function formRegister()
   {
     global $basedomain;
-    
+   
+   if(!$this->user) {redirect($basedomain."home/connect");exit;} 
     $getUserInfo = $this->loginHelper->getUserInfo();
     if ($getUserInfo['verified']>0){
       redirect($basedomain.'uploadfoto/pilihframe');
@@ -215,6 +216,20 @@ class home extends Controller {
   function privacy(){
      return $this->loadView('privacy');
 
+  }
+
+  function debuging()
+  {
+    $email = _g('email');
+    if ($email==""){print(json_encode(false));exit;}
+    $debug = $this->loginHelper->debuging($email);
+    if($debug){
+      print(json_encode(true));
+    }else{
+      print(json_encode(false));
+    }
+
+    exit;
   }
 }
 
