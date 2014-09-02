@@ -35,6 +35,7 @@ class Controller extends Application{
 		$this->view->assign('basedomain',$basedomain);
 		$this->view->assign('app_domain',$app_domain);
 		$this->view->assign('page',$DATA[$this->configkey]);
+		$this->view->assign('browsertype',$this->checkBrowser());
 		
 		if ($this->configkey=='default')$this->view->assign('user',$this->isUserOnline());
 		if ($this->configkey=='admin')$this->view->assign('admin',$this->isAdminOnline());
@@ -42,6 +43,8 @@ class Controller extends Application{
 		
 		// $this->inject();
 		// pr($this->isUserOnline());
+
+		// detection browser
 		
 		if (isset($_SESSION['fb-logout'])){
 			$this->view->assign('logoutUrl',@$_SESSION['fb-logout']);
@@ -311,6 +314,19 @@ class Controller extends Application{
 
 	}
 	
+	function checkBrowser()
+	{
+
+		$browser = $_SERVER['HTTP_USER_AGENT'];
+		$chrome = '/Chrome/';
+		$firefox = '/Firefox/';
+		$ie = '/MSIE/';
+		if (preg_match($chrome, $browser)) $result = 2;
+		if (preg_match($firefox, $browser)) $result = 1;
+		if (preg_match($ie, $browser)) $result = 3;
+
+		return $result;
+	}
 }
 
 ?>
