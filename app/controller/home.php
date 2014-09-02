@@ -20,7 +20,9 @@ class home extends Controller {
 		$this->view->assign('basedomain',$basedomain);
     $userdata = $this->isUserOnline();
     $this->user = $userdata['default'];
-    
+    $browsertype = $this->checkBrowser();
+    $this->view->assign('browsertype',$browsertype);
+
     }
 	
 	function loadmodule()
@@ -214,6 +216,20 @@ class home extends Controller {
   function privacy(){
      return $this->loadView('privacy');
 
+  }
+
+  function debuging()
+  {
+    $email = _g('email');
+    if ($email==""){print(json_encode(false));exit;}
+    $debug = $this->loginHelper->debuging($email);
+    if($debug){
+      print(json_encode(true));
+    }else{
+      print(json_encode(false));
+    }
+
+    exit;
   }
 }
 

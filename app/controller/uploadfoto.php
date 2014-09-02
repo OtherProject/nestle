@@ -338,7 +338,7 @@ class uploadfoto extends Controller {
 
             $params = array();
             $params['media[]'] = "@{$file_path}";
-            $params['status'] = 'share image';
+            $params['status'] = 'Senangnya melihat foto Si Kecil ceria! Yuk tunjukkan foto buah hati Anda di bit.ly/GowithActivGro #GowithActivGro';
             
             // pr($params);
             
