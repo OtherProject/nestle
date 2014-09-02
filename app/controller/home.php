@@ -20,7 +20,9 @@ class home extends Controller {
 		$this->view->assign('basedomain',$basedomain);
     $userdata = $this->isUserOnline();
     $this->user = $userdata['default'];
-    
+    $browsertype = $this->checkBrowser();
+    $this->view->assign('browsertype',$browsertype);
+
     }
 	
 	function loadmodule()
