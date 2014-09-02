@@ -452,7 +452,7 @@ class uploadfoto extends Controller {
 
       // pr($file);
       
-      if ($file){
+      if ($file['status'] > 0){
         $saveUserFoto = $this->contentHelper->saveUserFoto($file);
 
         if ($saveUserFoto){
@@ -461,7 +461,7 @@ class uploadfoto extends Controller {
           print json_encode(array('status'=>false));
         }
       }else{
-        print json_encode(array('status'=>false));
+        print json_encode(array('status'=>false,'message'=>'File tidak didukung'));
       }
     }else{
       print json_encode(array('status'=>false));
