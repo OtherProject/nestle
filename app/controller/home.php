@@ -146,7 +146,8 @@ class home extends Controller {
   function formRegister()
   {
     global $basedomain;
-    
+   
+   if(!$this->user) {redirect($basedomain."home/connect");exit;} 
     $getUserInfo = $this->loginHelper->getUserInfo();
     if ($getUserInfo['verified']>0){
       redirect($basedomain.'uploadfoto/pilihframe');
