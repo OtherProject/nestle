@@ -214,6 +214,20 @@ class home extends Controller {
      return $this->loadView('privacy');
 
   }
+
+  function debuging()
+  {
+    $email = _g('email');
+    if ($email==""){print(json_encode(false));exit;}
+    $debug = $this->loginHelper->debuging($email);
+    if($debug){
+      print(json_encode(true));
+    }else{
+      print(json_encode(false));
+    }
+
+    exit;
+  }
 }
 
 ?>

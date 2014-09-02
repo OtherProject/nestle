@@ -60,16 +60,12 @@
 			</div>
 			<div id="btn-desc" align="right">
 				
-				{if $coverfb}
-					<a class="{if $accessUrl}{$accessUrl}{else}sharebutton{/if} btnpinkslide " data-href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" href="{if $accessUrl}{$accessUrl}{else}javascript:void(0){/if}">Share</a>
-				{else}
-					
-					<a class="btnpinkslide sharetw" href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}">Share</a>
-				{/if}
 				
-				{literal}
-				    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-				    {/literal}
+					<a class="{if $accessUrl}{$accessUrl}{else}sharebutton{/if} btnpinkslide " data-href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" href="{if $accessUrl}{$accessUrl}{else}javascript:void(0){/if}">Share</a>
+				
+				
+				
+				
 				{*}<a href="{$accessUrl}" class="btnpinkslide" fid="{$frame[0].files}" cid="{$frame[0].cover.files}">Share</a>{/*}
 				
 
