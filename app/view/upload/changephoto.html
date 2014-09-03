@@ -39,14 +39,23 @@
 			
 			</div>
 			<div id="btn-desc" align="right">
-				<div style="position:relative;height:45px;z-index:99"><a href="javascript:void(0)" class="btnpinkslide" idfile="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" idcover="{$basedomain}public_assets/cover/{$myfoto.cover}">Download</a></div>
+
+				<div style="position:relative;height:45px;z-index:99"><a href="javascript:void(0)" class="btnpinkslide" idfile="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" idcover="{$basedomain}public_assets/cover/{$myfoto.cover}" id="downloadAll">Download</a></div>
 				{if $coverfb}
 					<div>
+					<a href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" class="download_file" download="{$myfoto.userName}-fotoprofil-facebook.jpg" style="display:none"><img src="{$basedomain}public_assets/imageFramed/{$myfoto.profil}"></a>
+
+					<a href="{$basedomain}public_assets/cover/{$myfoto.cover}" class="download_file" download="{$myfoto.userName}-coverfoto-facebook.jpg" style="display:none"><img src="{$basedomain}public_assets/cover/{$myfoto.cover}"></a>
+
 					<a href="javascript:void(0)" id="fbButton" class="btn-fP btnpinkslide btn-next" idcover="" idfile="http://facebook.com" style="display:none">Facebook Profile</a>
 					</div>
 					<p>&nbsp;</p>
 				{else}
 					<div>
+					<a href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" class="download_file" download="{$myfoto.userName}-fotoprofil-twitter.jpg" style="display:none"><img src="{$basedomain}public_assets/imageFramed/{$myfoto.profil}"></a>
+
+					<a href="{$basedomain}public_assets/cover/{$myfoto.cover}" class="download_file" download="{$myfoto.userName}-coverfoto-twitter.jpg" style="display:none"><img src="{$basedomain}public_assets/cover/{$myfoto.cover}"></a>
+
 					<a href="javascript:void(0)" id="twButton" class="btn-tP btnpinkslide btn-next" idcover="" idfile="http://twitter.com" style="display:none">Twitter Profile</a>
 					</div>
 				{/if}
@@ -60,6 +69,17 @@
 <script type="text/javascript">
 {literal}
 	
+	$(document).ready(function() {
+	  $('#downloadAll').click(function() {
+	      $('a.download_file > img').each(function() {
+	        $(this).trigger( "click" );
+	        $(".btn-next").css("display","");
+	      });
+	 
+	    return false; //cancel navigation
+	  });
+	});
+
 	$(document).on('click','.btnpinkslide', function(){
 
 		// window.location.href=basedomain+'home/thanks';
