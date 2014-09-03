@@ -662,6 +662,7 @@ class uploadfoto extends Controller {
 
     }
 
+    exit;
   }
 }
 
