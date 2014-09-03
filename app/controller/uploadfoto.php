@@ -414,13 +414,15 @@ class uploadfoto extends Controller {
 
 		global $CONFIG, $basedomain;
 
-		// pr($_SESSION);
+		// pr($this->user);
 		if (!$this->user){redirect($basedomain); exit;}
 
 		$getMyPhoto = $this->contentHelper->getCreateImage();
-    if ($getMyPhoto){
+    if ($getMyPhoto){ 
       // pr($getMyPhoto);
       $file_path = $getMyPhoto['profil'];
+
+      $getMyPhoto['userName'] = $this->user['name'];
 
       $this->view->assign('myfoto',$getMyPhoto);
 

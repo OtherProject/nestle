@@ -852,7 +852,15 @@ input[type=checkbox].css-checkbox {
 		-2px 0px 0px #ffffff,
 		0px 2px 2px #000000;
 }
+.isiThanks{
+	font-family:Nunito;
+	font-size:15px;
+	color:#717172;
+	text-align: center;
+	padding-left: 50px;
+	padding-right: 50px;
 
+}
 .isiAbout{
 	font-family:Nunito;
 	font-size:12px;
