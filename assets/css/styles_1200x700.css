@@ -1072,9 +1072,20 @@ select:focus {
 ::-moz-placeholder {  /* Firefox 19+ */
    color: #BAB8B9;  
 }
-
 :-ms-input-placeholder {  
    color: #BAB8B9;  
+}
+input::-webkit-input-placeholder {
+	color: #BAB8B9;  
+}
+input::-moz-placeholder {
+	color: #BAB8B9;  
+}
+input:-moz-placeholder {   /* Older versions of Firefox */
+	color: #BAB8B9;  
+}
+input:-ms-input-placeholder { 
+	color: #BAB8B9;  
 }
 /* ============================================================
   STYLE 5

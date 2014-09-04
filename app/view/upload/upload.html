@@ -28,7 +28,7 @@
 		
 		</div>
 		<input type='hidden' name='tmpimage' id='tmpimage' />
-		<input type='submit' name='submit' id='submitfoto' style='display:none'>
+		<input type='submit' name='simpan' id='submitfoto' style='display:none'>
 		
 								
 	</div>
@@ -77,10 +77,12 @@
 
 	
 		
-	$(document).on('change','#fotoupload', function(){
+	$(document).on('change','#fotoupload', function(e){
 		
 		readURLpose(this);
 		
+		e.preventDefault();
+
 		var uploadoptions = {
 			dataType:  'json', 	
 			beforeSubmit: function(data) { 
@@ -118,7 +120,7 @@
 			}
 			};					
 
-		$("#uploadImagetolocal").ajaxForm(uploadoptions);
+		$("#uploadImagetolocal").ajaxForm(uploadoptions).submit();
 		setTimeout(function() {
 
 			var getAgree = parseInt($('#checkboxG2').attr('akses'));

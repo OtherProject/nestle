@@ -113,8 +113,19 @@
 <script type="text/javascript">
 
 
-	
-var dataShare = "{$basedomain}article/detail/?id={$article[0].id}";
+function trim_words(theString, numWords) {
+    expString = theString.split(/\s+/,numWords);
+    theNewString=expString.join(" ");
+    return theNewString;
+}
+
+
+
+var title = "{$article[0].title}";
+title = title.split(' ').join('+');
+var content = "{substr(strip_tags($article[0].content),0,160)}";	
+	content = trim_words(content,20)+"...";
+var dataShare = "{$basedomain}shareArtikel.php/?img={$article[0].image}&title="+title+"&content="+content;
 // var dataShare = "http://qinc.co.id/activegro/assets/file/slide-1-img.png";
 
 var fbID = "{$appId}";

@@ -168,7 +168,6 @@ class article extends Controller {
     exit;
   }
 	
-	
 }
 
 ?>

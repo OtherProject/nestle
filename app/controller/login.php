@@ -204,7 +204,7 @@ class login extends Controller {
         } else {
           /* Save HTTP status for error dialog on connnect page.*/
           // header('Location: ./clearsessions.php');
-          redirect($basedomain.'login/index');
+          redirect($basedomain);
         }
     }
 
