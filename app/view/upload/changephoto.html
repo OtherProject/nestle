@@ -40,21 +40,21 @@
 			</div>
 			<div id="btn-desc" align="right">
 
-				<div style="position:relative;height:45px;z-index:99"><a href="javascript:void(0)" class="btnpinkslide" idfile="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" idcover="{$basedomain}public_assets/cover/{$myfoto.cover}" id="downloadAll">Download</a></div>
+				<div style="position:relative;height:45px;z-index:99"><a href="javascript:void(0)" class="btnpinkslide" id="downloadAll">Download</a></div>
 				{if $coverfb}
 					<div>
-					<a href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" class="download_file" download="{$myfoto.userName}-fotoprofil-facebook.jpg" style="display:none"><img src="{$basedomain}public_assets/imageFramed/{$myfoto.profil}"></a>
+					<a href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" class="download_file" download="{$myfoto.userName}-fotoprofil-facebook.jpg" id="profdata" style="display:none"><img src="{$basedomain}public_assets/imageFramed/{$myfoto.profil}"></a>
 
-					<a href="{$basedomain}public_assets/cover/{$myfoto.cover}" class="download_file" download="{$myfoto.userName}-coverfoto-facebook.jpg" style="display:none"><img src="{$basedomain}public_assets/cover/{$myfoto.cover}"></a>
+					<a href="{$basedomain}public_assets/cover/{$myfoto.cover}" class="download_file" download="{$myfoto.userName}-coverfoto-facebook.jpg" id="covdata" style="display:none"><img src="{$basedomain}public_assets/cover/{$myfoto.cover}"></a>
 
 					<a href="javascript:void(0)" id="fbButton" class="btn-fP btnpinkslide btn-next" idcover="" idfile="http://facebook.com" style="display:none">Facebook Profile</a>
 					</div>
 					<p>&nbsp;</p>
 				{else}
 					<div>
-					<a href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" class="download_file" download="{$myfoto.userName}-fotoprofil-twitter.jpg" style="display:none"><img src="{$basedomain}public_assets/imageFramed/{$myfoto.profil}"></a>
+					<a href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" class="download_file" download="{$myfoto.userName}-fotoprofil-twitter.jpg" id="profdata" style="display:none"><img src="{$basedomain}public_assets/imageFramed/{$myfoto.profil}"></a>
 
-					<a href="{$basedomain}public_assets/cover/{$myfoto.cover}" class="download_file" download="{$myfoto.userName}-coverfoto-twitter.jpg" style="display:none"><img src="{$basedomain}public_assets/cover/{$myfoto.cover}"></a>
+					<a href="{$basedomain}public_assets/cover/{$myfoto.cover}" class="download_file" download="{$myfoto.userName}-coverfoto-twitter.jpg" id="covdata" style="display:none"><img src="{$basedomain}public_assets/cover/{$myfoto.cover}"></a>
 
 					<a href="javascript:void(0)" id="twButton" class="btn-tP btnpinkslide btn-next" idcover="" idfile="http://twitter.com" style="display:none">Twitter Profile</a>
 					</div>
@@ -71,16 +71,29 @@
 	
 	$(document).ready(function() {
 	  $('#downloadAll').click(function() {
-	      $('a.download_file > img').each(function() {
-	        $(this).trigger( "click" );
-	        $(".btn-next").css("display","");
-	      });
-	 
-	    return false; //cancel navigation
+	  	  if (!window.XDomainRequest) {
+		      $('a.download_file > img').each(function() {
+		        $(this).trigger( "click" );
+		        $(".btn-next").css("display","");
+		      });
+		 
+		    return false; //cancel navigation
+		  } else {
+		  	var link = $("#profdata").attr('href');
+			var cover = $("#covdata").attr('href');
+			if(link!='') window.open(link,'_blank');
+			setTimeout(function(){
+				if(cover!='') window.open(cover,'_blank');
+			}, 1000);
+			
+			
+			
+			$(".btn-next").css("display","");
+		  }
 	  });
 	});
 
-	$(document).on('click','.btnpinkslide', function(){
+	$(document).on('click','.btnpinkslides', function(){
 
 		// window.location.href=basedomain+'home/thanks';
 		
