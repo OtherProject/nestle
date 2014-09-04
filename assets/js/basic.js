@@ -20,16 +20,19 @@ jQuery(function ($) {
 	});
 	$('#basic-modal .basic2').click(function (e) {
 		$('#basic-modal-content.term').modal();
+		_gaq.push(['_trackPageview', '/vp/SyaratKetentuan']);
 
 		return false;
 	});
 	$('#basic-modal .basic3').click(function (e) {
 		$('#basic-modal-content.privacy').modal();
+		_gaq.push(['_trackPageview', '/vp/KebijakanPrivacy']);
 
 		return false;
 	});
 	$('#basic-modal .global-popup').click(function (e) {
 		$('#basic-modal-content.global').modal();
+		_gaq.push(['_trackPageview', '/vp/Tentang']);
 
 		return false;
 	});
