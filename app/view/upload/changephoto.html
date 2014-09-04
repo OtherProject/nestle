@@ -47,7 +47,7 @@
 
 					<a href="{$basedomain}public_assets/cover/{$myfoto.cover}" class="download_file" download="{$myfoto.userName}-coverfoto-facebook.jpg" id="covdata" style="display:none"><img src="{$basedomain}public_assets/cover/{$myfoto.cover}"></a>
 
-					<a href="javascript:void(0)" id="fbButton" class="btn-fP btnpinkslide btn-next" idcover="" idfile="http://facebook.com" style="display:none">Facebook Profile</a>
+					<a href="javascript:void(0)" id="sosmedButton" class="btn-fP btnpinkslide btn-next" idcover="" id="sosmed" idfile="http://facebook.com" style="display:none">Facebook Profile</a>
 					</div>
 					<p>&nbsp;</p>
 				{else}
@@ -56,7 +56,7 @@
 
 					<a href="{$basedomain}public_assets/cover/{$myfoto.cover}" class="download_file" download="{$myfoto.userName}-coverfoto-twitter.jpg" id="covdata" style="display:none"><img src="{$basedomain}public_assets/cover/{$myfoto.cover}"></a>
 
-					<a href="javascript:void(0)" id="twButton" class="btn-tP btnpinkslide btn-next" idcover="" idfile="http://twitter.com" style="display:none">Twitter Profile</a>
+					<a href="{$basedomain}home/thanks" id="sosmedButton" class="btn-tP btnpinkslide btn-next" idcover="" idfile="http://twitter.com" style="display:none">Twitter Profile</a>
 					</div>
 				{/if}
 			</div>
@@ -93,18 +93,16 @@
 	  });
 	});
 
-	$(document).on('click','.btnpinkslides', function(){
+	$(document).on('click','#sosmedButton', function(){
 
 		// window.location.href=basedomain+'home/thanks';
 		
 		// setTimeout(function(){
 			
 			var link = $(this).attr('idfile');
-			var cover = $(this).attr('idcover');
 			if(link!='') window.open(link,'_blank');
-			if(cover!='') window.open(cover,'_blank');
 			
-			$(".btn-next").css("display","");
+			
 		// }, 1000);
 
 		
