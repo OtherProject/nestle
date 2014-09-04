@@ -1,11 +1,20 @@
+<style>
+	label input[type="file"]{
+		position: fixed;
+		top:-1000px;
 
+	}
+</style>
 <form method="post" action="{$basedomain}uploadfoto/ajaxUpload" id="uploadImagetolocal">
 
 <div id="wrapperhome">
 	<div id="slides" align="center">
-		<input type="file" name="fotoupload" style="display:none" id="fotoupload">
+		
 		<div id="imgupload"><img src="{$basedomain}assets/file/slide-4.jpg" width="100%"/></div>
-		 
+		<label class="btnpinkslide">
+			 <input type="file" name="fotoupload" style="display:none" id="fotoupload">
+			 Select File
+		</label>
 		 <div id="divbtnslide">
 		 	{if $albumfb}
 		 	<div>
@@ -16,8 +25,8 @@
 			
 			</div>
 			{else}
-
-			<a href="javascript:void(0)" class="btnpinkslide">Select File</a>&nbsp;&nbsp;&nbsp;{if $fbalbum}<span class="fontNunito">{*}or</span>&nbsp;&nbsp;&nbsp;
+			{*}
+			<a href="javascript:void(0)" class="btnpinkslide">Select File</a>&nbsp;&nbsp;&nbsp;{/*}{if $fbalbum}<span class="fontNunito">{*}or</span>&nbsp;&nbsp;&nbsp;
 			<a href="{$accessUrlFb}" class="btnblueslide">Facebook Album</a>{/*}{/if}
 			{/if}
 		 

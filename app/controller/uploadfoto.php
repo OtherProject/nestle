@@ -191,7 +191,18 @@ class uploadfoto extends Controller {
       $this->view->assign('coverfb',0);
     }
 	
-	$tmpimage = $_SESSION['tmpimage'];
+  $browser = $this->checkBrowser();
+
+  if ($browser > 2){
+    $tmpimage = $basedomain.'public_assets/'.$getMyPhoto['files'];
+
+  }else{
+    $tmpimage = $_SESSION['tmpimage'];
+  
+  }
+	
+  
+  $this->view->assign('browser',$browser);
 	$this->view->assign('tmpimage',$tmpimage);
     return $this->loadView('upload/uploadProfile');
   }
@@ -472,9 +483,41 @@ class uploadfoto extends Controller {
     exit;
   }
 
-  function generateImage()
+  function ajaxUploadIE()
+  {
+  
+  global $basedomain;
+  
+  $_SESSION['tmpimage'] = $_POST['tmpimage'];
+    if (isset($_FILES['fotoupload'])){
+
+      $file = uploadFile('fotoupload',null,'image');
+
+      // pr($file);
+      
+      if ($file['status'] > 0){
+        $saveUserFoto = $this->contentHelper->saveUserFoto($file);
+
+        if ($saveUserFoto){
+          redirect($basedomain.'uploadfoto');
+        }else{
+          redirect($basedomain.'uploadfoto');
+        }
+      }else{
+        redirect($basedomain.'uploadfoto');
+      }
+    }else{
+      redirect($basedomain.'uploadfoto');
+    }
+
+    exit;
+  }
+
+  function generateImage($fileid, $frameName, $fileName, $ie=false)
   {
 
+    global $basedomain;
+    // pr($_POST);
     $fileid = _p('fileid'); 
     $frameName = _p('frameName'); 
     $fileName = _p('fileName'); 
@@ -487,7 +530,14 @@ class uploadfoto extends Controller {
         $saveUserFoto = $this->contentHelper->updateUserFoto($fileid, $fileName);
 
         if ($saveUserFoto){
-          print json_encode(array('status'=>true));
+
+          if ($ie){
+            redirect($basedomain.'uploadfoto/cropedProfile');
+            exit;
+          }else{
+            print json_encode(array('status'=>true));
+          }
+           
         }else{
           print json_encode(array('status'=>false));
         }
@@ -586,6 +636,7 @@ class uploadfoto extends Controller {
 
   function getCropImage()
   {
+    
 
     global $CONFIG, $basedomain;
 
@@ -615,7 +666,18 @@ class uploadfoto extends Controller {
       $_POST['fileid'] = $getFrame['id']; 
       $_POST['frameName'] = $framename; 
       $_POST['fileName'] = $cropped; 
-      $this->generateImage();
+
+      // pr($_POST);exit;
+      $ifIE = _p('iepost');
+      $iebrowser = false;
+      if ($ifIE){
+        $iebrowser = true;
+      }
+
+      $this->generateImage($getFrame['id'], $framename, $cropped, $iebrowser);
+
+
+      
       exit;
   }
 
