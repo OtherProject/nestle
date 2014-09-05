@@ -63,7 +63,7 @@
 				
 					<a onClick="ga('send', 'event', 'Button', 'Click', 'Share');" class="{if $accessUrl}{$accessUrl}{else}sharebutton{/if} btnpinkslide " data-href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" href="{if $accessUrl}{$accessUrl}{else}javascript:void(0){/if}">Share</a>
 				
-				
+					
 				
 				
 				{*}<a href="{$accessUrl}" class="btnpinkslide" fid="{$frame[0].files}" cid="{$frame[0].cover.files}">Share</a>{/*}
@@ -89,21 +89,39 @@ var dataShare = "{$basedomain}shareTemplate.php?ft={$myfoto.profil}";
 var fbID = "{$appId}";
 {literal}
 	
+	window.fbAsyncInit = function() {
+	    // init the FB JS SDK
+	    FB.init({
+	      appId      : fbID, // App ID from the App Dashboard
+	      status     : true, // check the login status upon init?
+	      cookie     : true, // set sessions cookies to allow your server to access the session?
+	      xfbml      : true ,
+	      version    : 'v2.0' // parse XFBML tags on this page?
+	    });
+
+    };
+    	
+    (function(d, s, id){
+
+	         var js, fjs = d.getElementsByTagName(s)[0];
+	         if (d.getElementById(id)) {return;}
+	         js = d.createElement(s); js.id = id;
+	         js.src = "//connect.facebook.net/en_US/sdk.js";
+	         fjs.parentNode.insertBefore(js, fjs);
+
+	         // console.log(fjs);
+       }
+    (document, 'script', 'facebook-jssdk'));
 
 	$(document).on('click','.sharebutton', function(){
 
-		window.fbAsyncInit = function() {
-	        FB.init({
-	          appId      : fbID,
-	          xfbml      : true,
-	          version    : 'v2.0'
-	        });
 
-	        FB.ui(
+		FB.ui(
 				 {
 				  method: 'share',
 				  href: dataShare
 				}, function(response){
+
 					console.log(response);
 					if (response && !response.error_code) {
 						console.log('success posting');
@@ -115,22 +133,7 @@ var fbID = "{$appId}";
 
 					
 				});
-
-	      };
-
-		(function(d, s, id){
-		         var js, fjs = d.getElementsByTagName(s)[0];
-		         if (d.getElementById(id)) {return;}
-		         js = d.createElement(s); js.id = id;
-		         js.src = "//connect.facebook.net/en_US/sdk.js";
-		         fjs.parentNode.insertBefore(js, fjs);
-
-		         console.log(fjs);
-	       }
-	    (document, 'script', 'facebook-jssdk'));
-
-
-
+	       
 	})
 
 
