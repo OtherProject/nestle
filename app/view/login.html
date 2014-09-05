@@ -63,10 +63,10 @@
 						
 						<div class="clear"></div>	
 						
-							 <a onClick="_gaq.push(['_trackEvent', 'Button', 'Click', 'FBConnect']);" class="btn btn-block btn-social btn-facebook" href="{$accessUrlFb}">
+							 <a onClick="ga('send', 'event', 'Button', 'Click', 'FBConnect');" class="btn btn-block btn-social btn-facebook" href="{$accessUrlFb}">
                                 <i class="fa fa-facebook"></i> Sign in with Facebook
                             </a>
-							<a onClick="_gaq.push(['_trackEvent', 'Button', 'Click', 'TwitterConnect']);" class="btn btn-block btn-social btn-twitter" href="{$accessUrlTwitter}">
+							<a onClick="ga('send', 'event', 'Button', 'Click', 'TwitterConnect');" class="btn btn-block btn-social btn-twitter" href="{$accessUrlTwitter}">
                                 <i class="fa fa-twitter"></i> Sign in with Twitter
                             </a>
 							 <a class="btn btn-block btn-social btn-google-plus">
