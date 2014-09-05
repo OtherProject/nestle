@@ -20,19 +20,23 @@ jQuery(function ($) {
 	});
 	$('#basic-modal .basic2').click(function (e) {
 		$('#basic-modal-content.term').modal();
-		_gaq.push(['_trackPageview', '/vp/SyaratKetentuan']);
+		/* _gaq.push(['_trackPageview', '/vp/SyaratKetentuan']); */
+		ga('send', 'pageview', '/vp/SyaratKetentuan');
+		
 
 		return false;
 	});
 	$('#basic-modal .basic3').click(function (e) {
 		$('#basic-modal-content.privacy').modal();
-		_gaq.push(['_trackPageview', '/vp/KebijakanPrivacy']);
+		/* _gaq.push(['_trackPageview', '/vp/KebijakanPrivacy']); */
+		ga('send', 'pageview', '/vp/KebijakanPrivacy');
 
 		return false;
 	});
 	$('#basic-modal .global-popup').click(function (e) {
 		$('#basic-modal-content.global').modal();
-		_gaq.push(['_trackPageview', '/vp/Tentang']);
+		/* _gaq.push(['_trackPageview', '/vp/Tentang']); */
+		ga('send', 'pageview', '/vp/Tentang');
 
 		return false;
 	});
