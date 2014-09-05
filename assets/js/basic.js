@@ -15,6 +15,7 @@ jQuery(function ($) {
 	// Load dialog on click
 	$('#basic-modal .basic').click(function (e) {
 		$('#basic-modal-content').modal();
+		ga('send', 'pageview', '/vp/Tentang');
 
 		return false;
 	});
@@ -36,7 +37,7 @@ jQuery(function ($) {
 	$('#basic-modal .global-popup').click(function (e) {
 		$('#basic-modal-content.global').modal();
 		/* _gaq.push(['_trackPageview', '/vp/Tentang']); */
-		ga('send', 'pageview', '/vp/Tentang');
+		
 
 		return false;
 	});
