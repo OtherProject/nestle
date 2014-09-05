@@ -18,6 +18,7 @@ $ROUTES = array(
                 'register',
                 'setting',
 		'article',
-                'uploadfoto'
+                'uploadfoto',
+                'getphoto'
                 );
 ?>
