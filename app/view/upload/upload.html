@@ -90,7 +90,7 @@
 		
 		readURLpose(this);
 		
-		e.preventDefault();
+		// e.preventDefault();
 
 		var uploadoptions = {
 			dataType:  'json', 	
@@ -129,7 +129,7 @@
 			}
 			};					
 
-		$("#uploadImagetolocal").ajaxForm(uploadoptions).submit();
+		
 		setTimeout(function() {
 
 			var getAgree = parseInt($('#checkboxG2').attr('akses'));
@@ -141,7 +141,8 @@
 
 				$('#divbtnslide').html('');
 				$('#divcheckslide').html('');
-				$("#submitfoto").trigger('click');
+				// $("#submitfoto").trigger('click');
+				$("#uploadImagetolocal").ajaxForm(uploadoptions).submit();
 			}
 		    
 		}, 500);
