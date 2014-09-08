@@ -70,6 +70,7 @@ if ($vPage){
 	
 	$validation['pid'] = @$vPage[0];
 	if ($validation['pid']=='admin') exit;
+	if ($validation['pid']=='mobile') exit;
 	$validation['act'] = @$vPage[1];
 	$validation['det'] = @$vPage['det'];
 	

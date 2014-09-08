@@ -81,7 +81,7 @@ if (isset($validation)) {
 		
 		if ($validation['pid'] == ''){
 			
-			$setPage = $CONFIG['admin']['default_view'];
+			$setPage = $CONFIG['mobile']['default_view'];
 			
 		}else{
 			$setPage = $validation['pid'];
@@ -92,7 +92,7 @@ if (isset($validation)) {
 		
 	}else{
 		
-		$setPage = $CONFIG['admin']['default_view'];
+		$setPage = $CONFIG['mobile']['default_view'];
 		$setFunction = 'index';
 		
 	}
@@ -112,15 +112,15 @@ if (isset($validation)) {
 	 * maka gunakan halaman standar index
 	 */
 	
-	$setPage = $CONFIG['admin']['default_view'];
+	$setPage = $CONFIG['mobile']['default_view'];
 	$setFunction = 'index';
 
 }
 
 // pr($validation);exit;
-$DATA['admin']['page'] = @$setPage ;
-$DATA['admin']['function'] = @$setFunction ;
-$DATA['admin']['uri'] = @$validation ;
+$DATA['mobile']['page'] = @$setPage ;
+$DATA['mobile']['function'] = @$setFunction ;
+$DATA['mobile']['uri'] = @$validation ;
 
 /* proses pemanggilan controller dimulai disini
  * controller akan memanggil file yang direquest oleh

@@ -17,15 +17,17 @@ class Application {
 	public function __construct(){
 		global $CONFIG, $DATA, $LOCALE;
 		
+
 		if (array_key_exists('admin', $CONFIG)){
 			$this->configkey = 'admin';
 			
 		}
-		if (array_key_exists('dashboard', $CONFIG)){
-			$this->configkey = 'dashboard';
+		if (array_key_exists('mobile', $CONFIG)){
+
+			$this->configkey = 'mobile';
 		}
 
-		// pr($DATA);exit;
+		
 		$this->php_ext = $CONFIG[$this->configkey]['php_ext'];
 		$this->html_ext = $CONFIG[$this->configkey]['html_ext'];
 		$this->page = $DATA[$this->configkey]['page'];
@@ -112,8 +114,8 @@ class Application {
 		if (array_key_exists('admin', $CONFIG)){
 			$this->configkey = 'admin';
 		}
-		if (array_key_exists('dashboard', $CONFIG)){
-			$this->configkey = 'dashboard';
+		if (array_key_exists('mobile', $CONFIG)){
+			$this->configkey = 'mobile';
 		}
 		$getFileView = null;
 		// $php_ext = $CONFIG[$this->configkey]['php_ext'];

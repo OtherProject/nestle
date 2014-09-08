@@ -39,7 +39,7 @@ class Controller extends Application{
 		
 		if ($this->configkey=='default')$this->view->assign('user',$this->isUserOnline());
 		if ($this->configkey=='admin')$this->view->assign('admin',$this->isAdminOnline());
-		if ($this->configkey=='dashboard')$this->view->assign('dashboard',$this->isAdminOnline());
+		if ($this->configkey=='mobile')$this->view->assign('mobile',$this->isUserOnline());
 		
 		// $this->inject();
 		// pr($this->isUserOnline());
@@ -65,13 +65,13 @@ class Controller extends Application{
 					}
 				}
 
-				if (array_key_exists('dashboard',$CONFIG)) {
+				// if (array_key_exists('mobile',$CONFIG)) {
 					
-					if (!$this->isAdminOnline()){
-						redirect($basedomain.$CONFIG[$this->configkey]['login']);
-						exit;
-					}
-				}
+				// 	if (!$this->isAdminOnline()){
+				// 		redirect($basedomain.$CONFIG[$this->configkey]['login']);
+				// 		exit;
+				// 	}
+				// }
 
 			}
 
@@ -118,9 +118,9 @@ class Controller extends Application{
 				}
 			}
 
-			if ($this->configkey == 'dashboard'){ echo '1';
+			if ($this->configkey == 'mobile'){ 
 				if ($DATA[$this->configkey]['page']=='login'){
-					if ($this->isAdminOnline()){
+					if ($this->isUserOnline()){
 					redirect($CONFIG[$this->configkey]['default_view']);
 					exit;
 					}
