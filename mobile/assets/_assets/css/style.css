@@ -10,6 +10,23 @@
 body{
 	background-color:#FFFFFF;
 }
+#menuPanel{
+	text-align:right;
+	background-color:#09a9ed;
+	color:#fff;
+}
+
+#menuPanel:hover{
+	text-align:right;
+	background-color:#028cc6;
+	color:#fff;
+}
+
+#menuPanel:active{
+	text-align:right;
+	background-color:#028cc6;
+	color:#fff;
+}
 .divarticle{
 	margin-bottom:15px;
 	background-color:#EEECED;
