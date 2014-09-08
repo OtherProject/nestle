@@ -9,13 +9,14 @@ define ('APPPATH', './');
 define ('CODEKIR', true);
 define ('LIBS', 'libs/');
 define ('LOGS', 'logs/');
+define ('CACHE', 'cache/');
 define ('TMP', 'tmp/');
 
 require_once (COREPATH.'loader.php');
 
 if (is_array($CONFIG)) {
 	
-	if ($CONFIG['admin']['app_underdevelopment'] == TRUE) under_development();
+	if ($CONFIG['mobile']['app_underdevelopment'] == TRUE) under_development();
 
 }
 

@@ -1,211 +1,165 @@
 <?php
-// defined ('MICRODATA') or exit ( 'Forbidden Access' );
+
+use Facebook\FacebookSession;
+use Facebook\FacebookRedirectLoginHelper;
+use Facebook\FacebookRequest;
+use Facebook\GraphUser;
+use Facebook\FacebookRequestException;
 
 class article extends Controller {
 	
 	var $models = FALSE;
+	var $view;
+
 	
-	public function __construct()
+	function __construct()
 	{
-		parent::__construct();
+		global $basedomain;
 		$this->loadmodule();
 		$this->view = $this->setSmarty();
-		$sessionAdmin = new Session;
-		$this->admin = $sessionAdmin->get_session();
-		// $this->validatePage();
-	}
-	public function loadmodule()
+		$this->view->assign('basedomain',$basedomain);
+    $userdata = $this->isUserOnline();
+    $this->user = $userdata['default'];
+    $browsertype = $this->checkBrowser();
+    $this->view->assign('browsertype',$browsertype);
+    }
+	
+	function loadmodule()
 	{
-		
-		$this->models = $this->loadModel('marticle');
+    $this->loginHelper = $this->loadModel('loginHelper');
+    $this->contentHelper = $this->loadModel('contentHelper');
 	}
 	
-	public function index(){
-       
+	function index(){
+
+		global $CONFIG, $basedomain;
+
 		
 
-	}
-	
-	public function addarticle(){
-		
-		$this->view->assign('active','active');
+  	return $this->loadView('article/index');
+  }
 
-		if(isset($_GET['id']))
-		{
-			$data = $this->models->get_article_id($_GET['id']);	
-			$this->view->assign('data',$data);
-		} 
+  function loginFbValid(){
+    global $CONFIG, $basedomain;
 
-		$this->view->assign('admin',$this->admin['admin']);
-		return $this->loadView('inputarticle');
-	}
-    
-	public function articleinp(){
-		global $CONFIG;
-		
-		if(isset($_POST['n_status'])){
-			if($_POST['n_status']=='on') $_POST['n_status']=1;
-		} else {
-			$_POST['n_status']=0;
-		}
-		if(isset($_POST['articletype'])){
-			if($_POST['articletype']=='on') {
-				if($_POST['articleid_old']!=0){
-					$_POST['articletype'] = $_POST['articleid_old'];
-				} else {
-					$_POST['articletype']=1; 
-				}
-			}
-		} else {
-			$_POST['articletype']=0;
-		}
- 		
-		if(isset($_POST)){
-                // validasi value yang masuk
-               $x = form_validation($_POST);
+    FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);
 
-			   try
-			   {
-			   		if(isset($x) && count($x) != 0)
-			   		{
-						//update or insert
-						$x['action'] = 'insert';
-						if($x['id'] != ''){
-							$x['action'] = 'update';
-						}
-						
-						//upload file
-						if(!empty($_FILES)){
-							if($_FILES['file_image']['name'] != ''){
-								if($x['action'] == 'update') deleteFile($x['image']);
-								$image = uploadFile('file_image',null,'image');
-								$x['image_url'] = $CONFIG['admin']['app_url'].$image['folder_name'].$image['full_name'];
-								$x['image'] = $image['full_name'];
-							}
-						}
-						
-						$data = $this->models->article_inp($x);
-			   		}
-				   	
-			   }catch (Exception $e){}
-			   
-            echo "<script>alert('Data berhasil di simpan');window.location.href='".$CONFIG['admin']['base_url']."home'</script>";
+      $helper = new FacebookRedirectLoginHelper($basedomain.'article/loginFbValid/');
+      // $session = false;
+
+        try{
+          $session = $helper->getSessionFromRedirect();
+          
+        }catch(FacebookRequestException $ex){
+
+        }catch(\Exception $ex) {
+
+        }
+
+
+        if ($session) {
+         
+          
+
+            $fbsession = new FacebookSession($session->getToken());
+            $params = $basedomain.'logout.php';
+
+            $logoutUrl = $helper->getLogoutUrl($fbsession,$params); 
+
+
+            $_SESSION['fb-logout'] = $logoutUrl;
+            // print_r($_SESSION);exit;
+            $me = (new FacebookRequest(
+                  $session, 'GET', '/me'
+                ))->execute()->getGraphObject();
+            
+            // pr($me);exit;    
+            $dataUser = array('id','email','first_name','gender','last_name','link','middle_name','name','quotes');
+            foreach ($dataUser as $value) {
+                $user[$value] = $me->getProperty($value);
             }
-	}
+            
+            // pr($user);
+            $setLoginUser = $this->loginHelper->loginSosmed(1,$user); 
+            // pr($setLoginUser);
+
+            $getUserInfo = $this->loginHelper->getUserInfo($setLoginUser['id']);
+            
+            $this->log('welcome','login success',$getUserInfo['id']);
+
+            if ($getUserInfo['verified']>0){
+              redirect($basedomain.'uploadfoto/pilihframe');
+            }else{
+              redirect($basedomain.'home/formRegister');
+            }
+
+            exit;
+          }
+          
+        
+  }
+
+	function detail(){
+
+		global $CONFIG, $basedomain;
+      // pr($CONFIG);
+     
+      /* Twitter login */
+
+      // if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
+        
+        // $this->view->assign('accessUrlTwitter',$basedomain.'login/twitterRedirect');
+
+      // }
+
+      // $id = _g('id');
+      
+		  // $getArticle = $this->contentHelper->getArticle($id);
+      // if ($getArticle){
+        // foreach ($getArticle as $key => $value) {
+          // $getArticle[$key]['changeDate'] = changeDate($value['posted_date']);
+          // $getArticle[$key]['content'] = html_entity_decode($value['content']);
+        // }
+      // }
+
+      // $getNextArticle = $this->contentHelper->getNextArticle($id);
+      // $getRandomArticle = $this->contentHelper->getRandomArticle($id);
+      // if ($getRandomArticle){
+      //   foreach ($getRandomArticle as $key => $value) {
+      //     $getRandomArticle[$key]['changeDate'] = changeDate($value['posted_date']);
+      //     $getRandomArticle[$key]['content'] = html_entity_decode($value['content']);
+      //   }
+      // }
+      // // pr($getNextArticle);
+      // $this->view->assign('article',$getArticle);
+      // $this->view->assign('prevNextArticle',$getNextArticle);
+      // $this->view->assign('getRandomArticle',$getRandomArticle);
+      // $this->view->assign('user',$this->user);
+      // $this->view->assign('appId',$CONFIG['fb']['appId']);
+      
+    	return $this->loadView('article/detail');
+    }
+
+  function ajax()
+  {
+
+    $page = intval(_p('page'));
+    $getArticle = $this->contentHelper->getArticle(false,$page);
+    if ($getArticle){
+      foreach ($getArticle as $key => $value) {
+        $getArticle[$key]['changeDate'] = changeDate($value['posted_date']);
+      }
+
+      print json_encode(array('status'=>true, 'res'=>$getArticle));
+    }else{
+
+      print json_encode(array('status'=>false));
+    }
+    
+
+    exit;
+  }
 	
-	public function articledel(){
-
-		global $CONFIG;
-		// pr($_POST);exit;
-		$data = $this->models->article_del($_POST['ids']);
-		
-		echo "<script>alert('Data has been moved to trash');window.location.href='".$CONFIG['admin']['base_url']."home'</script>";
-		
-	}
-	
-	public function trash(){
-       
-		$data = $this->models->get_article_trash();
-		if ($data){
-			foreach ($data as $key => $val){
-				$data[$key]['created_date'] = dateFormat($val['created_date'],'article');
-
-				$data[$key]['posted_date'] = dateFormat($val['posted_date'],'article');
-
-				if($val['n_status'] == '2') {
-					$data[$key]['n_status'] = 'Deleted';
-					$data[$key]['status_color'] = 'red';
-				} 
-			}
-		}
-
-		$this->view->assign('active','active');
-		$this->view->assign('data',$data);
-
-		return $this->loadView('viewtrash');
-
-	}
-	
-	
-	public function articlerest(){
-
-		global $CONFIG;
-		
-		$data = $this->models->article_restore($_POST['ids']);
-		
-		echo "<script>alert('Your data has been restore');window.location.href='".$CONFIG['admin']['base_url']."article/trash'</script>";
-		
-	}
-	
-	public function articledelp(){
-
-		global $CONFIG;
-		
-		$id = $_GET['id'];
-
-		$data = $this->models->article_delpermanent($id);
-		
-		echo "<script>alert('Data berhasil di hapus secara permanen');window.location.href='".$CONFIG['admin']['base_url']."article/trash'</script>";
-		
-	}
-
-	public function upload(){
-
-		return $this->loadView('uploadFrame');
-
-	}
-
-	public function uploadtwt(){
-
-		return $this->loadView('uploadFrameTwt');
-
-	}
-
-	public function uplFrame(){
-		global $CONFIG;
-
-		//upload file
-		if(!empty($_FILES)){
-			if($_FILES['file_frame']['name'] != ''){
-				$image = uploadFile('file_frame','frame','image');
-
-				$data[0]['title'] = $_POST['title'];
-				$data[0]['typealbum'] = $_POST['typealbum'];
-				$data[0]['gallerytype'] = 1;
-				$data[0]['content'] = $image['full_name'];
-				$data[0]['files'] = $image['full_name'];
-				$data[0]['created_date'] = date("Y-m-d H:i:s");
-				$data[0]['n_status'] = 1;
-
-			} else {
-				echo "<script>alert('You have to choose frame file');window.location.href='".$CONFIG['admin']['base_url']."article/upload'</script>";
-			}
-
-			if($_FILES['file_cover']['name'] != ''){
-				$image = uploadFile('file_cover','cover','image');
-
-				$data[1]['title'] = $_POST['title'];
-				$data[1]['typealbum'] = $_POST['typealbum'];
-				$data[1]['gallerytype'] = 2;
-				$data[1]['content'] = $image['full_name'];
-				$data[1]['files'] = $image['full_name'];
-				$data[1]['created_date'] = date("Y-m-d H:i:s");
-				$data[1]['n_status'] = 1;
-
-			} else {
-				echo "<script>alert('You have to choose cover file');window.location.href='".$CONFIG['admin']['base_url']."article/upload'</script>";
-			}
-
-				$data = $this->models->frame_inp($data);
-
-				echo "<script>alert('Files has been uploaded');window.location.href='".$CONFIG['admin']['base_url']."home/frame'</script>";
-		} else {
-
-			echo "<script>alert('No file has been selected');window.location.href='".$CONFIG['admin']['base_url']."article/upload'</script>";
-
-		}
-	}
-
 }
 
 ?>

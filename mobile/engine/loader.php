@@ -4,7 +4,7 @@
 
 require_once ('config/config.php');
 require_once ('config/routes.php');
-require_once (APP.'config/libs.conf.php');
+require_once ('config/libs.conf.php');
 require_once (APP.'config/locale.php');
 require_once (APP.COREPATH.'helper.php');
 require_once (APP.COREPATH.'common.php');
@@ -13,5 +13,6 @@ require_once (APP.COREPATH.'class_session.php');
 require_once (APP.LIBS . 'smarty/Smarty.class.php');
 require_once (APP.COREPATH.'application.php');
 require_once (APP.COREPATH.'controller.php');
-
+require_once (APP.LIBS.'twitteroauth/twitteroauth/twitteroauth.php');
+require_once (APP.LIBS.'facebook/autoload.php');
 ?>
