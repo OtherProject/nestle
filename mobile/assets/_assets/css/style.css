@@ -139,6 +139,7 @@ body{
 #deskripsi .brief{
 	font-family: Nunito;
 	font-weight:lighter;
+	text-align: justify;
 	font-size:13px;
 	color:#7F7F81;
 }
