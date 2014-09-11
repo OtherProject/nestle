@@ -213,6 +213,9 @@ class Application {
 		if (array_key_exists('admin', $CONFIG)){
 			$this->configkey = 'admin';
 		}
+		if (array_key_exists('mobile', $CONFIG)){
+			$this->configkey = 'mobile';
+		}
 		
 		$php_ext = $CONFIG[$this->configkey]['php_ext'];
 		if (is_file(APP_MODELS.$fileName.$php_ext)) {

@@ -1,72 +1,45 @@
 
     <div role="main" class="ui-content jqm-content jqm-fullwidth" style="border:0px solid #000;">
 		<div class="article"  align="center"><h1 class="titleArticle">Article</h1></div>
-		
+		{if $article}
 		<div class="article divarticle">
-			<img src="{$basedomain}assets/_assets/img/gambar.jpg"/ height="150px" width="100%">
+			<img src="{$app_domain}public_assets/{$article[0].image}" height="150px" width="100%">
 			<div id="deskripsi">
-				<span class="title">4 Tips si kecil tidur nyenyak hingga lelap dan lahap sampai selamanya</span><br/>
-				<span class="date"><span class="kalender">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>15-09-20114</span><br/>
-				<p class="brief">Zink atau seng mungkin kurang populer sebagai salah satu nutrisi untuk pertumbuhan Si Kecil. Padahal, tanpa zink, tumbuh kembangnya dapat terganggu lho, Bu. Karena nutrisi yang satu ini memiliki banyak sekali manfaat seperti yang berikut ini:
-
-				Tumbuh Sehat
-
-				Si Kecil yang berusia di bawah 1-3 tahun membutuhkan 10 mg per harinya. Sedihnya, masih banyak anak yang kekurangan zink. Akibatnya berat badannya berkurang, indra penglihatan dan kulitnya buruk, dan jika luka akan pulih lebih lama. Memberikan Si Kecil asupan yang mengandung zink seperti sereal, ayam dan susu yang difortifikasi dapat membantu menghindarinya dari masalah-masalah ini.
-
-
-				Sistem Imun Tubuh
-
-				Siapa sih yang mau Si Kecil sakit? Ternyata zink juga dapat membantu memperkuat sistem kebebalan tubuhnya, Bu. Jika Si Kecil kekurangan mineral yang satu ini, sensor kekebalan tubuh Si Kecil akan berkurang fungsinya sehingga menyebabkan dirinya kurang peka dalam membedakan penyakit yang datang. Asupan zink yang cukup dapat membantu mencegah diare, pneumonia, demam dan infeksi akibat luka.
-
-
-				Mengatasi Diare
-
-				Diare merupakan salah satu penyumbang angka terbesar kematian anak di bawah usia lima tahun. Kekurangan zink dapat menjadi salah satu faktor penyebab Si Kecil terkena diare. Selain itu, asupan zink yang cukup dapat berperan untuk mengurangi durasi diare Si Kecil. 
-
-
-				Ibu dapat memastikan asupan Si Kecil mengandung zink dengan memberikannya daging, kacang-kacangan, seafood, gandum serta susu yang difortifikasi. Yuk, makin cermat memilih asupan Si Kecil. Dengan begitu dia akan tumbuh dengan baik hingga nanti!
-
-
+				<span class="title">{$article[0].title}</span><br/>
+				<span class="date"><span class="kalender">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{$article[0].changeDate}</span><br/>
+				<p class="brief">
+					{$article[0].content}
 				</p><br/>
 			</div>
 
 		</div><!-- /article -->
+		{/if}
 		<div class="article">
-			<div id="wrapbtn" align="left" ><a href="#" class="btnpinkS"><span style="color:white">Prev</span></a></div>
+			<div id="wrapbtn" align="left" ><a href="{$basedomain}article/detail/?id={$prevNextArticle.prev}" class="btnpinkS" style="{if $prevNextArticle.prev=='#'}display:none{/if}"><span style="color:white">Prev</span></a></div>
 			<div id="wrapbtn" align="center" >
-				<a href="{$basedomain}home/connect/?login=true" class="btn-f">&nbsp;</a>&nbsp;&nbsp;&nbsp;
-				<a href="{$accessUrlTwitter}" class="btn-t">&nbsp;</a>
+				<a href="javascript:void(0)" class="btn-f" data-href="{$basedomain}article/detail/?id={$article[0].id}">&nbsp;</a>&nbsp;&nbsp;&nbsp;
+				<a href="{$basedomain}article/detail/?id={$article[0].id}" title="{$article[0].title}" class="btn-t">&nbsp;</a>
 			</div>
-			<div id="wrapbtn" align="right" ><a href="#" class="btnpinkS"><span style="color:white">next</span></a></div>
+			<div id="wrapbtn" align="right" ><a href="{$basedomain}article/detail/?id={$prevNextArticle.next}" class="btnpinkS" style="{if $prevNextArticle.next=='#'}display:none{/if}"><span style="color:white">next</span></a></div>
 		</div><br/><br/><br/><br/>
 		<div class="article" align="center">
 			<span class="pembatas">- - - - - -  &nbsp;&nbsp;Article Lainnya&nbsp;&nbsp;  - - - - - -</span>
 		</div>
 		<br/>
 		<br/>
+		{if $getRandomArticle}
+		{foreach $getRandomArticle as $val}
 		<div class="article divarticle">
-			<img src="{$basedomain}assets/_assets/img/gambar.jpg"/ height="150px" width="100%">
+			<img src="{$app_domain}public_assets/{$val.image}"/ height="150px" width="100%">
 			<div id="deskripsi">
-				<span class="title">4 Tips si kecil tidur nyenyak hingga lelap dan lahap sampai selamanya</span><br/>
-				<span class="date"><span class="kalender">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>15-09-20114</span><br/>
-				<p class="brief">Usia Balita merupakan periode emas tumbuh kembang Si Kecil. Untuk mendukung pertumbuhansi kecil secara</p><br/>
-				<span><a href="article/detail"  class="more">Selengkapnya</a></span>
+				<span class="title">{$val.title}</span><br/>
+				<span class="date"><span class="kalender">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{$val.changeDate}</span><br/>
+				<p class="brief">{$val.brief}</p><br/>
+				<span><a href="{$basedomain}article/detail/?id={$val.id}"  class="more">Selengkapnya</a></span>
 			</div>
 
 		</div><!-- /article -->
-		
-		<div class="article divarticle">
-			<img src="{$basedomain}assets/_assets/img/gambar.jpg"/ height="150px" width="100%">
-			<div id="deskripsi">
-				<span class="title">4 Tips si kecil tidur nyenyak hingga lelap dan lahap sampai selamanya</span><br/>
-				<span class="date"><span class="kalender">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>15-09-20114</span><br/>
-				<p class="brief">Usia Balita merupakan periode emas tumbuh kembang Si Kecil. Untuk mendukung pertumbuhansi kecil secara</p><br/>
-				<span><a href="article/detail"  class="more">Selengkapnya</a></span>
-			</div>
-
-		</div><!-- /article -->
-		
-		
-    	
+		{/foreach}
+		{/if}
 
 	</div><!-- /content -->

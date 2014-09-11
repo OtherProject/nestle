@@ -203,7 +203,7 @@ class contentHelper extends Database {
 
 	function getCreateImageObject ($user, $id)
 	{
-		return $this->fetch("SELECT * FROM {$this->prefix}_createimage WHERE userid = $user['id'] AND id = $id LIMIT 1");
+		return $this->fetch("SELECT * FROM {$this->prefix}_createimage WHERE userid = {$user['id']} AND id = $id LIMIT 1");
 	}
 
 	function setCreateImageStatus ($image, $status)
