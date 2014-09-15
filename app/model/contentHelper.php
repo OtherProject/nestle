@@ -1,6 +1,6 @@
 <?php
 class contentHelper extends Database {
-	
+
 	function __construct()
 	{
 		$this->prefix = "nestle";
@@ -8,8 +8,8 @@ class contentHelper extends Database {
 		$this->user = $session->get_session();
 	}
 
-	
-	
+
+
 	function getArticle($id=false, $start=0, $limit=3)
 	{
 
@@ -37,9 +37,9 @@ class contentHelper extends Database {
 	{
 
 		if(!$id) return false;
-		$sql = "SELECT id FROM {$this->prefix}_news_content 
-				where ( 
-				        id = IFNULL((SELECT min(id) from {$this->prefix}_news_content WHERE id > {$id}),0) 
+		$sql = "SELECT id FROM {$this->prefix}_news_content
+				where (
+				        id = IFNULL((SELECT min(id) from {$this->prefix}_news_content WHERE id > {$id}),0)
 				        OR  id = IFNULL((SELECT max(id) from {$this->prefix}_news_content WHERE id < {$id}),0)
 				      ) AND n_status = 1";
 		$res = $this->fetch($sql,1);
@@ -49,14 +49,14 @@ class contentHelper extends Database {
 			// logikanya dibalik (prev/next) untuk menyesuaikan dengan posted_date
 
 			if (count($res)>1){
-				
+
 				foreach ($res as $key => $value) {
 					if ($value['id']<$id){
 						$data['next'] = intval($value['id']);
 					}
 					if ($value['id']>$id){
 						$data['prev'] = intval($value['id']);
-					} 
+					}
 				}
 
 			}else{
@@ -73,11 +73,11 @@ class contentHelper extends Database {
 					}
 				}
 			}
-			
+
 
 			return $data;
 		}
-		
+
 		return false;
 	}
 
@@ -85,7 +85,7 @@ class contentHelper extends Database {
 	{
 
 		$useraccount = $this->user['default'];
-		
+
 		$date = date('Y-m-d H:i:s');
 		// pr($useraccount);
 		$title = "Upload foto from local store";
@@ -100,7 +100,7 @@ class contentHelper extends Database {
 	function getMyPhoto()
 	{
 		$userid = $this->user['default']['id'];
-		$sql = "SELECT * FROM {$this->prefix}_news_content_repo WHERE userid = {$userid} 
+		$sql = "SELECT * FROM {$this->prefix}_news_content_repo WHERE userid = {$userid}
 				AND n_status = 1 {$filter} ORDER BY created_date DESC LIMIT 1";
 		$res = $this->fetch($sql);
 		if ($res) return $res;
@@ -110,20 +110,20 @@ class contentHelper extends Database {
 	function getFrame($flag=4)
 	{
 
-		/* 
+		/*
 			flag 4 for facebook cover
 			flag 5 for twitter cover
 		*/
-			
+
 		$filter = " AND typealbum IN ({$flag}) ";
 
-		$sql = "SELECT * FROM {$this->prefix}_news_content_repo WHERE gallerytype IN (1) 
+		$sql = "SELECT * FROM {$this->prefix}_news_content_repo WHERE gallerytype IN (1)
 				AND n_status = 1 {$filter} ORDER BY created_date DESC LIMIT 4";
 		$res = $this->fetch($sql,1);
 		if ($res){
 
 			foreach ($res as $key => $value) {
-				$sql1 = "SELECT * FROM {$this->prefix}_news_content_repo WHERE gallerytype IN (2) 
+				$sql1 = "SELECT * FROM {$this->prefix}_news_content_repo WHERE gallerytype IN (2)
 						AND n_status = 1 AND otherid = {$value['id']} {$filter} ORDER BY created_date DESC LIMIT 1";
 				$res1 = $this->fetch($sql1);
 
@@ -131,8 +131,8 @@ class contentHelper extends Database {
 			}
 
 
-			return $res;	
-		} 
+			return $res;
+		}
 		return false;
 	}
 
@@ -142,18 +142,18 @@ class contentHelper extends Database {
 		$sql1 = "SELECT * FROM {$this->prefix}_createimage WHERE userid = {$useraccount['id']} ORDER BY created_date DESC LIMIT 1";
 		$res1 = $this->fetch($sql1);
 
-		
+
 		if ($res1) return $res1;
 		return false;
 	}
 
 	function updateUserFoto($id, $filename, $fromonline=false)
 	{
-		
+
 		if ($fromonline){
 
 			$useraccount = $this->user['default'];
-		
+
 			$date = date('Y-m-d H:i:s');
 			// pr($useraccount);
 			$title = "Upload foto from album facebook";
@@ -169,7 +169,7 @@ class contentHelper extends Database {
 
 			$res = $this->query($sql);
 		}
-		
+
 		if ($res) return true;
 		return false;
 	}
@@ -178,7 +178,7 @@ class contentHelper extends Database {
 	{
 
 		$useraccount = $this->user['default'];
-		
+
 		$date = date('Y-m-d H:i:s');
 
 		$sql = "INSERT INTO {$this->prefix}_createimage (userid,cover, frame, created_date, n_status)
@@ -201,10 +201,20 @@ class contentHelper extends Database {
 		return false;
 	}
 
+	function getCreateImageObject ($user, $id)
+	{
+		return $this->fetch("SELECT * FROM {$this->prefix}_createimage WHERE userid = {$user['id']} AND id = $id LIMIT 1");
+	}
+
+	function setCreateImageStatus ($image, $status)
+	{
+		return $this->query("UPDATE {$this->prefix}_createimage SET n_status = $status WHERE id = {$image['id']}");
+	}
+
 	function registerUser($data)
 	{
 
-		$useraccount = false;		
+		$useraccount = false;
 		$jumlhAnak = intval($data['jmlhAnak']);
 
 		$useraccount = $this->user['default'];
@@ -212,10 +222,10 @@ class contentHelper extends Database {
 
 		if ($useraccount['usertype']>1){
 			$sql = "UPDATE social_member SET name = '{$data['nama']}', email = '{$data['email']}', phone_number = '{$data['telp']}', StreetName = '{$data['alamat']}', verified = 1 WHERE id = {$useraccount['id']} LIMIT 1";
-		
+
 		}else{
 			$sql = "UPDATE social_member SET name = '{$data['nama']}', phone_number = '{$data['telp']}', StreetName = '{$data['alamat']}', verified = 1 WHERE id = {$useraccount['id']} LIMIT 1";
-			
+
 		}
 		// pr($sql);
 		$res = $this->query($sql);
@@ -231,12 +241,12 @@ class contentHelper extends Database {
 			}
 
 			return true;
-			
+
 		}
 
 		return false;
 	}
 
-	
+
 }
 ?>

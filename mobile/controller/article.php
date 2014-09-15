@@ -14,10 +14,11 @@ class article extends Controller {
 	
 	function __construct()
 	{
-		global $basedomain;
+		global $basedomain,$app_domain;
 		$this->loadmodule();
 		$this->view = $this->setSmarty();
 		$this->view->assign('basedomain',$basedomain);
+    $this->view->assign('app_domain',$app_domain);
     $userdata = $this->isUserOnline();
     $this->user = $userdata['default'];
     $browsertype = $this->checkBrowser();
@@ -34,9 +35,16 @@ class article extends Controller {
 
 		global $CONFIG, $basedomain;
 
-		
+    $getArticle = $this->contentHelper->getArticle();
+    if ($getArticle){
+      foreach ($getArticle as $key => $value) {
+        $getArticle[$key]['changeDate'] = changeDate($value['posted_date']);
+      }
+    }
+    // pr($getArticle);
+    $this->view->assign('article',$getArticle);
 
-  	return $this->loadView('article/index');
+    return $this->loadView('article/index');
   }
 
   function loginFbValid(){
@@ -106,36 +114,36 @@ class article extends Controller {
      
       /* Twitter login */
 
-      // if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
+      if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
         
-        // $this->view->assign('accessUrlTwitter',$basedomain.'login/twitterRedirect');
+        $this->view->assign('accessUrlTwitter',$basedomain.'login/twitterRedirect');
 
-      // }
+      }
 
-      // $id = _g('id');
+      $id = _g('id');
       
-		  // $getArticle = $this->contentHelper->getArticle($id);
-      // if ($getArticle){
-        // foreach ($getArticle as $key => $value) {
-          // $getArticle[$key]['changeDate'] = changeDate($value['posted_date']);
-          // $getArticle[$key]['content'] = html_entity_decode($value['content']);
-        // }
-      // }
+      $getArticle = $this->contentHelper->getArticle($id);
+      if ($getArticle){
+        foreach ($getArticle as $key => $value) {
+          $getArticle[$key]['changeDate'] = changeDate($value['posted_date']);
+          $getArticle[$key]['content'] = html_entity_decode($value['content']);
+        }
+      }
 
-      // $getNextArticle = $this->contentHelper->getNextArticle($id);
-      // $getRandomArticle = $this->contentHelper->getRandomArticle($id);
-      // if ($getRandomArticle){
-      //   foreach ($getRandomArticle as $key => $value) {
-      //     $getRandomArticle[$key]['changeDate'] = changeDate($value['posted_date']);
-      //     $getRandomArticle[$key]['content'] = html_entity_decode($value['content']);
-      //   }
-      // }
-      // // pr($getNextArticle);
-      // $this->view->assign('article',$getArticle);
-      // $this->view->assign('prevNextArticle',$getNextArticle);
-      // $this->view->assign('getRandomArticle',$getRandomArticle);
-      // $this->view->assign('user',$this->user);
-      // $this->view->assign('appId',$CONFIG['fb']['appId']);
+      $getNextArticle = $this->contentHelper->getNextArticle($id);
+      $getRandomArticle = $this->contentHelper->getRandomArticle($id);
+      if ($getRandomArticle){
+        foreach ($getRandomArticle as $key => $value) {
+          $getRandomArticle[$key]['changeDate'] = changeDate($value['posted_date']);
+          $getRandomArticle[$key]['content'] = html_entity_decode($value['content']);
+        }
+      }
+      // pr($getNextArticle);
+      $this->view->assign('article',$getArticle);
+      $this->view->assign('prevNextArticle',$getNextArticle);
+      $this->view->assign('getRandomArticle',$getRandomArticle);
+      $this->view->assign('user',$this->user);
+      $this->view->assign('appId',$CONFIG['fb']['appId']);
       
     	return $this->loadView('article/detail');
     }

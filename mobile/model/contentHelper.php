@@ -1,6 +1,17 @@
 <?php
 class contentHelper extends Database {
-	
+	var $prefix = "nestle";
+	function getArticle($id=false, $start=0, $limit=3)
+	{
+
+		$filter = "";
+		if ($id) $filter = "AND id = {$id}";
+
+		$sql = "SELECT * FROM {$this->prefix}_news_content WHERE n_status = 1 {$filter} ORDER BY posted_date DESC LIMIT {$start},{$limit}";
+		$res = $this->fetch($sql,1);
+		if ($res) return $res;
+		return false;
+	}
 	function getData()
 	{
 		$sql = "SELECT * FROM code_activity";
@@ -61,6 +72,65 @@ class contentHelper extends Database {
 		$result = $this->query($query);
 		
 		return $result;
+	}
+
+	function getRandomArticle($id=false, $start=0, $limit=3)
+	{
+
+		$filter = "";
+		if ($id) $filter = "AND id <> {$id}";
+
+		$sql = "SELECT * FROM {$this->prefix}_news_content WHERE n_status = 1 {$filter} ORDER BY rand() DESC LIMIT {$start},{$limit}";
+		$res = $this->fetch($sql,1);
+		if ($res) return $res;
+		return false;
+	}
+	function getNextArticle($id=false)
+	{
+
+		if(!$id) return false;
+		$sql = "SELECT id FROM {$this->prefix}_news_content
+				where (
+				        id = IFNULL((SELECT min(id) from {$this->prefix}_news_content WHERE id > {$id}),0)
+				        OR  id = IFNULL((SELECT max(id) from {$this->prefix}_news_content WHERE id < {$id}),0)
+				      ) AND n_status = 1";
+		$res = $this->fetch($sql,1);
+		// pr($res);
+		if ($res){
+
+			// logikanya dibalik (prev/next) untuk menyesuaikan dengan posted_date
+
+			if (count($res)>1){
+
+				foreach ($res as $key => $value) {
+					if ($value['id']<$id){
+						$data['next'] = intval($value['id']);
+					}
+					if ($value['id']>$id){
+						$data['prev'] = intval($value['id']);
+					}
+				}
+
+			}else{
+
+				foreach ($res as $key => $value) {
+					if ($value['id']<$id){
+						$data['next'] = intval($value['id']);
+						$data['prev'] = "#";
+					}
+
+					if ($value['id']>$id){
+						$data['next'] = "#";
+						$data['prev'] = intval($value['id']);
+					}
+				}
+			}
+
+
+			return $data;
+		}
+
+		return false;
 	}
 }
 ?>
