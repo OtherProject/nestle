@@ -530,6 +530,50 @@ body{
 	text-shadow: 1px 2px #8E244A;
 	box-shadow: 0px 6px 10px 0px #007DCA;
 }
+.file-input-wrapper {
+    width: 200px;
+    height: 40px;
+    overflow: hidden;
+    position: relative;
+}
+.file-input-wrapper > input[type="file"] {
+    font-size: 200px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+}
+.file-input-wrapper > .btn-file-input {
+    display: inline-block;
+    width: 170px;
+    height: 40px;
+}
+ .btn-file-input {
+    background-color: red;
+}
+.btnpinkslideUp{
+	font-family: Nunito;
+	font-weight:bold;
+	font-size:16px;
+	text-decoration:none;
+	background-color:#F73E82;
+	color:#fff;
+	padding: 5px 35px;
+	border:3px solid #FFF;
+	border-radius:30px;
+	text-shadow: 1px 2px #8E244A;
+}
+.file-input-wrapper:hover > .btnpinkslideUp{
+	font-family: Nunito;
+	font-weight:bold;
+	font-size:16px;
+	text-decoration:none;
+	background-color:#FD698B;
+	color:#fff;
+	padding: 5px 35px;
+	border:3px solid #FFF;
+	border-radius:30px;
+}
 .btnpink{
 	font-family: Nunito;
 	font-weight:bold;
