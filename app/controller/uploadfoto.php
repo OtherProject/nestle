@@ -243,7 +243,7 @@ class uploadfoto extends Controller {
        //      $session, 'POST', '/me/feed',array ('message' => 'This is a test message from bot',)
        //    ))->execute()->getGraphObject();
 
-
+				$arr['link'] = $basedomain;
         $arr["source"] = '@' . realpath($file_path);
         $arr["message"] = $LOCALE['fb']['status-message'];
 
