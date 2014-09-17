@@ -12,16 +12,23 @@
 		
 		<div id="imgupload"><img src="{$basedomain}assets/file/slide-4.jpg" width="100%"/></div>
 
-		<!--<label class="btnpinkslide">
+		{if $iebrowser}
+		<!--IE-->
+		<label class="btnpinkslide">
 			 <input type="file" name="fotoupload" style="display:none" id="fotoupload">
 
 			 Select File
-		</label>-->
+		</label>
+		
+		{else}
+		<div class="file-input-wrapper">
+		  	<button class="btn-file-input btnpinkslideUp">Select File</button>
+		  	<input type="file" name="fotoupload"  id="fotoupload"/>
+		</div>
+		{/if}
+		
 
-			<div class="file-input-wrapper">
-			  <button class="btn-file-input btnpinkslideUp">Select File</button>
-			  <input type="file" name="fotoupload"  id="fotoupload"/>
-			</div>
+			
 		 <div id="divbtnslide">
 		 	{if $albumfb}
 		 	<div>

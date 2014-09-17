@@ -86,6 +86,11 @@ class uploadfoto extends Controller {
     }
 
 
+    $browser = $this->checkBrowser();
+
+    if ($browser > 2){
+      $this->view->assign('iebrowser',true);
+    }
 
 		if (isset($_SESSION['fb-logout'])){
       $this->view->assign('fbalbum',true);
