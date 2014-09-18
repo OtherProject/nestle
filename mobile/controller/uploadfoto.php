@@ -1,6 +1,6 @@
 <?php
 
-require_once(LIBS.'twitteroauth/tmhOAuth-master/tmhOAuth.php');
+// require_once(LIBS.'twitteroauth/tmhOAuth-master/tmhOAuth.php');
 
 use Facebook\FacebookSession;
 use Facebook\FacebookRedirectLoginHelper;
@@ -33,8 +33,8 @@ class uploadfoto extends Controller {
 	function index(){
 
     // pr($_SESSION);
-		global $CONFIG, $basedomain;
-    if (!$this->user){redirect($basedomain); exit;}
+	global $CONFIG, $basedomain;
+    /*	if (!$this->user){redirect($basedomain); exit;}
 
     if ($this->user['id'])$this->log('surf','upload foto');
 
@@ -44,7 +44,7 @@ class uploadfoto extends Controller {
     $helper = new FacebookRedirectLoginHelper($basedomain.'uploadfoto/index/?get=true');
     $session = false;
     if(isset($_GET['get'])){
-      $session = $helper->getSessionFromRedirect();
+      $session = $helper->getSessionFromRedirect();*/
       
       /* Buat posting message */
       
@@ -53,16 +53,16 @@ class uploadfoto extends Controller {
      //    ))->execute()->getGraphObject();
 
 
-      $album = (new FacebookRequest(
+    /*  $album = (new FacebookRequest(
                   $session,'GET','/me/photos'
-                ))->execute()->getGraphObject();
+                ))->execute()->getGraphObject();*/
       /*
       $album = (new FacebookRequest(
                   $session,'GET','/me/albums'
                 ))->execute()->getGraphObject();*/
       
 
-      $userAlbum = $album->getPropertyAsArray('data');
+    /*  $userAlbum = $album->getPropertyAsArray('data');
 
      
       foreach ($userAlbum as $key => $value) {
@@ -73,25 +73,25 @@ class uploadfoto extends Controller {
         $data[$key]['picture'] = $value->getProperty('picture');
         $data[$key]['source'] = $value->getProperty('source');
         $data[$key]['height'] = $value->getProperty('height');
-        $data[$key]['width'] = $value->getProperty('width');
+        $data[$key]['width'] = $value->getProperty('width');*/
         // $data[$key]['images'] = $value->getProperty('images');
 
-      }
+      // }
       // pr($data);
-      $this->view->assign('albumfb',$data);
+      // $this->view->assign('albumfb',$data);
 
-    }else{
-      $loginUrl = $helper->getLoginUrl(array('scope' => 'user_photos,publish_actions',)); 
-      $this->view->assign('accessUrlFb',$loginUrl);
-    }
+    // }else{
+      // $loginUrl = $helper->getLoginUrl(array('scope' => 'user_photos,publish_actions',)); 
+      // $this->view->assign('accessUrlFb',$loginUrl);
+    // }
         
 
 
-		if (isset($_SESSION['fb-logout'])){
-      $this->view->assign('fbalbum',true);
-    }else{
-      $this->view->assign('fbalbum',false);
-    }
+		// if (isset($_SESSION['fb-logout'])){
+      // $this->view->assign('fbalbum',true);
+    // }else{
+      // $this->view->assign('fbalbum',false);
+    // }
 
   	return $this->loadView('upload/upload');
   }

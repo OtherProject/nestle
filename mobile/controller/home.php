@@ -269,13 +269,13 @@ class home extends Controller {
   {
     global $basedomain;
    
-   if(!$this->user) {redirect($basedomain."home/connect");exit;} 
-    $getUserInfo = $this->loginHelper->getUserInfo();
-    if ($getUserInfo['verified']>0){
-      redirect($basedomain.'uploadfoto/pilihframe');
-    }
+   // if(!$this->user) {redirect($basedomain."home/connect");exit;} 
+    // $getUserInfo = $this->loginHelper->getUserInfo();
+    // if ($getUserInfo['verified']>0){
+      // redirect($basedomain.'uploadfoto/pilihframe');
+    // }
 
-    $this->view->assign('user',$this->user);
+    // $this->view->assign('user',$this->user);
     return $this->loadView('form');
   }
 

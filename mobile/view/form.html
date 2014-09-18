@@ -1,0 +1,86 @@
+
+    <div role="main" class="ui-content jqm-content jqm-fullwidth" style="border:0px solid #000;">
+		<div class="article"><img src="{$basedomain}assets/_assets/img/title_form.jpg" width="100%"></div>
+		<div class="article divarticle">
+    		
+			<form method="POST" action="{$basedomain}home/inputForm">
+			
+				
+					<input type="text" placeholder="Nama Lengkap" name="nama" value="{$user.name}" required class="nama">
+			
+				
+					
+						<input type="email" placeholder="Email" name="email" value="{$user.email}" {if $user.email}readonly{/if}  required>
+					
+				
+				
+					<input type="text" placeholder="No. Telp" name="telp"  required>
+
+					
+					<!--<input type="text" placeholder="No. Telp" size="20">-->
+						<!--<div class="styled-select">-->
+							<select onchange="this.className=this.options[this.selectedIndex].className" name="jmlhAnak" id="jmlhAnak" class="colorgrey">
+								<option class="colorgrey"> Jumlah anak</option>
+								<option value="1" class="colorblack">1</option>
+								<option value="2" class="colorblack">2</option>
+								<option value="3" class="colorblack">3</option>
+							</select>
+					<!--	</div>-->
+					
+				
+			
+
+					<textarea placeholder="Alamat" name="alamat" required></textarea>
+			
+				 
+			
+			
+			
+				<div class="formRtop">
+					<div>
+					<span  class="style-5">
+						<input type="text" placeholder="Nama anak" name="childName[]" required>
+					</span>
+					<span  class="style-5" style="border:0px solid #000;">
+
+						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" data-beatpicker="true" data-beatpicker-module="icon,clear"  style="width:120px" class="childDate1" required><img src="{$basedomain}assets/_assets/img/kalender.png" class="date1" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
+
+					</span>
+					</div>
+
+					<div style="display:none" id="dataAnak2">
+					<span  class="style-5">
+						<input type="text" placeholder="Nama anak" name="childName[]" id="childName1">
+					</span>
+					<span  class="style-5" style="border:0px solid #000;">
+						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" data-beatpicker="true" data-beatpicker-module="icon,clear"  style="width:120px" class="childDate2"><img src="{$basedomain}assets/img/kalender.png" class="date2" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
+					</span>
+					</div>
+
+					<div style="display:none" id="dataAnak3">
+					<span  class="style-5">
+						<input type="text" placeholder="Nama anak" name="childName[]" style="width:100px" id="childName2">
+					</span>
+					<span  class="style-5" style="border:0px solid #000;">
+						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" data-beatpicker="true" data-beatpicker-module="icon,clear" style="width:120px" class="childDate3"><img src="{$basedomain}assets/img/kalender.png" class="date3" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
+					</span>
+					</div>
+
+				</div>
+				
+					
+				
+
+
+				<div class="formRbottom" align="right"><br/>
+
+				<input type="checkbox" name="checkboxG2" id="checkboxG2" class="css-checkbox" akses="1" checked="checked" required/><label for="checkboxG2" class="css-label"></label><strong>Saya menyetujui <span  id='basic-modal'><a href='#' class='basic2'><u>Syarat dan Ketentuan</u></a></span> yang berlaku.</strong><br/>
+				<input type="submit" class="btnpinkslide" value="Submit"/>
+				</div>
+		
+			</form>
+		 
+		</div><!-- /article -->
+	
+
+	</div><!-- /content -->

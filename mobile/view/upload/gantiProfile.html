@@ -1,0 +1,144 @@
+
+<div id="wrapperhome2">
+	<div id="user" >
+		<div id="userContent">
+		 <div id="imgsmpl">
+			<img src="{$basedomain}public_assets/cover/{$frame.cover}" width="100%" height="100%" class="coverImg"/>
+		 </div>
+		 <div id="wrapimgframe" >
+			<div id="wrapframeleft" >
+				<div style="background-color: #fff;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 2px 2px #888888;
+    height: 120px;
+    margin: 0 auto;
+    margin-left:10px;
+    overflow: hidden;
+    width: 123px;" >
+    			<div id="loadingbar" align="center"></div>
+    			<div id="frame imgframe" style="opacity:1;z-index:999;position:relative">
+					
+					<img width="100%" src="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" fname="{$myfoto.profile}" class="bigImage1" fid="{$myfoto.id}" id="profilePicture"/>
+					
+				</div>
+
+    			<div id="frame" style="position:relative;z-index:10;margin-top:-126px; margin-left:8px">
+					
+					<img src="{$basedomain}public_assets/frame/{$frame[0].files}" width="100%" height="100%" id="framedinamis" />
+				</div>
+
+					
+
+				</div>
+			</div>
+
+			<div id="wrapframeright">
+				<div id="descimgframespace">&nbsp;</div>
+				<div id="descimgframe" align>
+					<div class="tittledesc">Share ke Social Media</div>
+				<div class="isidesc">Silahkan share foto baru si kecil lewat facebook maupun twitter</div>
+				</div>
+			</div>
+		 </div>
+		 <div id="wrapcontentuser">
+			<div id="contentdesc">
+				{*}
+				{if $frame}
+				{foreach $frame as $val}
+				<div id="framesmall"><a href="javascript:void(0)"><img src="{$basedomain}public_assets/frame/{$val.files}" width="100%" height="100%" class="chooseFrame" fname="{$val.files}" linkcover="{$val.cover.files}"/></a></div>
+				{/foreach}
+				{/if}
+				
+				{/*}
+
+				{*}
+				<div id="framesmall">&nbsp;</div>
+				<div id="framesmall">&nbsp;</div>
+				<div id="framesmall">&nbsp;</div>{/*}
+			</div>
+			<div id="btn-desc" align="right">
+				
+				<a href="{$accessUrl}" class="btnpinkslide" fid="{$frame[0].files}" cid="{$frame[0].cover.files}">Share</a>
+				
+			</div>
+
+		</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+{literal}
+	
+	$(document).on('click','.chooseFrame', function(){
+
+		var link = $(this).attr('linkcover');
+		var imgFullpath = basedomain+'public_assets/cover/'+link;
+		var name = $(this).attr('fname');
+		var frame = $(this).attr('src');
+
+		$('.coverImg').attr('src',imgFullpath);
+		$('#framedinamis').attr('src',frame);
+		$('.continueFrame').attr('fid',name);
+		$('.continueFrame').attr('cid',link);
+		
+	})
+
+
+	$(document).on('click','.continueFrame', function(){
+
+		var cover = $(this).attr('cid');
+		var frame = $(this).attr('fid');
+		
+		
+		var loading = "<img src='"+basedomain+"assets/images/loading.gif' width='50px'/>";
+		$('#userContent').attr('align','center');
+		$('#userContent').html(loading);
+
+		// $.post(basedomain+'uploadfoto/saveFrame',{cover:cover, frame:frame}, function(data){
+
+		// 	if (data.status==true){
+				
+				    window.location.href = basedomain+'uploadfoto/share';
+				
+		// 	}
+
+		// },"JSON")
+		
+	})
+
+
+	/*
+
+	old flow 
+	$(document).on('click','.chooseFrame', function(){
+
+		var link = $(this).attr('src');
+
+		var name = $(this).attr('fname');
+		$('#framedinamis').attr('src',link);
+		$('.continueFrame').attr('fid',name);
+		
+	})
+
+	$(document).on('click','.continueFrame', function(){
+
+		var frameName = $(this).attr('fid');
+		var fileName = $('.bigImage').attr('fname');
+		var fileid = $('.bigImage').attr('fid');
+		
+		$.post(basedomain+'uploadfoto/generateImage',{fileid:fileid, frameName:frameName, fileName:fileName}, function(data){
+
+			if (data.status==true){
+				
+				    window.location.href = basedomain+'uploadfoto/share';
+				
+			}
+
+		},"JSON")
+		
+	})
+	*/
+
+{/literal}
+</script>

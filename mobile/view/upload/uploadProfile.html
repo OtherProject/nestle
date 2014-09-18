@@ -1,0 +1,313 @@
+
+<div id="wrapperhome2">
+	<div id="user" >
+		<div id="{if $coverfb}userContent{else}userContenttw{/if}">
+		 <div id="{if $coverfb}imgsmpl{else}imgsmpltw{/if}">
+			<img src="{$basedomain}public_assets/cover/{$cover.cover}" width="100%" height="100%" class="coverImg"/>
+		 </div>
+		 <div id="{if $coverfb}wrapimgframeFB{else}wrapimgframe{/if}" >
+			<div id="wrapframeleft" >
+				<div style="background-color: #fff;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 2px 2px #888888;
+    height: 120px;
+    margin: 0 auto;
+    margin-left:10px;
+    overflow: hidden;
+    width: 123px;" >
+    			<div id="loadingbar" align="center"></div>
+    			<div id="frame imgframe" style="opacity:0.4;z-index:999;position:relative">
+					{*}<img src="{$basedomain}public_assets/{$myfoto.files}" fname="{$myfoto.files}" class="bigImage1" fid="{$myfoto.id}" id="loader" width=""/>{/*}
+					<img src="{$tmpimage}" fname="{$myfoto.files}" class="bigImage1" fid="{$myfoto.id}" id="profilePicture" width=""/>
+					
+				</div>
+
+    			<div id="frame" style="position:relative;z-index:10;margin-top:-124px; margin-left:7px">
+					
+					<img src="{$basedomain}public_assets/frame/{$cover.frame}" width="100%" height="100%" id="framedinamis" />
+				</div>
+
+					
+
+				</div>
+			</div>
+
+			<!--<div id="" style="float: left;
+    height: 125px;
+    margin-left: -150;
+    overflow: hidden;
+    position:relative;
+    width: 130;
+    ">
+    	
+				<div id="frame" >
+					
+					<img src="{$basedomain}public_assets/frame/{$frame[0].files}" width="100%" height="100%" id="framedinamis" />
+				</div>
+			</div>-->
+
+			<div id="{if $coverfb}wrapframerightFB{else}wrapframeright{/if}">
+				<div id="{if $coverfb}descimgframespaceFB{else}descimgframespace{/if}">&nbsp;</div>
+				<div id="descimgframe" align>
+					Sesuaikan foto Si Kecil dengan frame fotonya
+				</div>
+			</div>
+		 </div>
+		 <div id="wrapcontentuser">
+			<div id="contentdesc">
+				{*}
+				{if $frame}
+				{foreach $frame as $val}
+				<div id="framesmall"><a href="javascript:void(0)"><img src="{$basedomain}public_assets/frame/{$val.files}" width="100%" height="100%" class="chooseFrame" fname="{$val.files}" linkcover="{$val.cover.files}"/></a></div>
+				{/foreach}
+				{/if}
+				
+				{/*}
+
+				{*}
+				<div id="framesmall">&nbsp;</div>
+				<div id="framesmall">&nbsp;</div>
+				<div id="framesmall">&nbsp;</div>{/*}
+			</div>
+			<form action="{$basedomain}uploadfoto/getCropImage" method="post">
+			
+			<div id="btn-desc" align="right">
+				{*}
+				<a href="javascript:void(0)" class="btnpinkslide continueFrame" fid="{$frame[0].files}" cid="{$frame[0].cover.files}">Continue</a>{/*}
+				
+				{if $browser > 2}
+					
+					<input type="submit" class="btnpinkslide" value="Crop" style="" />
+				{else}
+					<a href="javascript:void(0)" class="btnpinkslide crop" fid="{$frame[0].files}" cid="{$frame[0].cover.files}">Crop</a>
+				{/if}
+				
+			</div>
+		
+		
+			<input type="hidden" id="x" name="x" value="0"/>
+			<input type="hidden" id="y" name="y" value="7"/>
+			<input type="hidden" id="w" name="w" value="400"/>
+			<input type="hidden" id="h" name="h" value="300"/>
+			<input type="hidden" name="iepost" value="1"/>
+			<input type="hidden" id="idframecover" name="idframecover" value="{$cover.id}"/>
+			<input type="submit" value="Crop Image" style="display:none" />
+		</form>
+
+		</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	.guillotine-window {
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+.guillotine-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+.guillotine-canvas > * {
+  /*position: absolute;*/
+  top: 0;
+  left: 0;
+  max-width: none;
+  max-height: none;
+  width: 100%;
+  height: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+</style>
+
+<script type="text/javascript">
+
+var imageCrop = "{$myfoto.files}";
+var dinamisClass = "{if $coverfb}userContent{else}userContenttw{/if}";
+{literal}
+	//reloadAgain();
+	
+	jQuery(function() {
+      	
+		var picture = $('#profilePicture');
+
+		//picture.on('load', function(){
+			picture.guillotine({eventOnChange: 'guillotinechange'});
+
+			// Display inital data
+			picture.guillotine({
+			  width: 100,
+			  height: 100,
+			  init: { x: 35, y: 15, angle: 90 }
+			});
+		   
+			
+			// Update data on change
+			picture.on('guillotinechange', function(ev, data, action) {
+			  data.scale = parseFloat(data.scale.toFixed(4));
+			  for(var k in data) { $('#'+k).val(data[k]); }
+			});
+      	
+      	
+      	//});
+      	
+
+    });
+   
+	function reloadAgain()
+	{
+
+		var loading = basedomain+"assets/images/loading.gif";
+		
+		$('#loader').attr('src',loading);
+		$('#loader').attr('width','100%');
+		// $('#profilePicture').css('display','none');
+		// $('#framedinamis').css('display','none');
+		
+		$("#profilePicture").bind('load', function() {
+			// do stuff
+			
+			setTimeout(function(){
+				
+				$('#loader').css('display','none');
+				 // $('#profilePicture').css('display','none');
+				 // $('#profilePicture').css('display','');
+				 // $('#framedinamis').css('display','');			 
+				var picture = $('#profilePicture');
+				picture.guillotine({eventOnChange: 'guillotinechange'});
+
+				// Display inital data
+				picture.guillotine({
+				  width: 100,
+				  height: 100,
+				  init: { x: 35, y: 15, angle: 90 }
+				});
+			   
+				
+				// Update data on change
+				picture.on('guillotinechange', function(ev, data, action) {
+				  data.scale = parseFloat(data.scale.toFixed(4));
+				  for(var k in data) { $('#'+k).val(data[k]); }
+				});
+				
+				var image = basedomain+'public_assets/'+imageCrop;
+				var img = $('#profilePicture');
+				img.on('load', function() { img.guillotine(); });
+				img.attr('src', image);
+				
+				
+				//$('#profilePicture').attr('src',image);
+
+			}, 2000);
+		});
+  
+		
+	}
+	
+	$(document).on('click','.chooseFrame', function(){
+
+		var link = $(this).attr('linkcover');
+		var imgFullpath = basedomain+'public_assets/cover/'+link;
+		var name = $(this).attr('fname');
+		var frame = $(this).attr('src');
+
+		$('.coverImg').attr('src',imgFullpath);
+		$('#framedinamis').attr('src',frame);
+		$('.continueFrame').attr('fid',name);
+		$('.continueFrame').attr('cid',link);
+		
+	})
+
+	$(document).on('click','.crop', function(){
+
+		var x = $('#x').val();
+		var y = $('#y').val();
+		var w = $('#w').val();
+		var h = $('#h').val();
+		var idframe = $('#idframecover').val();
+
+		var loading = "<img src='"+basedomain+"assets/images/loading.gif' width='50px'/>";
+		$('#'+dinamisClass).attr('align','center');
+		$('#'+dinamisClass).html(loading);
+
+		$.post(basedomain+'uploadfoto/getCropImage',{x:x, y:y, w:w, h:h, idframe:idframe}, function(data){
+
+			if (data.status==true){
+				
+				    window.location.href = basedomain+'uploadfoto/cropedProfile';
+				
+			}
+
+		},"JSON")
+
+	})
+
+
+	$(document).on('click','.continueFrame', function(){
+
+		var cover = $(this).attr('cid');
+		var frame = $(this).attr('fid');
+		
+		
+		var loading = "<img src='"+basedomain+"assets/images/loading.gif' />";
+		$('#user').html(loading);
+
+		// $.post(basedomain+'uploadfoto/saveFrame',{cover:cover, frame:frame}, function(data){
+
+		// 	if (data.status==true){
+				
+				    window.location.href = basedomain+'uploadfoto';
+				
+		// 	}
+
+		// },"JSON")
+		
+	})
+
+
+	
+	/*
+
+	old flow 
+	$(document).on('click','.chooseFrame', function(){
+
+		var link = $(this).attr('src');
+
+		var name = $(this).attr('fname');
+		$('#framedinamis').attr('src',link);
+		$('.continueFrame').attr('fid',name);
+		
+	})
+
+	$(document).on('click','.continueFrame', function(){
+
+		var frameName = $(this).attr('fid');
+		var fileName = $('.bigImage').attr('fname');
+		var fileid = $('.bigImage').attr('fid');
+		
+		$.post(basedomain+'uploadfoto/generateImage',{fileid:fileid, frameName:frameName, fileName:fileName}, function(data){
+
+			if (data.status==true){
+				
+				    window.location.href = basedomain+'uploadfoto/share';
+				
+			}
+
+		},"JSON")
+		
+	})
+	*/
+
+{/literal}
+</script>
