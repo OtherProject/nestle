@@ -10,7 +10,7 @@ class contentHelper extends Database {
 
 
 
-	function getArticle($id=false, $start=0, $limit=3)
+	function getArticle($id=false, $start=0, $limit=6)
 	{
 
 		$filter = "";
