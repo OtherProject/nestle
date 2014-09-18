@@ -86,6 +86,11 @@ class uploadfoto extends Controller {
     }
 
 
+    $browser = $this->checkBrowser();
+
+    if ($browser > 2){
+      $this->view->assign('iebrowser',true);
+    }
 
 		if (isset($_SESSION['fb-logout'])){
       $this->view->assign('fbalbum',true);
@@ -238,7 +243,7 @@ class uploadfoto extends Controller {
        //      $session, 'POST', '/me/feed',array ('message' => 'This is a test message from bot',)
        //    ))->execute()->getGraphObject();
 
-
+				$arr['link'] = $basedomain;
         $arr["source"] = '@' . realpath($file_path);
         $arr["message"] = $LOCALE['fb']['status-message'];
 
