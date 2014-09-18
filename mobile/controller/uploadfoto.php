@@ -122,36 +122,24 @@ class uploadfoto extends Controller {
   function pilihframe(){
 
     global $basedomain;
-    if (!$this->user){redirect($basedomain); exit;}
+    // if (!$this->user){redirect($basedomain); exit;}
 
-    if ($this->user['id'])$this->log('surf','pilih frame');
+    // if ($this->user['id'])$this->log('surf','pilih frame');
 
-    $getMyPhoto = $this->contentHelper->getMyPhoto();
-    if ($getMyPhoto){
+  // if ($getMyPhoto){
       // pr($getMyPhoto);
       
-      $this->view->assign('myfoto',$getMyPhoto);
-    }
-
-    if (isset($_SESSION['fb-logout'])){
-      $this->view->assign('coverfb',1);
-      $flag = 4;
-    }else{
-      $this->view->assign('coverfb',0);
-      $flag = 5;
-    }
-
-    $getFrame = $this->contentHelper->getFrame($flag);
+ // /   $getFrame = $this->contentHelper->getFrame($flag);
     // pr($getFrame);
-    foreach ($getFrame as $key => $value) {
+    // foreach ($getFrame as $key => $value) {
 
-      if ($value['cover']){
+    //   if ($value['cover']){
         
-        $imgFrame[] = $value;
-      }
-    }
+    //     $imgFrame[] = $value;
+    //   }
+    // }
     // pr($imgFrame);
-    $this->view->assign('frame',$imgFrame);
+    // $this->view->assign('frame',$imgFrame);
     
     
 

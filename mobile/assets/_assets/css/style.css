@@ -575,7 +575,357 @@ input:-ms-input-placeholder {
   transition: box-shadow 0.3s;
   border-radius:10px;
    }
-/*
+#wrapperheader{
+	margin:0 auto;
+	width:900px;
+	height:120px;
+	border:0px solid #FDFBFC;
+	border-radius:15px;
+	overflow:hidden;
+}
+#header{
+	margin:0 auto;
+	margin-top:20px;
+	width:803px;
+	height:47px;
+	border:10px solid #FDFBFC;
+	background-color:#F73E82;
+	border-radius:15px;
+	overflow:hidden;
+	box-shadow: 0px 2px 20px #999;
+}
+#logo{
+	margin:0 auto;
+	background-color:#FDFBFC;
+	float:left;
+	width:180px;
+	height:60px;
+	
+}
+#menu{
+	margin:0 auto;
+	background-color:#F73E82;
+	float:left;
+	width:auto;
+	height:60px;
+	overflow:hidden;
+}
+#wrapper{
+	margin: 0 auto;
+	margin-top:25px;
+	width:900px;
+	overflow:auto;
+	border:0px solid #000;
+}
+#wrapperhome{
+	position:absolute;
+	margin: 0 auto;
+	top: 100px; left: 0px; bottom: 0px; right: 0px;
+	/*margin-top:-20px;
+	margin-bottom:-70px;*/
+	width:1120px;
+	height:370px;
+	background-image:url(../img/bg_home.PNG);
+	background-position:center;
+	background-repeat:no-repeat;
+	overflow:auto;
+	border:0px solid #000;
+	z-index:999;
+}
+
+#wrapperhome2{
+	margin: 0 auto;
+	position: absolute;
+	top: 100px; left: 0px; bottom: 0px; right: 0px;
+	margin-top:-20px;
+	margin-bottom:-70px;
+	width:1120px;
+	height:446px;
+	background-image:url(../img/bg_home2.PNG);
+	background-position:center;
+	background-repeat:no-repeat;
+	overflow:auto;
+	border:0px solid #000;
+	z-index:999;
+}
+#wrapdetailarticle{
+	margin: 0 auto;
+	margin-top:25px;
+	width:880px;
+	overflow:auto;
+	border:0px solid #000;
+	border-radius:15px;
+	box-shadow: 0px 6px 15px 0px #007DCA;
+}
+#wrapperpembatas{
+	margin: 0 auto;
+	margin-top:2px;
+	width:1000px;
+	padding:10px;
+	overflow:auto;
+	border:0px solid #000;
+}
+#slides{
+	margin:0 auto;
+	margin-top:30px;
+	background-color:#EEECED;
+	width:627px;
+	height:267px;
+	overflow:hidden;
+	border:15px solid #fdf9f9;
+	border-radius:15px;
+	box-shadow: 0px 0px 15px #888;
+	
+}
+
+#user{
+	margin:0 auto;
+	margin-top: 20px;
+	background-color:#EEECED;
+	width:607px;
+	height:374px;
+	overflow:hidden;
+	border:15px solid #fdf9f9;
+	border-radius:15px;
+	box-shadow: 0px 0px 15px #888;
+	
+}
+#userthanks{
+	margin:0 auto;
+	margin-top: 20px;
+	background-color:#EEECED;
+	width:607px;
+	height:300px;
+	overflow:hidden;
+	border:15px solid #fdf9f9;
+	border-radius:15px;
+	box-shadow: 0px 0px 15px #888;
+	
+}
+#userPrivacy{
+	margin:0 auto;
+	margin-top: 20px;
+	background-color:#EEECED;
+	width:607px;
+	height:324px;
+	overflow:scroll;
+	border:15px solid #fdf9f9;
+	border-radius:15px;
+	box-shadow: 0px 0px 15px #888;
+	
+}
+#userDownloadFB{
+	margin:0 auto;
+	margin-top: 10px;
+	background-color:#EEECED;
+	width:627px;
+	height:405px;
+	overflow:hidden;
+	border:15px solid #fdf9f9;
+	border-radius:15px;
+	box-shadow: 0px 0px 15px #888;
+	
+}
+#userDownload{
+	margin:0 auto;
+	margin-top: 10px;
+	background-color:#EEECED;
+	width:627px;
+	height:387px;
+	overflow:hidden;
+	border:15px solid #fdf9f9;
+	border-radius:15px;
+	box-shadow: 0px 0px 15px #888;
+	
+}
+#userContent{
+	margin:0 auto;
+	margin-top:15px;
+	width:610px;
+	height:397px;
+	border:0px solid #fefcfd;
+	overflow:hidden;
+}
+#userContenttw{
+	margin:0 auto;
+	margin-top:1px;
+	width:100%;
+	height:397px;
+	border:0px solid #fefcfd;
+	overflow:hidden;
+}
+#imgsmpl{
+	margin:0 auto;
+	width:610px;
+	height:225px;
+	background-color:#fefcfd;
+	border:0px solid #fefcfd;
+	overflow:hidden;
+}
+#imgsmpltw{
+	margin:0 auto;
+	width:100%;
+	height:240px;
+	background-color:#fefcfd;
+	border:0px solid #fefcfd;
+	overflow:hidden;
+}
+#divsmpl{
+	margin:0 auto;
+	width:610px;
+	height:260px;
+	background-color:#009bed;
+	border:0px solid #fefcfd;
+	overflow:hidden;
+}
+#divsmpltw{
+	margin:0 auto;
+	width:100%;
+	height:240px;
+	background-color:#009bed;
+	border:0px solid #fefcfd;
+	overflow:hidden;
+}
+#wrapcontentuser{
+	margin:0 auto;
+	width:610px;
+	height:125px;
+	border:0px solid #fefcfd;
+	overflow:hidden;
+}
+#wrapcontentuserFB{
+	margin:0 auto;
+	margin-top:-30px;
+	width:610px;
+	height:125px;
+	border:0px solid #fefcfd;
+	overflow:hidden;
+}
+#contentdesc{
+	margin:0 auto;
+	float:left;
+	width:410px;
+	height:120px;
+	border:0px solid #fefcfd;
+	overflow:hidden;
+}
+#contentuserdesc{
+	margin:0 auto;
+	margin-top:10px;
+	color:#646466;
+	float:left;
+	width:400px;
+	height:120px;
+	border:0px solid #fefcfd;
+	overflow:hidden;
+}
+.tittledesc{
+	font-size:16px;
+	font-family: Nunito;
+	font-weight:bold;
+}
+.isidesc{
+	font-size:13px;
+	font-family: Nunito;	
+}
+#btn-desc{
+	margin:0 auto;
+	margin-top:-20px;
+	float:right;
+	width:190px;
+	padding-right:7px;
+	padding-top:30px;
+	height:100px;
+	border:0px solid #fefcfd;
+	overflow:hidden;
+}
+#framesmall{
+	margin:0 auto;
+	margin-top:20px;
+	margin-left:10px;
+	float:left;
+	width:85px;
+	height:45px;
+	background-color:#0395e8;
+	border:0px solid #fefcfd;
+	overflow:hidden;
+}
+#wrapimgframe{
+	margin:0 auto;
+	margin-top:-170px;
+	margin-left:-10px;
+	width:610px;
+	height:125px;
+	border:0px solid #fefcfd;
+	overflow:auto;
+	position:relative;
+}
+#wrapimgframeFB{
+	margin:0 auto;
+	margin-top:-150px;
+	width:610px;
+	height:155px;
+	border:0px solid #fefcfd;
+	overflow:auto;
+	position:relative;
+}
+#wrapframeleft{
+	margin:0 auto;
+	float:left;
+	width:170px;
+	height:125px;
+	overflow:hidden;
+}
+#wrapframeright{
+	margin:0 auto;
+	float:right;
+	width:430px;
+	height:121px;
+	border:0px solid #000;
+	overflow:hidden;
+}
+#wrapframerightFB{
+	margin:0 auto;
+	float:right;
+	width:430px;
+	height:151px;
+	border:0px solid #000;
+	overflow:hidden;
+}
+#imgframe{
+	/*margin:0 auto;*/
+	margin-left: 23px;
+	width:55px;
+	height:63px;
+	background-color:#fff;
+	border:2px solid #fff;
+	box-shadow: 0px 2px 2px #888;
+	overflow:hidden;
+}
+#descimgframespace{
+	margin:0 auto;
+	width:425px;
+	height:80px;
+	overflow:hidden;
+}
+#descimgframespaceFB{
+	margin:0 auto;
+	width:425px;
+	height:110px;
+	overflow:hidden;
+}
+#descimgframe{
+	margin:0 auto;
+	font-family: Nunito;
+	font-weight:bold;
+	color:#646466;
+	float:left;
+	border:0px solid #fff;
+	width:425px;
+	height:50px;
+	overflow:hidden;
+}
+   /*
 input[type=checkbox].css-checkbox {
 							display:none;
 						}
