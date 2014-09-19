@@ -156,11 +156,11 @@ class uploadfoto extends Controller {
     $this->view->assign('cover',$getCover);
     
     $sessionFlag = intval(@$_SESSION['flag']);
-    if ($sessionFlag<1){
+    // if ($sessionFlag<1){
       
-      $_SESSION['flag'] = 1;
-      redirect($basedomain.'uploadfoto/uploadprofile');
-    }
+    //   $_SESSION['flag'] = 1;
+    //   redirect($basedomain.'uploadfoto/uploadprofile');
+    // }
     
     if (isset($_SESSION['fb-logout'])){
       $this->view->assign('coverfb',1);
