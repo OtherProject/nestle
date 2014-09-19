@@ -170,6 +170,9 @@ var dinamisClass = "{if $coverfb}userContent{else}userContenttw{/if}";
 
 	$(document).on('click','.crop', function(){
 
+
+		window.location.href = basedomain+'uploadfoto/cropedProfile';
+		return false;
 		var x = $('#x').val();
 		var y = $('#y').val();
 		var w = $('#w').val();

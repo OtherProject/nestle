@@ -98,7 +98,7 @@ function under_development() {
 
 function redirect($data) {
 	
-	echo "<meta http-equiv=\"Refresh\" content=\"0; url={$data}\">";
+	echo "<meta http-equiv=\"refresh\" content=\"0; url={$data}\">";
 
 }
 

@@ -34,7 +34,7 @@
 				<p class="isi"><strong>Hasil Profile Foto yang telah dipilih</strong> </p>
 			</div>
 			<div class="article">
-				<a href="javascript:void(0)" class="btnpinkslide crop" fid="{$frame[0].files}" cid="{$frame[0].cover.files}"><span style="color:#fff">Continue</span></a>
+				<a href="javascript:void(0)" class="btnpinkslide continueFrame" fid="{$frame[0].files}" cid="{$frame[0].cover.files}"><span style="color:#fff">Continue</span></a>
 			</div>
 		</div>
 
@@ -58,6 +58,8 @@
 
 	$(document).on('click','.continueFrame', function(){
 
+		 window.location.href = basedomain+'uploadfoto/share';
+		return false;
 		var cover = $(this).attr('cid');
 		var frame = $(this).attr('fid');
 		

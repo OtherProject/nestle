@@ -1,7 +1,16 @@
 <?php
 class contentHelper extends Database {
-	var $prefix = "nestle";
-	function getArticle($id=false, $start=0, $limit=3)
+
+	function __construct()
+	{
+		$this->prefix = "nestle";
+		$session = new Session();
+		$this->user = $session->get_session();
+	}
+
+
+
+	function getArticle($id=false, $start=0, $limit=6)
 	{
 
 		$filter = "";
@@ -11,67 +20,6 @@ class contentHelper extends Database {
 		$res = $this->fetch($sql,1);
 		if ($res) return $res;
 		return false;
-	}
-	function getData()
-	{
-		$sql = "SELECT * FROM code_activity";
-		$res = $this->fetch($sql,1);
-		if ($res) return $res;
-		return false;
-	}
-	
-	function getMessage()
-	{
-		$sql = "SELECT m.*, um.name,um.email FROM my_message m LEFT JOIN user_member um ON m.receive = um.id ";
-		$res = $this->fetch($sql,1);
-		if ($res) return $res;
-		return false;
-	}
-	
-	function saveMessage($data)
-	{
-		foreach ($data as $key => $val){
-			$tmpfield[] = $key;
-			$tmpdata[] = "'$val'";
-		}
-		// from,to,subject,content,createdate,n_status
-		$tmpfield[] = 'fromwho';
-		$tmpfield[] = 'createdate';
-		$tmpfield[] = 'n_status';
-		
-		$date = date('Y-m-d H:i:s');
-		$tmpdata[] = 0;
-		$tmpdata[] = "'{$date}'";
-		$tmpdata[] = 1;
-		
-		$field = implode(',',$tmpfield);
-		$data = implode(',',$tmpdata);
-		
-		$sql = "INSERT INTO my_message ({$field}) 
-				VALUES ({$data})";
-		// pr($sql);
-		// exit;
-		$res = $this->query($sql);
-		if ($res) return true;
-		return false;
-	}
-	
-	function get_user($data)
-	{
-		$query = "SELECT * FROM user_member WHERE email = '{$data}'";
-		
-		$result = $this->fetch($query,1);
-		
-		return $result;
-	}
-	
-	function importData($name=null)
-	{
-		$query = "INSERT INTO import (name,n_status) VALUES ('{$name}', 1)";
-		// pr($query);
-		$result = $this->query($query);
-		
-		return $result;
 	}
 
 	function getRandomArticle($id=false, $start=0, $limit=3)
@@ -132,5 +80,173 @@ class contentHelper extends Database {
 
 		return false;
 	}
+
+	function saveUserFoto($data=array())
+	{
+
+		$useraccount = $this->user['default'];
+
+		$date = date('Y-m-d H:i:s');
+		// pr($useraccount);
+		$title = "Upload foto from local store";
+		$sql = "INSERT INTO {$this->prefix}_news_content_repo (title,typealbum, files, userid, created_date, n_status)
+				VALUES ('{$title}', 1, '{$data['full_name']}', {$useraccount['id']}, '{$date}',1)";
+		// pr($sql);
+		$res = $this->query($sql);
+		if($res) return true;
+		return false;
+	}
+
+	function getMyPhoto()
+	{
+		$userid = $this->user['default']['id'];
+		$sql = "SELECT * FROM {$this->prefix}_news_content_repo WHERE userid = {$userid}
+				AND n_status = 1 {$filter} ORDER BY created_date DESC LIMIT 1";
+		$res = $this->fetch($sql);
+		if ($res) return $res;
+		return false;
+	}
+
+	function getFrame($flag=4)
+	{
+
+		/*
+			flag 4 for facebook cover
+			flag 5 for twitter cover
+		*/
+
+		$filter = " AND typealbum IN ({$flag}) ";
+
+		$sql = "SELECT * FROM {$this->prefix}_news_content_repo WHERE gallerytype IN (1)
+				AND n_status = 1 {$filter} ORDER BY created_date DESC LIMIT 4";
+		$res = $this->fetch($sql,1);
+		if ($res){
+
+			foreach ($res as $key => $value) {
+				$sql1 = "SELECT * FROM {$this->prefix}_news_content_repo WHERE gallerytype IN (2)
+						AND n_status = 1 AND otherid = {$value['id']} {$filter} ORDER BY created_date DESC LIMIT 1";
+				$res1 = $this->fetch($sql1);
+
+				$res[$key]['cover'] = $res1;
+			}
+
+
+			return $res;
+		}
+		return false;
+	}
+
+	function getCreateImage()
+	{
+		$useraccount = $this->user['default'];
+		$sql1 = "SELECT * FROM {$this->prefix}_createimage WHERE userid = {$useraccount['id']} ORDER BY created_date DESC LIMIT 1";
+		$res1 = $this->fetch($sql1);
+
+
+		if ($res1) return $res1;
+		return false;
+	}
+
+	function updateUserFoto($id, $filename, $fromonline=false)
+	{
+
+		if ($fromonline){
+
+			$useraccount = $this->user['default'];
+
+			$date = date('Y-m-d H:i:s');
+			// pr($useraccount);
+			$title = "Upload foto from album facebook";
+			$sql = "INSERT INTO {$this->prefix}_news_content_repo (title,typealbum, files, userid, created_date, n_status)
+					VALUES ('{$title}', 1, '{$filename}', {$useraccount['id']}, '{$date}',1)";
+			// pr($sql);
+			$res = $this->query($sql);
+
+		}else{
+			// $sql = "UPDATE {$this->prefix}_news_content_repo SET thumbnail = '{$filename}' WHERE id = {$id} LIMIT 1";
+			$sql = "UPDATE {$this->prefix}_createimage SET profil = '{$filename}' WHERE id = {$id} LIMIT 1";
+			// pr($sql);
+
+			$res = $this->query($sql);
+		}
+
+		if ($res) return true;
+		return false;
+	}
+
+	function updateUserFrame($data=array())
+	{
+
+		$useraccount = $this->user['default'];
+
+		$date = date('Y-m-d H:i:s');
+
+		$sql = "INSERT INTO {$this->prefix}_createimage (userid,cover, frame, created_date, n_status)
+				VALUES ({$useraccount['id']}, '{$data['cover']}', '{$data['frame']}', '{$date}',1)";
+		// pr($sql);
+		$res = $this->query($sql);
+		if ($res) return true;
+		return false;
+	}
+
+	function updateCreateImageStatus()
+	{
+		$useraccount = $this->user['default'];
+
+		$user = $this->getCreateImage();
+
+		$sql = "UPDATE {$this->prefix}_createimage SET n_status = 2 WHERE id = {$user['id']} AND userid = {$user['userid']} LIMIT 1";
+		$res = $this->query($sql);
+		if ($res) return true;
+		return false;
+	}
+
+	function getCreateImageObject ($user, $id)
+	{
+		return $this->fetch("SELECT * FROM {$this->prefix}_createimage WHERE userid = {$user['id']} AND id = $id LIMIT 1");
+	}
+
+	function setCreateImageStatus ($image, $status)
+	{
+		return $this->query("UPDATE {$this->prefix}_createimage SET n_status = $status WHERE id = {$image['id']}");
+	}
+
+	function registerUser($data)
+	{
+
+		$useraccount = false;
+		$jumlhAnak = intval($data['jmlhAnak']);
+
+		$useraccount = $this->user['default'];
+		if (!$useraccount) return false;
+
+		if ($useraccount['usertype']>1){
+			$sql = "UPDATE social_member SET name = '{$data['nama']}', email = '{$data['email']}', phone_number = '{$data['telp']}', StreetName = '{$data['alamat']}', verified = 1 WHERE id = {$useraccount['id']} LIMIT 1";
+
+		}else{
+			$sql = "UPDATE social_member SET name = '{$data['nama']}', phone_number = '{$data['telp']}', StreetName = '{$data['alamat']}', verified = 1 WHERE id = {$useraccount['id']} LIMIT 1";
+
+		}
+		// pr($sql);
+		$res = $this->query($sql);
+
+		if ($res){
+
+			for($i=0; $i<=$jumlhAnak-1; $i++){
+
+				$sql = "INSERT INTO nestle_child (userid, name, birthdate, n_status)
+						VALUES ({$useraccount['id']}, '{$data['childName'][$i]}','{$data['childDate'][$i]}',1) ";
+				// pr($sql);
+				$res = $this->query($sql);
+			}
+
+			return true;
+
+		}
+
+		return false;
+	}
+
+
 }
 ?>

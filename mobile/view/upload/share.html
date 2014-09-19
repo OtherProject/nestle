@@ -34,8 +34,26 @@
 				<div class="tittledesc">Share ke Social Media</div>
 				<div class="isidesc">Silahkan share foto baru si kecil lewat facebook maupun twitter</div>
 			</div>
+			{*}
 			<div class="article">
 				<div id="btn-desc" align="center">
-				<a onClick="ga('send', 'event', 'Button', 'Click', 'Share');" href="{$accessUrl}" class="btnpinkslide">Share</a>
+				<a onClick="ga('send', 'event', 'Button', 'Click', 'Share');" data-href="{$accessUrl}" class="btnpinkslide shareImage" href="javascript:void(0)">Share</a>
 			</div>
+			{/*}
+			<div class="article">
+				<div id="btn-desc" align="center">
+				<a onClick="ga('send', 'event', 'Button', 'Click', 'Share');" data-href="" class="btnpinkslide shareImage" href="javascript:void(0)">Share</a>
+			</div>
+
 		 </div>
+
+<script type="text/javascript">
+{literal}
+	
+	$(document).on('click','.shareImage', function(){
+		window.location.href = basedomain+'uploadfoto/changefoto';
+		return false;
+	})
+
+{/literal}
+</script>

@@ -1,19 +1,19 @@
 <?php
-/* contoh models */
+class activityHelper extends Database {
 
-class helper_model extends Database {
-	
+	/* generate reference query */
+
 	var $user = null;
 	function __construct()
 	{
+
 		$session = new Session;
 		$getSessi = $session->get_session();
-		$this->user = $getSessi['default'];
+		$this->user = $getSessi['login'];
 
 	}
 
-    /*
-	function generateEmail($email=false, $username=false,$regfrom=1)
+	function generateEmail($email=false, $username=false,$regfrom=1, $token=CODEKIR)
     {
         global $CONFIG, $basedomain;
 
@@ -22,11 +22,13 @@ class helper_model extends Database {
         $dataArr['email'] = $email;
         $dataArr['username'] = $username;
         $dataArr['token'] = sha1('register'.$email);
-        $dataArr['validby'] = sha1(CODEKIR);
+        $dataArr['validby'] = $token;
         $dataArr['regfrom'] = $regfrom;
 
+        logFile('token ori : '.$token);
+
         $inflatData = encode(serialize($dataArr));
-        logFile($inflatData);
+        logFile(serialize($dataArr));
 
 
         $return['to'] = $email;
@@ -38,7 +40,7 @@ class helper_model extends Database {
         return $return;
     }
 
-    function emailLog($email=false, $subject='account')
+	function emailLog($email=false, $subject='account')
     {
         if (!$email) return false;
 
@@ -62,36 +64,42 @@ class helper_model extends Database {
         return false;
     }
 
-    function updateEmailLog($update=true, $receipt=false, $subject='account', $n_status=0)
-    {
-        
-        // echo 'masuk';
+
+	function updateEmailLog($update=true, $receipt=false, $subject='account', $n_status=0)
+	{
+		
         $date = date('Y-m-d H:i:s');
+        $sql = false;
+
+        $this->begin();
 
         if ($update){
-            
-            $sql = "UPDATE `florakb_mail_log` SET  n_status = {$n_status} WHERE receipt = '{$receipt}' AND subject = '{$subject}' AND n_status = 0 LIMIT 1";
-            // pr($sql);
-            logFile($sql);
-            
-            $res = $this->query($sql,1);  
-            logFile($res);
-            if ($res) return true;
-            return false;
+        	
+        	$sql = "UPDATE `florakb_mail_log` SET  n_status = {$n_status} 
+        			WHERE receipt = '{$receipt}' AND subject = '{$subject}' LIMIT 1";
+	        // pr($sql);
+	        $res = $this->query($sql,1);  
+	        if ($res){
+	        	$this->commit();
+	        	return true;
+	        }
+	        return false;
 
         }else{
-            $sql = "INSERT IGNORE INTO `florakb_mail_log` (receipt, subject, send_date, n_status) 
-                    VALUES ('{$receipt}', '{$subject}', '{$date}', {$n_status})";
-            // pr($sql);
-            // logFile($sql);exit;
-            $res = $this->query($sql,1);  
-            if ($res) return true;
-            return false;
+
+        	$sql = "INSERT IGNORE INTO `florakb_mail_log` (receipt, subject, send_date, n_status) 
+	                VALUES ('{$receipt}', '{$subject}', '{$date}', {$n_status})";
+	        // pr($sql);
+	        $res = $this->query($sql,1);  
+	        if ($res){
+	        	$this->commit();
+	        	return true;
+	        }
+	        return false;
         }
         
-    }
+	}
 
-    
 	function storeUserUploadLog($data=null, $filename=null)
     {
 
@@ -104,33 +112,9 @@ class helper_model extends Database {
         if ($res) return true;
         return false;
     }
-    */
-    
-    function logActivity($action='surf', $comment=null, $userid=false)
-    {
-        $sql = "SELECT id FROM activity WHERE activityValue = '{$action}' LIMIT 1 ";
-        // pr($sql);
-        $res = $this->fetch($sql);
-        if ($res){
 
-            $date = date('Y-m-d H:i:s'); 
-            $source = $_SERVER['REMOTE_ADDR'];
-            $comment = htmlentities($comment, ENT_QUOTES);
-            
-            if ($userid) $user = $userid;
-            else $user = $this->user['id'];
-
-            if (!$userid) return false;
-
-            $ins = "INSERT INTO activity_log (userid, activityId, activityDesc, source, datetimes, n_status)
-                    VALUES ({$user}, {$res['id']}, '{$comment}', '{$source}', '{$date}',1)";
-            $result = $this->query($ins);
-
-            if ($result) return true;
-            return false;
-        }
-
-        return false;
-    }
 }
+
 ?>
+
+

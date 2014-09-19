@@ -17,12 +17,26 @@
                 <li><a href="{$basedomain}home/about" class="ui-btn" id="menuPanel">About</a></li>
                 <li><a href="{$basedomain}home/term" class="ui-btn" id="menuPanel">Term & Condition</a></li>
                 <li><a href="{$basedomain}article" class="ui-btn" id="menuPanel">Articles</a></li>
+                {if $user}
+                <li><a href="{$logoutUrl}" class="ui-btn" id="menuPanel">Logout</a></li>
+                {/if}
 		</ul>
 
 	</div><!-- /panel -->
 
 </div><!-- /page -->
 
-
+<script>
+	{literal}
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	 
+	  ga('create', 'UA-54500863-1', 'auto');
+	  ga('send', 'pageview'); 
+	{/literal}
+	</script>
+	
 </body>
 </html>

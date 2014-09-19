@@ -24,9 +24,10 @@ if (is_array($CONFIG)) {
  * yang diminta dari browser dengan method GET
  */
 
-
 $setPage = NULL;
 $setFunction = NULL;
+$getURI = array();
+
 
 /* Get page berdasarkan method GET 
 $baseURI = ($_GET);
@@ -40,8 +41,8 @@ $baseURI = strip_tags($_SERVER['QUERY_STRING']);
 	yeah.... :-)
 */
 
-// pr($baseURI);exit;
-$getURI = null;
+// vd($baseURI);exit;
+
 if ($baseURI){
 
 	$explURI = explode('/', $baseURI);

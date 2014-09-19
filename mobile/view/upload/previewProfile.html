@@ -35,9 +35,15 @@
 				<div class="tittledesc">Share ke Social Media</div>
 				<div class="isi">Silahkan share foto baru si kecil lewat facebook maupun twitter</div>
 			</div>
+			{*}
 			<div class="article">
 				<div id="btn-desc" align="center">
 				<a onClick="ga('send', 'event', 'Button', 'Click', 'ShareFB');" class="{if $accessUrl}{$accessUrl}{else}sharebutton{/if} btnpinkslide " data-href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" href="{if $accessUrl}{$accessUrl}{else}javascript:void(0){/if}"><span style="color:white">Share</span></a>
+			</div>{/*}
+
+			<div class="article">
+				<div id="btn-desc" align="center">
+				<a onClick="ga('send', 'event', 'Button', 'Click', 'ShareFB');" class="{if $accessUrl}{$accessUrl}{else}sharebutton{/if} btnpinkslide " data-href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" href="javascript:void(0)"><span style="color:white">Share</span></a>
 			</div>
 		 </div>
 
@@ -52,6 +58,7 @@ var dataShare = "{$basedomain}shareTemplate.php?ft={$myfoto.profil}";
 var fbID = "{$appId}";
 {literal}
 	
+
 	window.fbAsyncInit = function() {
 	    // init the FB JS SDK
 	    FB.init({
@@ -78,7 +85,8 @@ var fbID = "{$appId}";
 
 	$(document).on('click','.sharebutton', function(){
 
-
+		window.location.href = basedomain+'uploadfoto/changephoto';
+	return false;
 		FB.ui(
 				 {
 				  method: 'share',

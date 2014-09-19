@@ -35,7 +35,7 @@
 				<p class="isi"><strong>Silakan ganti foto profil dan cover photo Facebook atau Twitter Ayah dan Ibu menggunakan gambar yang telah kami sediakan untuk memenangkan hadiah menarik dari Nestlé LACTOGEN 3 Activgro.</strong> </p>
 			</div>
 			<div class="article">
-				<a href="javascript:void(0)" class="btnpinkslide" fid="{$frame[0].files}" cid="{$frame[0].cover.files}"><span style="color:#fff">Download</span></a>
+				<a href="javascript:void(0)" id="downloadAll" class="btnpinkslide" fid="{$frame[0].files}" cid="{$frame[0].cover.files}"><span style="color:#fff">Download</span></a>
 				<div style="height:20px;width:100%;clear:both;">&nbsp;</div>
 				<a href="javascript:void(0)" class="btn-fslide" fid="{$frame[0].files}" cid="{$frame[0].cover.files}"><span style="color:#fff">Facebook Profile</span></a>
 			</div>
@@ -45,6 +45,9 @@
 
 	$(document).ready(function() {
 	  $('#downloadAll').click(function() {
+
+	  	window.location.href=basedomain+'home/thanks';
+	  	return false;
 				$.ajax({
 					url: $(this).data("url"),
 					method: 'POST',
