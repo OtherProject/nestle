@@ -1,15 +1,4 @@
-{literal}
-	<script type="text/javascript">
-	
-	
-		$(document).on('click', '.uploadfoto', function(){
-			//console.log('masuk');
-			$('#fotoupload').trigger('click');
-		});
-	
-	
-	</script>
-	{/literal}
+
 <style>
 	div input[type="file"] {
     position: fixed;
@@ -17,8 +6,10 @@
 	border:0px solid #FD698B;
 }
 </style>
+
     <div role="main" class="ui-content jqm-content jqm-fullwidth" style="border:0px solid #000;">
-		<div class="article"><img src="{$basedomain}assets/_assets/img/title_upload.jpg" width="100%"></div>
+    	<form method="post" action="{$basedomain}uploadfoto/ajaxUpload" id="uploadImagetolocal">
+		<div class="article" id="imgupload"><img src="{$basedomain}assets/_assets/img/title_upload.jpg" width="100%"></div>
 		<div class="article">
     		<p class="isi"><strong>Ibu dan Ayah bisa mengupload foto Si Kecil dari file komputer maupun langsung dari album facebook
 			</strong><p>
@@ -41,6 +32,125 @@
 					<span class="isi"><strong>Saya menyetujui <span  id='basic-modal'><a href='#' class='basic2'><u>Syarat dan Ketentuan</u></a></span> yang berlaku.</strong></span>
 					</div><br/>
 		</div>
-
+</form>	
 	</div><!-- /content -->
 	
+
+<script type="text/javascript">
+{literal}
+	
+	$(document).on('click','.btnpinkslide', function(){
+
+		$('#fotoupload').trigger('click');
+	})
+
+	$(document).on('click','#checkboxG2', function(){
+
+		var test = $(this).attr('akses');
+		if (test==0){
+			$(this).attr('akses',1);
+		}else{
+			$(this).attr('akses',0);
+		}
+		
+	})
+
+	$(document).on('click','.selectPhoto', function(){
+
+
+		var fileName = $(this).attr('src');
+		
+		$('#imgupload').attr('align','center');
+		var loading = "<img src='"+app_domain+"assets/images/loading.gif' width='50px'/>";
+		$('#imgupload').html(loading);
+		$.post(basedomain+'uploadfoto/getFromFb',{fileName:fileName}, function(data){
+
+			
+			
+			if (data.status==true){
+				
+				    window.location.href = basedomain+'uploadfoto/uploadprofile';
+				
+			}
+
+		},"JSON")
+	})
+
+	
+		
+	$(document).on('change','#fotoupload', function(e){
+		
+		readURLpose(this);
+		
+		// e.preventDefault();
+
+		var uploadoptions = {
+			dataType:  'json', 	
+			beforeSubmit: function(data) { 
+				
+				$('#imgupload').attr('align','center');
+				var loading = "<img src='"+app_domain+"assets/images/loading.gif' width='50px'/>";
+				$('#imgupload').html(loading);
+				
+				
+			},
+			success : function(data) {		
+
+					if(data.status==true){
+						
+						setTimeout(function() {
+						    window.location.href = basedomain+'uploadfoto/uploadprofile';
+						}, 1000);
+						
+						 							
+					} else {
+							$.modal("<div><center><h3>"+data.message+"</h3></center></div>");
+							$("#simplemodal-container").css({width : '400px', height: '100px',
+																margin: '0 auto',
+																left: '0',
+																bottom: '0',
+																right: '0',
+																'font-family': 'Nunito'});
+							$(".modalCloseImg").remove();
+
+							setTimeout(function() {
+							    window.location.href = basedomain+'uploadfoto';
+							}, 2000);
+						}
+						 
+			}
+			};					
+
+		
+		setTimeout(function() {
+
+			var getAgree = parseInt($('#checkboxG2').attr('akses'));
+			if (getAgree<1){
+
+				$('#imgupload').html('please check');
+				return false;
+			}else{
+
+				$('#divbtnslide').html('');
+				$('#divcheckslide').html('');
+				// $("#submitfoto").trigger('click');
+				$("#uploadImagetolocal").ajaxForm(uploadoptions).submit();
+			}
+		    
+		}, 500);
+	})
+	
+	function readURLpose(input) {
+		if (input.files && input.files[0]) {
+            var reader = new FileReader();
+			reader.onload = function (e) {
+                $('#tmpimage').val(e.target.result);
+                
+            }
+			 reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+   
+{/literal}
+</script>

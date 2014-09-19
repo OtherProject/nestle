@@ -71,7 +71,9 @@ class Session
 		if (array_key_exists('default', $CONFIG)){
 			$configkey = 'default';
 		}
-
+		if (array_key_exists('mobile', $CONFIG)){
+			$configkey = 'mobile';
+		}
 		$uniqSess = sha1($CONFIG[$configkey]['root_path'].'codekir-v0.1');
 
 		if ($sessName){
@@ -97,7 +99,9 @@ class Session
 		if (array_key_exists('default', $CONFIG)){
 			$configkey = 'default';
 		}
-		
+		if (array_key_exists('mobile', $CONFIG)){
+			$configkey = 'mobile';
+		}
 		$session = false;
 		
 		$uniqSess = sha1($CONFIG[$configkey]['root_path'].'codekir-v0.1');
@@ -124,6 +128,9 @@ class Session
 		}
 		if (array_key_exists('default', $CONFIG)){
 			$configkey = 'default';
+		}
+		if (array_key_exists('mobile', $CONFIG)){
+			$configkey = 'mobile';
 		}
 		
 		$session = false;

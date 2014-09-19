@@ -19,7 +19,8 @@ class home extends Controller {
 		$this->view = $this->setSmarty();
 		$this->view->assign('basedomain',$basedomain);
     $userdata = $this->isUserOnline();
-    $this->user = $userdata['default'];
+    $this->user = $userdata['mobile'];
+    // pr($this->user);exit;
     $browsertype = $this->checkBrowser();
     $this->view->assign('browsertype',$browsertype);
 
@@ -34,8 +35,7 @@ class home extends Controller {
 
 		global $CONFIG, $basedomain;
 
-		// pr($_SESSION);
-
+		// pr($_SESSION);exit;
     // $this->loginHelper->debuging();
 
     if ($this->user['id'])$this->log('surf','home');
@@ -70,7 +70,7 @@ class home extends Controller {
 
   	return $this->loadView('home');
   }
-  function index2(){
+  function slide(){
 
     global $CONFIG, $basedomain;
 
@@ -110,6 +110,7 @@ class home extends Controller {
 
     return $this->loadView('home2');
   }
+
   function about(){
 
     global $CONFIG, $basedomain;

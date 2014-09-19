@@ -12,7 +12,19 @@ define ('LOGS', 'logs/');
 define ('CACHE', 'cache/');
 define ('TMP', 'tmp/');
 
+
 require_once (COREPATH.'loader.php');
+
+require_once LIBS.'mobile_detect/Mobile_Detect.php';
+
+$detect = new Mobile_Detect;
+$deviceType = ($detect->isMobile() ? ($detect->isTablet() ? 'tablet' : 'phone') : 'computer');
+$scriptVersion = $detect->getScriptVersion();
+
+if ($deviceType !='computer'){
+	redirect($basedomain.'mobile');
+	exit;
+}
 
 if (is_array($CONFIG)) {
 	

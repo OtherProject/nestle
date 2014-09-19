@@ -1,7 +1,7 @@
 
    <div role="main" class="ui-content jqm-content jqm-fullwidth" style="border:0px solid #000;">
 		 <div id="{if $coverfb}imgsmpl{else}imgsmpltw{/if}">
-			<img src="{$basedomain}assets/_assets/cover/402480dc5af2d3252d3d180506092648.jpg" width="320px" height="116px"  class="coverImg"/>
+			<img src="{$app_domain}public_assets/cover/{$frame[0].cover.files}" width="320px" height="116px"  class="coverImg"/>
 		 </div>
 		 <div id="{if $coverfb}wrapimgframeFB{else}wrapimgframe{/if}" >
 			<div id="wrapframeleft">
@@ -21,7 +21,7 @@
 
 				<div id="frame">
 					
-					<img src="{$basedomain}assets/_assets/img/d48848a43c9cb89c77ac0723b2694c12.png" width="100%" height="100%" id="framedinamis"/>
+					<img src="{$app_domain}public_assets/frame/{$frame[0].files}" width="100%" height="100%" id="framedinamis"/>
 				</div>
 			</div>
 
@@ -29,16 +29,92 @@
 		<div class="article" style="margin-top:-50px">
 			<p class="isi"><strong>Silahkan pilih frame foto yang Ibu dan Ayah Suka dan sesuai dengan foto Si kecil</strong></p>
 		</div>
+		{if $frame}
+			{foreach $frame as $val}
 		 <div class="article">
-			<a href="javascript:void(0)"><img src="{$basedomain}assets/_assets/cover/402480dc5af2d3252d3d180506092648.jpg" width="320px" height="116px"  class="coverImg"/></a>
+			<a href="javascript:void(0)"><img src="{$app_domain}public_assets/cover/{$val.cover.files}" width="320px" height="116px"  class="chooseFrame" fname="{$val.files}" linkcover="{$val.cover.files}" lframe="{$val.files}"/></a>
 		 </div> 
+		 	{/foreach}
+		{/if}
+
+		{*}
 		 <div class="article" >
 			<a href="javascript:void(0)"><img src="{$basedomain}assets/_assets/cover/402480dc5af2d3252d3d180506092648.jpg" width="320px" height="116px"  class="coverImg"/></a>
 		 </div> 
 		 <div class="article" >
 			<a href="javascript:void(0)"><img src="{$basedomain}assets/_assets/cover/402480dc5af2d3252d3d180506092648.jpg" width="320px" height="116px"  class="coverImg"/></a>
 		 </div>
+		 {/*}
 		<div id="wrapbtn" align="center">
-				<a href="{$basedomain}article" class="btnpink"><span style="color:white">Continue</span></a>
+				<a href="javascript:void(0)" class="btnpink continueFrame" fid="{$frame[0].files}" cid="{$frame[0].cover.files}"><span style="color:white">Continue</span></a>
 			</div>
+
 </div>
+
+
+<script type="text/javascript">
+
+var coverfb = {$coverfb};
+
+{literal}
+	
+	$(document).on('click','.chooseFrame', function(){
+
+		var link = $(this).attr('linkcover');
+		var imgFullpath = app_domain+'public_assets/cover/'+link;
+		var name = $(this).attr('fname');
+		var lframe = $(this).attr('lframe');
+		var frame = app_domain+'public_assets/frame/'+lframe;
+
+		var loading = app_domain+"assets/images/loading.gif";
+		
+		$('.coverImg').attr('src',loading);
+		$('.coverImg').attr('width','15%');
+		$('.coverImg').attr('height','30%');
+
+		setTimeout(function(){
+			
+			
+			$('.coverImg').attr('src',imgFullpath);
+			$('.coverImg').attr('width','320px');
+			$('.coverImg').attr('height','116px');
+			$('#framedinamis').attr('src',frame);
+			$('.continueFrame').attr('fid',name);
+			$('.continueFrame').attr('cid',link);
+
+		}, 1000);
+
+		
+		
+	})
+
+
+	$(document).on('click','.continueFrame', function(){
+
+		var cover = $(this).attr('cid');
+		var frame = $(this).attr('fid');
+		
+		
+		var loading = "<img src='"+app_domain+"assets/images/loading.gif' width='50px'/>";
+		if(coverfb){
+			
+			$('#imgsmpl').html(loading);
+		}else{
+			
+			$('#imgsmpltw').html(loading);
+		}
+		$.post(basedomain+'uploadfoto/saveFrame',{cover:cover, frame:frame}, function(data){
+
+			if (data.status==true){
+				
+				    window.location.href = basedomain+'uploadfoto';
+				
+			}
+
+		},"JSON")
+		
+	})
+
+	
+{/literal}
+</script>

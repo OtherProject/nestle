@@ -1,7 +1,7 @@
 
    <div role="main" class="ui-content jqm-content jqm-fullwidth" style="border:0px solid #000;">
 		 <div id="{if $coverfb}imgsmpl{else}imgsmpltw{/if}">
-			<img src="{$basedomain}assets/_assets/cover/402480dc5af2d3252d3d180506092648.jpg" width="320px" height="116px"  class="coverImg"/>
+			<img src="{$app_domain}public_assets/cover/{$myfoto.cover}" width="320px" height="116px"  class="coverImg"/>
 		 </div>
 		 <div id="{if $coverfb}wrapimgframeFB{else}wrapimgframe{/if}" >
 			<div id="wrapframeleft">
@@ -19,14 +19,15 @@
     margin-top:-3px;
     position: relative;">
 <div id="loadingbar" align="center"></div>
-				<div id="frame imgframe" style="opacity:0.4;z-index:999;position:relative">
+				<div id="frame imgframe" style="z-index:999;position:relative">
 					
-					<img src="{$basedomain}assets/_assets/img/d48848a43c9cb89c77ac0723b2694c12.png" width="100%" height="100%" id="framedinamis"/>
+					<img src="{$app_domain}public_assets/imageFramed/{$myfoto.profil}" width="100%" height="100%" id="framedinamis"/>
 				</div>
+				{*}
 				<div id="frame" style="position:relative;z-index:10;margin-top:-124px; margin-left:7px">
 					
 					<img src="{$basedomain}assets/_assets/img/d48848a43c9cb89c77ac0723b2694c12.png" width="100%" height="100%" id="framedinamis" />
-				</div>
+				</div>{/*}
 			</div>
 
 		 </div>
@@ -35,9 +36,26 @@
 				<p class="isi"><strong>Silakan ganti foto profil dan cover photo Facebook atau Twitter Ayah dan Ibu menggunakan gambar yang telah kami sediakan untuk memenangkan hadiah menarik dari Nestlé LACTOGEN 3 Activgro.</strong> </p>
 			</div>
 			<div class="article">
-				<a href="javascript:void(0)" class="btnpinkslide" fid="{$frame[0].files}" cid="{$frame[0].cover.files}"><span style="color:#fff">Download</span></a>
-				<div style="height:20px;width:100%;clear:both;">&nbsp;</div>
-				<a href="javascript:void(0)" class="btn-fslide" fid="{$frame[0].files}" cid="{$frame[0].cover.files}"><span style="color:#fff">Facebook Profile</span></a>
+				<a href="javascript:void(0)" id="downloadAll" class="btnpinkslide" data-url="{$basedomain}uploadfoto/imageDownloaded" data-image-id="{$myfoto.id}"><span style="color:#fff">Download</span></a>
+				
+				{if $coverfb}
+					<a href="{$app_domain}public_assets/imageFramed/{$myfoto.profil}" class="download_file" download="{$myfoto.userName}-fotoprofil-facebook.jpg" id="profdata" style="display:none"><img src="{$app_domain}public_assets/imageFramed/{$myfoto.profil}"></a>
+
+					<a href="{$app_domain}public_assets/cover/{$myfoto.cover}" class="download_file" download="{$myfoto.userName}-coverfoto-facebook.jpg" id="covdata" style="display:none"><img src="{$app_domain}public_assets/cover/{$myfoto.cover}"></a>
+
+					<div style="height:20px;width:100%;clear:both;">&nbsp;</div>
+					<a href="javascript:void(0)" class="btn-fslide btn-next" idfile="http://facebook.com" style="display:none" id="sosmedButton"><span style="color:#fff">Facebook Profile</span></a>
+				{else}
+
+					<a href="{$app_domain}public_assets/imageFramed/{$myfoto.profil}" class="download_file" download="{$myfoto.userName}-fotoprofil-twitter.jpg" id="profdata" style="display:none" target="_blank"><img src="{$basedomain}public_assets/imageFramed/{$myfoto.profil}"></a>
+
+					<a href="{$app_domain}public_assets/cover/{$myfoto.cover}" class="download_file" download="{$myfoto.userName}-coverfoto-twitter.jpg" target="_blank" id="covdata" style="display:none"><img src="{$app_domain}public_assets/cover/{$myfoto.cover}"></a>
+
+					<div style="height:20px;width:100%;clear:both;">&nbsp;</div>
+					<a href="{$basedomain}home/thanks" class="btn-fslide btn-next" idfile="http://twitter.com" style="display:none" id="sosmedButton"><span style="color:#fff">Twitter Profile</span></a>
+				{/if}
+
+				
 			</div>
 		 </div>
 <script type="text/javascript">
@@ -45,22 +63,28 @@
 
 	$(document).ready(function() {
 	  $('#downloadAll').click(function() {
-				$.ajax({
-					url: $(this).data("url"),
-					method: 'POST',
-					data: "image_id="+$(this).data("image-id")
-				});
-	  	  if (!window.XDomainRequest) {
+
+	  	
+			$.ajax({
+				url: $(this).data("url"),
+				method: 'POST',
+				data: "image_id="+$(this).data("image-id")
+			});
+	  	  	if (!window.XDomainRequest) {
 		      $('a.download_file > img').each(function() {
 		        $(this).trigger( "click" );
+		        
+
 		        $(".btn-next").css("display","");
 		      });
-
+console.log('masuk');
 		    return false; //cancel navigation
-		  } else {
+		  	} else {
 		  	var link = $("#profdata").attr('href');
 			var cover = $("#covdata").attr('href');
 			if(link!='') window.open(link,'_blank');
+			console.log(link);
+			return false;
 			setTimeout(function(){
 				if(cover!='') window.open(cover,'_blank');
 			}, 1000);

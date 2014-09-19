@@ -230,13 +230,16 @@ class login extends Controller {
         $_SESSION['oauth_token'] = $token = $request_token['oauth_token'];
         $_SESSION['oauth_token_secret'] = $request_token['oauth_token_secret'];
          
+        // pr($connection);
         /* If last connection failed don't display authorization link. */
         switch ($connection->http_code) {
           case 200:
             /* Build authorize URL and redirect user to Twitter. */
             $url = $connection->getAuthorizeURL($token);
             // header('Location: ' . $url); 
+            // pr($url);
             redirect($url);
+            exit;
             break;
           default:
             /* Show notification if something went wrong. */

@@ -98,7 +98,7 @@ function under_development() {
 
 function redirect($data) {
 	
-	echo "<meta http-equiv=\"Refresh\" content=\"0; url={$data}\">";
+	echo "<meta http-equiv=\"refresh\" content=\"0; url={$data}\">";
 
 }
 
@@ -106,9 +106,10 @@ function redirect($data) {
 function imageFrame($filename=false, $framefile=false)
 {
 
-	global $IMAGE;
+	global $IMAGE, $CONFIG;
 
-	include(LIBS.'class_image_upload/class.upload.php');
+	if (array_key_exists('mobile',$CONFIG)) include(APP.LIBS.'class_image_upload/class.upload.php');
+	else include(LIBS.'class_image_upload/class.upload.php');
 
 	deleteFile($filename,'imageFramed');
 	
@@ -153,7 +154,7 @@ function uploadFile($data,$path=null,$ext){
 	
 	if (array_key_exists('admin',$CONFIG)) $key = 'admin';
 	if (array_key_exists('default',$CONFIG)) $key = 'default';
-    
+    if (array_key_exists('mobile',$CONFIG)) $key = 'mobile';
     /* result template
     $result = array(
         'status' => '',
@@ -237,6 +238,7 @@ function deleteFile($data=null, $path=null)
 	
 	if (array_key_exists('admin',$CONFIG)) $key = 'admin';
 	if (array_key_exists('default',$CONFIG)) $key = 'default';
+	if (array_key_exists('mobile',$CONFIG)) $key = 'mobile';
 	
 	if ($data == null) return false;
 	if ($path!='') $data = $path.'/'.$data;	

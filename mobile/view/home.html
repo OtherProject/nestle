@@ -11,8 +11,10 @@
             <p class="isi">Nestlé LACTOGEN 3 ActivGro mengajak Ibu dan Ayah untuk berbagi momen keceriaan Si Kecil yang aktif di Go with ActivGro dan menangkan hadiah menarik lainnya.</p>
 
 		</div><!-- /article -->
-		
-		<div class="article" align="left"><a href="{$basedomain}home/index2" class="btnpinkS"><span style="color:white">Next</span></a></div>
-    	
+		{if $user}
+		<div class="article" align="left"><a href="{$basedomain}uploadfoto/pilihframe" class="btnpinkS"><span style="color:white">Next</span></a></div>
+    	{else}
+    	<div class="article" align="left"><a href="{$basedomain}home/slide" class="btnpinkS"><span style="color:white">Next</span></a></div>
+    	{/if}
 
 	</div><!-- /content -->
