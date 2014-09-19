@@ -6,11 +6,11 @@
 			<form method="POST" action="{$basedomain}home/inputForm">
 			
 				
-					<input type="text" placeholder="Nama Lengkap" name="nama" value="{$user.name}" required class="nama">
+					<input type="text" placeholder="Nama Lengkap" name="nama" value="{$user.name}" width="100%" required class="nama">
 			
 				
 					
-						<input type="email" placeholder="Email" name="email" value="{$user.email}" {if $user.email}readonly{/if}  required>
+					<input type="email" placeholder="Email" name="email" value="{$user.email}" {if $user.email}readonly{/if}  required>
 					
 				
 				
@@ -36,14 +36,14 @@
 			
 			
 			
-				<div class="formRtop">
+				
 					<div>
 					<span  class="style-5">
 						<input type="text" placeholder="Nama anak" name="childName[]" required>
 					</span>
-					<span  class="style-5" style="border:0px solid #000;">
+					<span  class="style-6" style="border:0px solid #000;">
 
-						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" data-beatpicker="true" data-beatpicker-module="icon,clear"  style="width:120px" class="childDate1" required><img src="{$basedomain}assets/_assets/img/kalender.png" class="date1" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
+						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" data-beatpicker="true" data-beatpicker-module="icon,clear" class="childDate1" required><img src="{$basedomain}assets/_assets/img/kalender.png" class="date1" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
 
 					</span>
 					</div>
@@ -52,31 +52,30 @@
 					<span  class="style-5">
 						<input type="text" placeholder="Nama anak" name="childName[]" id="childName1">
 					</span>
-					<span  class="style-5" style="border:0px solid #000;">
-						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" data-beatpicker="true" data-beatpicker-module="icon,clear"  style="width:120px" class="childDate2"><img src="{$basedomain}assets/img/kalender.png" class="date2" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
+					<span  class="style-6" style="border:0px solid #000;">
+						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" data-beatpicker="true" data-beatpicker-module="icon,clear" class="childDate2"><img src="{$basedomain}assets/_assets/img/kalender.png" class="date2" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
 					</span>
 					</div>
 
 					<div style="display:none" id="dataAnak3">
 					<span  class="style-5">
-						<input type="text" placeholder="Nama anak" name="childName[]" style="width:100px" id="childName2">
+						<input type="text" placeholder="Nama anak" name="childName[]" id="childName2">
 					</span>
-					<span  class="style-5" style="border:0px solid #000;">
-						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" data-beatpicker="true" data-beatpicker-module="icon,clear" style="width:120px" class="childDate3"><img src="{$basedomain}assets/img/kalender.png" class="date3" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
+					<span  class="style-6" style="border:0px solid #000;">
+						<input type="text" placeholder="Tanggal lahir anak" name="childDate[]" data-beatpicker="true" data-beatpicker-module="icon,clear" class="childDate3"><img src="{$basedomain}assets/_assets/img/kalender.png" class="date3" style="border:0px solid #000;margin-top:15px;margin-left:10px;"/>
 					</span>
 					</div>
-
-				</div>
+			
+					<div style="float:left">
+					<input type="checkbox" name="checkboxG2" akses="1" checked="checked"  required/>
+					<!--<label for="checkboxG2" class="css-label"></label>-->
+					</div>
+					<div style="float:left;margin-left:40px;">
+					<span class="isi"><strong>Saya menyetujui <span  id='basic-modal'><a href='#' class='basic2'><u>Syarat dan Ketentuan</u></a></span> yang berlaku.</strong></span>
+					</div><br/>
+					<input type="submit" class="btnpinkslide" value="Submit"/>
 				
-					
 				
-
-
-				<div class="formRbottom" align="right"><br/>
-
-				<input type="checkbox" name="checkboxG2" id="checkboxG2" class="css-checkbox" akses="1" checked="checked" required/><label for="checkboxG2" class="css-label"></label><strong>Saya menyetujui <span  id='basic-modal'><a href='#' class='basic2'><u>Syarat dan Ketentuan</u></a></span> yang berlaku.</strong><br/>
-				<input type="submit" class="btnpinkslide" value="Submit"/>
-				</div>
 		
 			</form>
 		 
@@ -84,3 +83,56 @@
 	
 
 	</div><!-- /content -->
+	
+<script type="text/javascript">
+
+	{literal}
+
+		
+
+
+		$(document).on('click', '.date1', function(){
+
+			$('.childDate1').trigger('click');
+		})
+
+		$(document).on('click', '.date2', function(){
+
+			$('.childDate2').trigger('click');
+		})
+
+		$(document).on('click', '.date3', function(){
+
+			$('.childDate3').trigger('click');
+		})
+
+		$(document).on('change', '#jmlhAnak', function(){
+
+			var jlh = $(this).val();
+			console.log(jlh);
+
+			if (jlh == 1){
+				$('#dataAnak2').css('display','none');
+				$('#dataAnak3').css('display','none');
+			}
+
+			if (jlh == 2){
+				$('#dataAnak2').css('display','block');
+				$('#dataAnak3').css('display','none');
+				$('#childName1').attr('required','required');
+				$('#postdate1').attr('required','required');
+				
+			}
+
+			if (jlh == 3){
+				$('#dataAnak2').css('display','block');
+				$('#dataAnak3').css('display','block');
+				$('#childName1').attr('required','required');
+				$('#childName2').attr('required','required');
+				$('#postdate1').attr('required','required');
+				$('#postdate2').attr('required','required');
+			}
+
+		})
+	{/literal}	
+</script>
