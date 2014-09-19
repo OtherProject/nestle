@@ -6,6 +6,7 @@ class contentHelper extends Database {
 		$this->prefix = "nestle";
 		$session = new Session();
 		$this->user = $session->get_session();
+		$this->app = 'mobile';
 	}
 
 
@@ -84,7 +85,7 @@ class contentHelper extends Database {
 	function saveUserFoto($data=array())
 	{
 
-		$useraccount = $this->user['default'];
+		$useraccount = $this->user[$this->app];
 
 		$date = date('Y-m-d H:i:s');
 		// pr($useraccount);
@@ -99,9 +100,10 @@ class contentHelper extends Database {
 
 	function getMyPhoto()
 	{
-		$userid = $this->user['default']['id'];
+		$userid = $this->user[$this->app]['id'];
 		$sql = "SELECT * FROM {$this->prefix}_news_content_repo WHERE userid = {$userid}
 				AND n_status = 1 {$filter} ORDER BY created_date DESC LIMIT 1";
+		// pr($sql);
 		$res = $this->fetch($sql);
 		if ($res) return $res;
 		return false;
@@ -138,7 +140,7 @@ class contentHelper extends Database {
 
 	function getCreateImage()
 	{
-		$useraccount = $this->user['default'];
+		$useraccount = $this->user[$this->app];
 		$sql1 = "SELECT * FROM {$this->prefix}_createimage WHERE userid = {$useraccount['id']} ORDER BY created_date DESC LIMIT 1";
 		$res1 = $this->fetch($sql1);
 
@@ -152,7 +154,7 @@ class contentHelper extends Database {
 
 		if ($fromonline){
 
-			$useraccount = $this->user['default'];
+			$useraccount = $this->user[$this->app];
 
 			$date = date('Y-m-d H:i:s');
 			// pr($useraccount);
@@ -177,7 +179,7 @@ class contentHelper extends Database {
 	function updateUserFrame($data=array())
 	{
 
-		$useraccount = $this->user['default'];
+		$useraccount = $this->user[$this->app];
 
 		$date = date('Y-m-d H:i:s');
 
@@ -191,7 +193,7 @@ class contentHelper extends Database {
 
 	function updateCreateImageStatus()
 	{
-		$useraccount = $this->user['default'];
+		$useraccount = $this->user[$this->app];
 
 		$user = $this->getCreateImage();
 
@@ -217,7 +219,7 @@ class contentHelper extends Database {
 		$useraccount = false;
 		$jumlhAnak = intval($data['jmlhAnak']);
 
-		$useraccount = $this->user['default'];
+		$useraccount = $this->user[$this->app];
 		if (!$useraccount) return false;
 
 		if ($useraccount['usertype']>1){

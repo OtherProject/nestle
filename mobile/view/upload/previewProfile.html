@@ -2,7 +2,7 @@
 
    <div role="main" class="ui-content jqm-content jqm-fullwidth" style="border:0px solid #000;">
 		 <div id="{if $coverfb}imgsmpl{else}imgsmpltw{/if}">
-			<img src="{$basedomain}assets/_assets/cover/402480dc5af2d3252d3d180506092648.jpg" width="320px" height="116px"  class="coverImg"/>
+			<img src="{$app_domain}public_assets/cover/{$frame.cover}" width="320px" height="116px"  class="coverImg"/>
 		 </div>
 		 <div id="{if $coverfb}wrapimgframeFB{else}wrapimgframe{/if}" >
 			<div id="wrapframeleft">
@@ -20,9 +20,9 @@
     margin-top:-3px;
     position: relative;">
 <div id="loadingbar" align="center"></div>
-				<div id="frame imgframe" style="opacity:0.4;z-index:999;position:relative">
+				<div id="frame imgframe" style="z-index:999;position:relative">
 					
-					<img src="{$basedomain}assets/_assets/img/d48848a43c9cb89c77ac0723b2694c12.png" width="100%" height="100%" id="framedinamis"/>
+					<img src="{$app_domain}public_assets/imageFramed/{$myfoto.profil}" width="100%" height="100%" id="framedinamis"/>
 				</div>
 				<div id="frame" style="position:relative;z-index:10;margin-top:-124px; margin-left:7px">
 					
@@ -32,18 +32,13 @@
 
 		 </div>
 			<div class="article" style="margin-top:-50px;">
-				<div class="tittledesc">Share ke Social Media</div>
+				<div class="tittledesc">Ayo Share ke Social Media</div>
 				<div class="isi">Silahkan share foto baru si kecil lewat facebook maupun twitter</div>
 			</div>
-			{*}
+			
 			<div class="article">
 				<div id="btn-desc" align="center">
-				<a onClick="ga('send', 'event', 'Button', 'Click', 'ShareFB');" class="{if $accessUrl}{$accessUrl}{else}sharebutton{/if} btnpinkslide " data-href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" href="{if $accessUrl}{$accessUrl}{else}javascript:void(0){/if}"><span style="color:white">Share</span></a>
-			</div>{/*}
-
-			<div class="article">
-				<div id="btn-desc" align="center">
-				<a onClick="ga('send', 'event', 'Button', 'Click', 'ShareFB');" class="{if $accessUrl}{$accessUrl}{else}sharebutton{/if} btnpinkslide " data-href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" href="javascript:void(0)"><span style="color:white">Share</span></a>
+				<a onClick="ga('send', 'event', 'Button', 'Click', 'ShareFB');" class="{if $accessUrl}{$accessUrl}{else}sharebutton{/if} btnpinkslide " data-href="{$app_domain}public_assets/imageFramed/{$myfoto.profil}" data-link="{if $accessUrl}{$accessUrl}{/if}" href="javascript:void(0)" id="sharedata"><span style="color:white">Share</span></a>
 			</div>
 		 </div>
 
@@ -58,6 +53,11 @@ var dataShare = "{$basedomain}shareTemplate.php?ft={$myfoto.profil}";
 var fbID = "{$appId}";
 {literal}
 	
+	$(document).on('click','#sharedata', function(){
+
+		var link = $(this).attr('data-link');
+		window.location.href=link;
+	})
 
 	window.fbAsyncInit = function() {
 	    // init the FB JS SDK
@@ -85,8 +85,7 @@ var fbID = "{$appId}";
 
 	$(document).on('click','.sharebutton', function(){
 
-		window.location.href = basedomain+'uploadfoto/changephoto';
-	return false;
+		
 		FB.ui(
 				 {
 				  method: 'share',
@@ -111,7 +110,7 @@ var fbID = "{$appId}";
 	$(document).on('click','.chooseFrame', function(){
 
 		var link = $(this).attr('linkcover');
-		var imgFullpath = basedomain+'public_assets/cover/'+link;
+		var imgFullpath = app_domain+'public_assets/cover/'+link;
 		var name = $(this).attr('fname');
 		var frame = $(this).attr('src');
 
@@ -129,7 +128,7 @@ var fbID = "{$appId}";
 		var frame = $(this).attr('fid');
 		
 		
-		var loading = "<img src='"+basedomain+"assets/images/loading.gif' width='50px'/>";
+		var loading = "<img src='"+app_domain+"assets/images/loading.gif' width='50px'/>";
 		$('#userContent').attr('align','center');
 		$('#userContent').html(loading);
 

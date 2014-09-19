@@ -18,7 +18,7 @@
                 <li><a href="{$basedomain}home/term" class="ui-btn" id="menuPanel">Term & Condition</a></li>
                 <li><a href="{$basedomain}article" class="ui-btn" id="menuPanel">Articles</a></li>
                 {if $user}
-                <li><a href="{$logoutUrl}" class="ui-btn" id="menuPanel">Logout</a></li>
+                <li><a href="javascript:void(0)" data-href="{$logoutUrl}" class="ui-btn logout" id="menuPanel">Logout</a></li>
                 {/if}
 		</ul>
 
@@ -35,8 +35,17 @@
 	 
 	  ga('create', 'UA-54500863-1', 'auto');
 	  ga('send', 'pageview'); 
+
+	  	$(document).on('click','.logout', function(){
+
+		  	var link = $(this).attr('data-href');
+		  	window.location.href=link;
+	  	})
+
 	{/literal}
 	</script>
 	
+	<script src="{$basedomain}assets/js/jquery.form.js" id="jqueryfile"></script>
+	<script type="text/javascript" src='{$basedomain}assets/js/jquery.guillotine.js'></script>
 </body>
 </html>
