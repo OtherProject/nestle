@@ -1,4 +1,22 @@
-
+{literal}
+	<script type="text/javascript">
+	
+	
+		$(document).on('click', '.uploadfoto', function(){
+			//console.log('masuk');
+			$('#fotoupload').trigger('click');
+		});
+	
+	
+	</script>
+	{/literal}
+<style>
+	div input[type="file"] {
+    position: fixed;
+    top: -1000px;
+	border:0px solid #FD698B;
+}
+</style>
     <div role="main" class="ui-content jqm-content jqm-fullwidth" style="border:0px solid #000;">
 		<div class="article"><img src="{$basedomain}assets/_assets/img/title_upload.jpg" width="100%"></div>
 		<div class="article">
@@ -6,14 +24,16 @@
 			</strong><p>
 		</div><!-- /article -->
 		<div class="article">
-			<div class="file-input-wrapper">
-			  <button class="btn-file-input btnpinkslideUp">Select File</button>
-			  <input type="file" name="fotoupload"  id="fotoupload"/>
-			</div>
+		<input type="file" name="fotoupload" style="" id="fotoupload">
+			 <div class="btnpinkslide uploadfoto">
+					Select File
+				</div>
 			<div id="divcheckslide">
-				<input type="checkbox" name="checkboxG2" id="checkboxG2" class="css-checkbox" akses="1" checked="checked"/><label for="checkboxG2" class="css-label"></label><strong>Saya setuju dengan peraturan dan ketentuan yang berlaku</strong>
+				<input type="checkbox" name="checkboxG2" id="checkboxG2" class="css-checkbox" akses="1" checked="checked"/>
+				<label for="checkboxG2" class="css-label"></label><strong>Saya setuju dengan peraturan dan ketentuan yang berlaku</strong>
 				
 			</div>
 		</div>
 
 	</div><!-- /content -->
+	

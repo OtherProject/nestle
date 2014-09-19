@@ -1,104 +1,43 @@
 
-<div id="wrapperhome2">
-	<div id="user" >
-		<div id="{if $coverfb}userContent{else}userContenttw{/if}">
+   <div role="main" class="ui-content jqm-content jqm-fullwidth" style="border:0px solid #000;">
 		 <div id="{if $coverfb}imgsmpl{else}imgsmpltw{/if}">
-			<img src="{$basedomain}public_assets/cover/{$cover.cover}" width="100%" height="100%" class="coverImg"/>
+			<img src="{$basedomain}assets/_assets/cover/402480dc5af2d3252d3d180506092648.jpg" width="320px" height="116px"  class="coverImg"/>
 		 </div>
 		 <div id="{if $coverfb}wrapimgframeFB{else}wrapimgframe{/if}" >
-			<div id="wrapframeleft" >
-				<div style="background-color: #fff;
-    border: 2px solid #FFFFFF;
-    box-shadow: 0 2px 2px #888888;
-    height: 120px;
-    margin: 0 auto;
-    margin-left:10px;
+			<div id="wrapframeleft">
+				<div id="imgframe">
+					{*}
+					<img src="" width="100%" height="100%" fname="{$myfoto.files}" class="bigImage" fid="{$myfoto.id}"/>
+					{/*}
+				</div>
+			</div>
+			<div id="" style="float: left;
+    height: 63px;
+    margin-left: -148px;
     overflow: hidden;
-    width: 123px;" >
-    			<div id="loadingbar" align="center"></div>
-    			<div id="frame imgframe" style="opacity:0.4;z-index:999;position:relative">
-					{*}<img src="{$basedomain}public_assets/{$myfoto.files}" fname="{$myfoto.files}" class="bigImage1" fid="{$myfoto.id}" id="loader" width=""/>{/*}
-					<img src="{$tmpimage}" fname="{$myfoto.files}" class="bigImage1" fid="{$myfoto.id}" id="profilePicture" width=""/>
+    width: 55px;
+    margin-top:-3px;
+    position: relative;">
+<div id="loadingbar" align="center"></div>
+				<div id="frame imgframe" style="opacity:0.4;z-index:999;position:relative">
 					
+					<img src="{$basedomain}assets/_assets/img/gambar.jpg" width="100%" height="100%" id="framedinamis"/>
 				</div>
-
-    			<div id="frame" style="position:relative;z-index:10;margin-top:-124px; margin-left:7px">
+				<div id="frame" style="position:relative;z-index:10;margin-top:-36px; margin-left:1px">
 					
-					<img src="{$basedomain}public_assets/frame/{$cover.frame}" width="100%" height="100%" id="framedinamis" />
-				</div>
-
-					
-
+					<img src="{$basedomain}assets/_assets/img/d48848a43c9cb89c77ac0723b2694c12.png" width="55px" height="63px" id="framedinamis" />
 				</div>
 			</div>
 
-			<!--<div id="" style="float: left;
-    height: 125px;
-    margin-left: -150;
-    overflow: hidden;
-    position:relative;
-    width: 130;
-    ">
-    	
-				<div id="frame" >
-					
-					<img src="{$basedomain}public_assets/frame/{$frame[0].files}" width="100%" height="100%" id="framedinamis" />
-				</div>
-			</div>-->
-
-			<div id="{if $coverfb}wrapframerightFB{else}wrapframeright{/if}">
-				<div id="{if $coverfb}descimgframespaceFB{else}descimgframespace{/if}">&nbsp;</div>
-				<div id="descimgframe" align>
-					Sesuaikan foto Si Kecil dengan frame fotonya
-				</div>
+		 </div>
+			<div class="article" style="margin-top:-50px;">
+				<p class="isi"><strong>Sesuaikan foto Si Kecil dengan frame fotonya</strong> </p>
+			</div>
+			<div class="article">
+				<a href="javascript:void(0)" class="btnpinkslide crop" fid="{$frame[0].files}" cid="{$frame[0].cover.files}"><span style="color:#fff">Crop</span></a>
 			</div>
 		 </div>
-		 <div id="wrapcontentuser">
-			<div id="contentdesc">
-				{*}
-				{if $frame}
-				{foreach $frame as $val}
-				<div id="framesmall"><a href="javascript:void(0)"><img src="{$basedomain}public_assets/frame/{$val.files}" width="100%" height="100%" class="chooseFrame" fname="{$val.files}" linkcover="{$val.cover.files}"/></a></div>
-				{/foreach}
-				{/if}
-				
-				{/*}
-
-				{*}
-				<div id="framesmall">&nbsp;</div>
-				<div id="framesmall">&nbsp;</div>
-				<div id="framesmall">&nbsp;</div>{/*}
-			</div>
-			<form action="{$basedomain}uploadfoto/getCropImage" method="post">
-			
-			<div id="btn-desc" align="right">
-				{*}
-				<a href="javascript:void(0)" class="btnpinkslide continueFrame" fid="{$frame[0].files}" cid="{$frame[0].cover.files}">Continue</a>{/*}
-				
-				{if $browser > 2}
-					
-					<input type="submit" class="btnpinkslide" value="Crop" style="" />
-				{else}
-					<a href="javascript:void(0)" class="btnpinkslide crop" fid="{$frame[0].files}" cid="{$frame[0].cover.files}">Crop</a>
-				{/if}
-				
-			</div>
-		
-		
-			<input type="hidden" id="x" name="x" value="0"/>
-			<input type="hidden" id="y" name="y" value="7"/>
-			<input type="hidden" id="w" name="w" value="400"/>
-			<input type="hidden" id="h" name="h" value="300"/>
-			<input type="hidden" name="iepost" value="1"/>
-			<input type="hidden" id="idframecover" name="idframecover" value="{$cover.id}"/>
-			<input type="submit" value="Crop Image" style="display:none" />
-		</form>
-
-		</div>
-		</div>
-	</div>
-</div>
-
+	
 <style>
 	.guillotine-window {
   display: block;
@@ -311,3 +250,5 @@ var dinamisClass = "{if $coverfb}userContent{else}userContenttw{/if}";
 
 {/literal}
 </script>
+	 
+		 

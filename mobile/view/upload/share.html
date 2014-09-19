@@ -1,21 +1,41 @@
 
-<div id="wrapperhome2">
-	<div id="user" >
-		<div id="userContent">
-		 <div id="divsmpl">
-			<img src="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" width="100%" height="100%"/>
+   <div role="main" class="ui-content jqm-content jqm-fullwidth" style="border:0px solid #000;">
+		 <div id="{if $coverfb}imgsmpl{else}imgsmpltw{/if}">
+			<img src="{$basedomain}assets/_assets/cover/402480dc5af2d3252d3d180506092648.jpg" width="320px" height="116px"  class="coverImg"/>
 		 </div>
-		 <div id="wrapcontentuser">
-			<div id="contentuserdesc">
+		 <div id="{if $coverfb}wrapimgframeFB{else}wrapimgframe{/if}" >
+			<div id="wrapframeleft">
+				<div id="imgframe">
+					{*}
+					<img src="" width="100%" height="100%" fname="{$myfoto.files}" class="bigImage" fid="{$myfoto.id}"/>
+					{/*}
+				</div>
+			</div>
+			<div id="" style="float: left;
+    height: 63px;
+    margin-left: -148px;
+    overflow: hidden;
+    width: 55px;
+    margin-top:-3px;
+    position: relative;">
+<div id="loadingbar" align="center"></div>
+				<div id="frame imgframe" style="opacity:0.4;z-index:999;position:relative">
+					
+					<img src="{$basedomain}assets/_assets/img/d48848a43c9cb89c77ac0723b2694c12.png" width="100%" height="100%" id="framedinamis"/>
+				</div>
+				<div id="frame" style="position:relative;z-index:10;margin-top:-124px; margin-left:7px">
+					
+					<img src="{$basedomain}assets/_assets/img/d48848a43c9cb89c77ac0723b2694c12.png" width="100%" height="100%" id="framedinamis" />
+				</div>
+			</div>
+
+		 </div>
+			<div class="article" style="margin-top:-50px;">
 				<div class="tittledesc">Share ke Social Media</div>
 				<div class="isidesc">Silahkan share foto baru si kecil lewat facebook maupun twitter</div>
-			
 			</div>
-			<div id="btn-desc" align="right">
+			<div class="article">
+				<div id="btn-desc" align="center">
 				<a onClick="ga('send', 'event', 'Button', 'Click', 'Share');" href="{$accessUrl}" class="btnpinkslide">Share</a>
 			</div>
-		 
-		</div>
-		</div>
-	</div>
-</div>
+		 </div>

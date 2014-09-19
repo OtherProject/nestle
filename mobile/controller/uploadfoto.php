@@ -149,49 +149,49 @@ class uploadfoto extends Controller {
   function uploadprofile(){
 
     global $basedomain;
-    if (!$this->user){redirect($basedomain); exit;}
+    // if (!$this->user){redirect($basedomain); exit;}
 
-    $getMyPhoto = $this->contentHelper->getMyPhoto();
-    if ($getMyPhoto){
+    // $getMyPhoto = $this->contentHelper->getMyPhoto();
+    // if ($getMyPhoto){
       // pr($getMyPhoto);
       
-      $this->view->assign('myfoto',$getMyPhoto);
-    }
+      // $this->view->assign('myfoto',$getMyPhoto);
+    // }
 
-    $getCover = $this->contentHelper->getCreateImage();
+    // $getCover = $this->contentHelper->getCreateImage();
     // pr($getCover);
 
-    $getFrame = $this->contentHelper->getFrame();
+    // $getFrame = $this->contentHelper->getFrame();
     // pr($getFrame);
-    $this->view->assign('frame',$getFrame);
-    $this->view->assign('cover',$getCover);
+    // $this->view->assign('frame',$getFrame);
+    // $this->view->assign('cover',$getCover);
     
-    $sessionFlag = intval(@$_SESSION['flag']);
-    if ($sessionFlag<1){
+    // $sessionFlag = intval(@$_SESSION['flag']);
+    // if ($sessionFlag<1){
       
-      $_SESSION['flag'] = 1;
+      // $_SESSION['flag'] = 1;
       // redirect($basedomain.'uploadfoto/uploadprofile');
-    }
+    // }
     
-    if (isset($_SESSION['fb-logout'])){
-      $this->view->assign('coverfb',1);
-    }else{
-      $this->view->assign('coverfb',0);
-    }
+    // if (isset($_SESSION['fb-logout'])){
+      // $this->view->assign('coverfb',1);
+    // }else{
+      // $this->view->assign('coverfb',0);
+    // }
 	
-  $browser = $this->checkBrowser();
+  // $browser = $this->checkBrowser();
 
-  if ($browser > 2){
-    $tmpimage = $basedomain.'public_assets/'.$getMyPhoto['files'];
+  // if ($browser > 2){
+    // $tmpimage = $basedomain.'public_assets/'.$getMyPhoto['files'];
 
-  }else{
-    $tmpimage = $_SESSION['tmpimage'];
+  // }else{
+    // $tmpimage = $_SESSION['tmpimage'];
   
-  }
+  // }
 	
   
-  $this->view->assign('browser',$browser);
-	$this->view->assign('tmpimage',$tmpimage);
+  // $this->view->assign('browser',$browser);
+	// $this->view->assign('tmpimage',$tmpimage);
     return $this->loadView('upload/uploadProfile');
   }
 
@@ -200,25 +200,25 @@ class uploadfoto extends Controller {
 		global $CONFIG, $basedomain, $IMAGE, $LOCALE;
 
 		// pr($_SESSION);
-		if (!$this->user){redirect($basedomain); exit;}
+		// if (!$this->user){redirect($basedomain); exit;}
 
-    $file_path = "";
-    $getMyPhoto = $this->contentHelper->getCreateImage();
-    if ($getMyPhoto){
+    // $file_path = "";
+    // $getMyPhoto = $this->contentHelper->getCreateImage();
+    // if ($getMyPhoto){
       // pr($getMyPhoto);
-      $file_path = $IMAGE[0]['imageframed'].$getMyPhoto['profil'];
+      // $file_path = $IMAGE[0]['imageframed'].$getMyPhoto['profil'];
 
-      $this->view->assign('myfoto',$getMyPhoto);
-    }
+      // $this->view->assign('myfoto',$getMyPhoto);
+    // }
 
 
-    if (isset($_SESSION['fb-logout'])){
+    // if (isset($_SESSION['fb-logout'])){
 
-      FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);
-      $helper = new FacebookRedirectLoginHelper($basedomain.'uploadfoto/share/?share=true');
-      $session = false;
-      if(isset($_GET['share'])){
-        $session = $helper->getSessionFromRedirect();
+      // FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);
+      // $helper = new FacebookRedirectLoginHelper($basedomain.'uploadfoto/share/?share=true');
+      // $session = false;
+      // if(isset($_GET['share'])){
+        // $session = $helper->getSessionFromRedirect();
         
         /* Buat posting message */
         
@@ -227,17 +227,17 @@ class uploadfoto extends Controller {
        //    ))->execute()->getGraphObject();
 
         
-        $arr["source"] = '@' . realpath($file_path);
-        $arr["message"] = $LOCALE['fb']['status-message'];
+        // $arr["source"] = '@' . realpath($file_path);
+        // $arr["message"] = $LOCALE['fb']['status-message'];
 
         /*
         $post = (new FacebookRequest(
                 $session, 'POST', '/me/photos',$arr
               ))->execute()->getGraphObject();
         */
-        $post = (new FacebookRequest(
-                $session, 'POST', '/me/feed',$arr
-              ))->execute()->getGraphObject();
+        // $post = (new FacebookRequest(
+                // $session, 'POST', '/me/feed',$arr
+              // ))->execute()->getGraphObject();
 
         /*
         $album = (new FacebookRequest(
@@ -247,35 +247,35 @@ class uploadfoto extends Controller {
           
           // pr($album);
        
-        redirect($basedomain.'uploadfoto/changephoto');
+        // redirect($basedomain.'uploadfoto/changephoto');
 
-      }else{
-        $loginUrl = $helper->getLoginUrl(array('scope' => 'publish_actions',)); 
+      // }else{
+        // $loginUrl = $helper->getLoginUrl(array('scope' => 'publish_actions',)); 
         // $loginUrl = $helper->getLoginUrl(array('scope' => 'email,public_profile,user_friends',)); 
-        $this->view->assign('accessUrl',false);
-      }
+        // $this->view->assign('accessUrl',false);
+      // }
     
-    }else{
+    // }else{
 
     
-        if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
+        // if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
         
-          $this->view->assign('accessUrl',$basedomain.'uploadfoto/twitterRedirectShare');
-        }
+          // $this->view->assign('accessUrl',$basedomain.'uploadfoto/twitterRedirectShare');
+        // }
         
 
-    }
+    // }
 		
-    $getFrame = $this->contentHelper->getCreateImage();
+    // $getFrame = $this->contentHelper->getCreateImage();
     // pr($getFrame);
-    $this->view->assign('frame',$getFrame);
+    // $this->view->assign('frame',$getFrame);
 
-    if (isset($_SESSION['fb-logout'])){
-      $this->view->assign('appId',$CONFIG['fb']['appId']);
-      $this->view->assign('coverfb',1);
-    }else{
-      $this->view->assign('coverfb',0);
-    }
+    // if (isset($_SESSION['fb-logout'])){
+      // $this->view->assign('appId',$CONFIG['fb']['appId']);
+      // $this->view->assign('coverfb',1);
+    // }else{
+      // $this->view->assign('coverfb',0);
+    // }
 
     
     
@@ -414,28 +414,28 @@ class uploadfoto extends Controller {
 		global $CONFIG, $basedomain;
 
 		// pr($this->user);
-		if (!$this->user){redirect($basedomain); exit;}
+		// if (!$this->user){redirect($basedomain); exit;}
 
-		$getMyPhoto = $this->contentHelper->getCreateImage();
-    if ($getMyPhoto){ 
+		// $getMyPhoto = $this->contentHelper->getCreateImage();
+    // if ($getMyPhoto){ 
       // pr($getMyPhoto);
-      $file_path = $getMyPhoto['profil'];
+      // $file_path = $getMyPhoto['profil'];
 
-      $getMyPhoto['userName'] = $this->user['name'];
+      // $getMyPhoto['userName'] = $this->user['name'];
 
-      $this->view->assign('myfoto',$getMyPhoto);
+      // $this->view->assign('myfoto',$getMyPhoto);
 
-    }
+    // }
 
-    $getFrame = $this->contentHelper->getCreateImage();
+    // $getFrame = $this->contentHelper->getCreateImage();
     // pr($getFrame);
-    $this->view->assign('frame',$getFrame);
+    // $this->view->assign('frame',$getFrame);
 
-    if (isset($_SESSION['fb-logout'])){
-      $this->view->assign('coverfb',1);
-    }else{
-      $this->view->assign('coverfb',0);
-    }
+    // if (isset($_SESSION['fb-logout'])){
+      // $this->view->assign('coverfb',1);
+    // }else{
+      // $this->view->assign('coverfb',0);
+    // }
   	return $this->loadView('upload/changephoto');
     // return $this->loadView('upload/gantiProfile');
   }
@@ -672,24 +672,24 @@ class uploadfoto extends Controller {
   function cropedProfile(){
 
     global $basedomain;
-    if (!$this->user){redirect($basedomain); exit;}
+    // if (!$this->user){redirect($basedomain); exit;}
 
-    $getMyPhoto = $this->contentHelper->getCreateImage();
-    if ($getMyPhoto){
+    // $getMyPhoto = $this->contentHelper->getCreateImage();
+    // if ($getMyPhoto){
       // pr($getMyPhoto);
       
-      $this->view->assign('myfoto',$getMyPhoto);
-    }
+      // $this->view->assign('myfoto',$getMyPhoto);
+    // }
 
-    $getFrame = $this->contentHelper->getCreateImage();
+    // $getFrame = $this->contentHelper->getCreateImage();
     // pr($getFrame);
-    $this->view->assign('frame',$getFrame);
+    // $this->view->assign('frame',$getFrame);
    
-    if (isset($_SESSION['fb-logout'])){
-      $this->view->assign('coverfb',1);
-    }else{
-      $this->view->assign('coverfb',0);
-    }
+    // if (isset($_SESSION['fb-logout'])){
+      // $this->view->assign('coverfb',1);
+    // }else{
+      // $this->view->assign('coverfb',0);
+    // }
 
     return $this->loadView('upload/cropedProfile');
   }
