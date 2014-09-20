@@ -180,7 +180,7 @@ body{
 	font-weight:bold;
 	font-size:13px;
 	text-decoration:none;
-	background-image:url(../img/btn-f.JPG);
+	background-image:url(../images/btn-f.JPG);
 	background-position:center;
 	background-repeat:no-repeat;
 	background-color:#465FA1;
@@ -192,7 +192,7 @@ body{
 	box-shadow: 0px 6px 10px 0px #007DCA;
 }
 .btn-f:hover{
-	background-image:url(../img/btn-fhover.JPG);
+	background-image:url(../images/btn-fhover.JPG);
 	background-color:#2b69bb;
 }
 .btn-t{
@@ -200,7 +200,7 @@ body{
 	font-weight:bold;
 	font-size:13px;
 	text-decoration:none;
-	background-image:url(../img/btn-t.JPG);
+	background-image:url(../images/btn-t.JPG);
 	background-position:center;
 	background-repeat:no-repeat;
 	background-color:#59B6FC;
@@ -212,7 +212,7 @@ body{
 	box-shadow: 0px 6px 10px 0px #007DCA;
 }
 .btn-t:hover{
-	background-image:url(../img/btn-thover.JPG);
+	background-image:url(../images/btn-thover.JPG);
 	background-color:#48c9fc;
 }
 #wrapbtn{
@@ -276,7 +276,7 @@ body{
 	font-weight:bold;
 	font-size:16px;
 	text-decoration:none;
-	background-image:url(../img/btn-f.JPG);
+	background-image:url(../images/btn-f.JPG);
 	background-position: 15px 0px; 
 	background-repeat:no-repeat;
 	background-color:#465FA1;
@@ -288,7 +288,7 @@ body{
 	box-shadow: 0px 6px 10px 0px #C0BEBE;
 }
 .btn-fslide:hover{
-	background-image:url(../img/btn-fhover.JPG);
+	background-image:url(../images/btn-fhover.JPG);
 	background-color:#2b69bb;
 }
 .btn-tslide{
@@ -296,7 +296,7 @@ body{
 	font-weight:bold;
 	font-size:16px;
 	text-decoration:none;
-	background-image:url(../img/btn-t.JPG);
+	background-image:url(../images/btn-t.JPG);
 	background-position: 15px 0px; 
 	background-repeat:no-repeat;
 	background-color:#59B6FC;
@@ -308,7 +308,7 @@ body{
 	box-shadow: 0px 6px 10px 0px #C0BEBE;
 }
 .btn-tslide:hover{
-	background-image:url(../img/btn-thover.JPG);
+	background-image:url(../images/btn-thover.JPG);
 	background-color:#48c9fc;
 }
 .btnpinkslide{
@@ -576,7 +576,7 @@ input:-ms-input-placeholder {
 .styled-select select {
    background: transparent;
    padding-top: 5px;
-   width: 100%;
+   width: 110%;
   font-family:Nunito;
   font-size: 11px;
    line-height: 1;
@@ -586,12 +586,12 @@ input:-ms-input-placeholder {
   border: solid 0px #fff;
    }
    .styled-select {
-   margin-top:90px;
-   margin-left:127px;
-   width: 170px;
+   margin-top:5px;
+   margin-bottom:5px;
+   width: 100%;
    height: 30px;
    overflow: hidden;
-   background: url(../img/arrow-s.png) no-repeat right #FCFAFB;
+   background: url(../images/arrow-s.png) no-repeat right #FCFAFB;
    border: 0px solid #ccc;
    
   -webkit-box-shadow: inset 1px 1px 2px 0 #C9C7C8;
@@ -653,7 +653,7 @@ input:-ms-input-placeholder {
 	margin-bottom:-70px;*/
 	width:1120px;
 	height:370px;
-	background-image:url(../img/bg_home.PNG);
+	background-image:url(../images/bg_home.PNG);
 	background-position:center;
 	background-repeat:no-repeat;
 	overflow:auto;
@@ -669,7 +669,7 @@ input:-ms-input-placeholder {
 	margin-bottom:-70px;
 	width:1120px;
 	height:446px;
-	background-image:url(../img/bg_home2.PNG);
+	background-image:url(../images/bg_home2.PNG);
 	background-position:center;
 	background-repeat:no-repeat;
 	overflow:auto;
@@ -964,7 +964,7 @@ input:-ms-input-placeholder {
 	color:#626061;
 }
 
-			input[type=checkbox].css-checkbox {
+			input[type="checkbox"].css-checkbox {
 							display:none;
 						}
 
@@ -981,11 +981,11 @@ input:-ms-input-placeholder {
 
 						}
 
-						input[type=checkbox].css-checkbox:checked + label.css-label {
+						input[type="checkbox"].css-checkbox:checked + label.css-label {
 							background-position: 0 -19px;
 						}
 						label.css-label {
-						background-image:url(../img/csscheckbox.png);
+						background-image:url(../images/csscheckbox.png);
 				-webkit-touch-callout: none;
 				-webkit-user-select: none;
 				-khtml-user-select: none;

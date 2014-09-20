@@ -33,7 +33,7 @@ class home extends Controller {
     $this->contentHelper = $this->loadModel('contentHelper');
 	}
 	function index(){
-
+    // echo 'ada';exit;
 		global $CONFIG, $basedomain;
 
 		// pr($_SESSION);exit;

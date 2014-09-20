@@ -140,6 +140,7 @@ class Application {
 		// pr(APP_MODELS);
 		// pr(APP_VIEW);
 		/* include file view */
+		
 		if (is_file(APP_VIEW.$fileName.$html_ext)) {
 			if ($fileName !='') $fileName = $fileName.$html_ext;
 			// pr($fileName);exit;
@@ -228,8 +229,9 @@ class Application {
 			$this->configkey = 'default';
 			// define ('APP_MODELS', APPPATH.'model/');
 		}
-
 		$php_ext = $CONFIG[$this->configkey]['php_ext'];
+
+		
 		if (is_file(APP_MODELS.$fileName.$php_ext)) {
 			
 			$dataArr['file'] = $fileName;

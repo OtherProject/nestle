@@ -54,7 +54,7 @@ class Controller extends Application{
 		}
 		
 		// exit;
-
+// pr($filePath);exit;
 		if (file_exists($filePath)){
 			
 			if ($DATA[$this->configkey]['page']!=='login'){
@@ -128,7 +128,7 @@ class Controller extends Application{
 				}
 			}
 
-			// echo 'ada';
+			
 			include $filePath;
 			
 			$createObj = new $this->page();
