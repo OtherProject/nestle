@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-define ('APP', '../');
+define ('APP', './');
 define ('COREPATH', 'engine/');
 
-require_once (COREPATH.'system.php');
+require_once ('mobile/'.COREPATH.'system.php');
 
 
 ?>

@@ -28,12 +28,13 @@ class Controller extends Application{
 	function index()
 	{
 		
-		global $CONFIG, $LOCALE, $basedomain, $title, $DATA, $app_domain, $CODEKIR;
+		global $CONFIG, $LOCALE, $basedomain, $title, $DATA, $app_domain, $CODEKIR, $mobile_domain;
 		$filePath = APP_CONTROLLER.$this->page.$this->php_ext;
 		
 		$this->view = $CODEKIR['smarty'];
 		$this->view->assign('basedomain',$basedomain);
 		$this->view->assign('app_domain',$app_domain);
+		$this->view->assign('mobile_domain',$mobile_domain);
 		$this->view->assign('page',$DATA[$this->configkey]);
 		$this->view->assign('browsertype',$this->checkBrowser());
 		
@@ -45,7 +46,7 @@ class Controller extends Application{
 		// pr($this->isUserOnline());
 
 		// detection browser
-		
+		// pr($CONFIG);
 		if (isset($_SESSION['fb-logout'])){
 			$this->view->assign('logoutUrl',@$_SESSION['fb-logout']);
 		}else{

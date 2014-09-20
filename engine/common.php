@@ -112,8 +112,9 @@ function imageFrame($filename=false, $framefile=false)
 	else include(LIBS.'class_image_upload/class.upload.php');
 
 	deleteFile($filename,'imageFramed');
-	
+	// pr($IMAGE[0]['pathfile'].$filename);
 	$handle = new Upload($IMAGE[0]['pathfile'].$filename);
+	// pr($handle);
 	if ($handle->uploaded) {
 		$handle->image_resize = true;
 		$handle->image_x = 180;

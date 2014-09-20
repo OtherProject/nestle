@@ -5,7 +5,7 @@
  * file ini berubah, aplikasi tidak berjalan :-)
  */
  
-define ('APPPATH', 'app/');
+
 define ('CODEKIR', true);
 define ('LIBS', 'libs/');
 define ('LOGS', 'logs/');
@@ -13,7 +13,7 @@ define ('CACHE', 'cache/');
 define ('TMP', 'tmp/');
 
 
-require_once (COREPATH.'loader.php');
+require_once (COREPATH.'common.php');
 
 require_once LIBS.'mobile_detect/Mobile_Detect.php';
 
@@ -22,8 +22,13 @@ $deviceType = ($detect->isMobile() ? ($detect->isTablet() ? 'tablet' : 'phone') 
 $scriptVersion = $detect->getScriptVersion();
 
 if ($deviceType !='computer'){
-	redirect($basedomain.'mobile');
+	define ('APPPATH', 'mobile/');
+	require_once ('mobile/index.php');
+	// redirect($basedomain.'mobile');
 	exit;
+}else{
+	define ('APPPATH', 'app/');
+	require_once (COREPATH.'loader.php');
 }
 
 if (is_array($CONFIG)) {

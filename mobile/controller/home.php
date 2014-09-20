@@ -14,10 +14,11 @@ class home extends Controller {
 	
 	function __construct()
 	{
-		global $basedomain;
+		global $basedomain, $mobile_domain;
 		$this->loadmodule();
 		$this->view = $this->setSmarty();
 		$this->view->assign('basedomain',$basedomain);
+    $this->view->assign('mobile_domain',$mobile_domain);
     $userdata = $this->isUserOnline();
     $this->user = $userdata['mobile'];
     // pr($this->user);exit;

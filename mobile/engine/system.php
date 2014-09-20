@@ -5,14 +5,16 @@
  * file ini berubah, aplikasi tidak berjalan :-)
  */
  
-define ('APPPATH', './');
+define ('APPPATH', './mobile/');
 define ('CODEKIR', true);
 define ('LIBS', 'libs/');
 define ('LOGS', 'logs/');
 define ('CACHE', 'cache/');
 define ('TMP', 'tmp/');
 
-require_once (COREPATH.'loader.php');
+
+
+require_once ('mobile/'.COREPATH.'loader.php');
 
 if (is_array($CONFIG)) {
 	
@@ -129,8 +131,9 @@ $DATA['mobile']['uri'] = @$validation ;
  * user sesuai dengan parameter
  * yang dikirimkan lewat browser
  */
- 
-// pr($DATA);
+ // echo 'masuk1';
+ // pr($CONFIG); 
+// pr($DATA);exit;
 // pr($_GET);
 
 $route = $_SERVER['PHP_SELF'];

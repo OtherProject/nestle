@@ -16,11 +16,12 @@ class uploadfoto extends Controller {
 	
 	function __construct()
 	{
-		global $basedomain, $app_domain;
+		global $basedomain, $app_domain, $mobile_domain;
 		$this->loadmodule();
 		$this->view = $this->setSmarty();
 		$this->view->assign('basedomain',$basedomain);
     $this->view->assign('app_domain',$app_domain);
+    $this->view->assign('mobile_domain',$mobile_domain);
     $userdata = $this->isUserOnline();
     $this->user = $userdata['mobile'];
 

@@ -116,7 +116,13 @@ class Application {
 		}
 		if (array_key_exists('mobile', $CONFIG)){
 			$this->configkey = 'mobile';
+			// define ('APP_VIEW', 'mobile/view/');
 		}
+		if (array_key_exists('default', $CONFIG)){
+			$this->configkey = 'default';
+			// define ('APP_VIEW', APPPATH.'view/');
+		}
+
 		$getFileView = null;
 		// $php_ext = $CONFIG[$this->configkey]['php_ext'];
 		$html_ext = $CONFIG[$this->configkey]['html_ext'];
@@ -129,13 +135,14 @@ class Application {
 		}
 		
 		if (!$this->view) $this->view = $this->setSmarty();
-		
+		// pr($CONFIG);
 		$this->view->assign('basedomain',$basedomain);
-		
+		// pr(APP_MODELS);
+		// pr(APP_VIEW);
 		/* include file view */
 		if (is_file(APP_VIEW.$fileName.$html_ext)) {
 			if ($fileName !='') $fileName = $fileName.$html_ext;
-			
+			// pr($fileName);exit;
 			if (file_exists(APP_VIEW.$fileName)){
 			
 				ob_start();
@@ -215,8 +222,13 @@ class Application {
 		}
 		if (array_key_exists('mobile', $CONFIG)){
 			$this->configkey = 'mobile';
+			// define ('APP_MODELS', 'mobile/model/');
 		}
-		
+		if (array_key_exists('default', $CONFIG)){
+			$this->configkey = 'default';
+			// define ('APP_MODELS', APPPATH.'model/');
+		}
+
 		$php_ext = $CONFIG[$this->configkey]['php_ext'];
 		if (is_file(APP_MODELS.$fileName.$php_ext)) {
 			
