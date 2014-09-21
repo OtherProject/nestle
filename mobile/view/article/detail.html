@@ -16,6 +16,10 @@
 		{/if}
 		<div class="article">
 			<div id="wrapbtn" align="left" ><a href="{$basedomain}article/detail/?id={$prevNextArticle.prev}" class="btnpinkS" style="{if $prevNextArticle.prev=='#'}display:none{/if}"><span style="color:white">Prev</span></a></div>
+			{literal}
+		    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		    {/literal}
+		    
 			<div id="wrapbtn" align="center" >
 				<a href="javascript:void(0)" class="btn-f" data-href="{$basedomain}article/detail/?id={$article[0].id}">&nbsp;</a>&nbsp;&nbsp;&nbsp;
 				<a href="{$basedomain}article/detail/?id={$article[0].id}" title="{$article[0].title}" class="btn-t">&nbsp;</a>
@@ -43,3 +47,91 @@
 		{/if}
 
 	</div><!-- /content -->
+
+
+<script type="text/javascript">
+
+
+function trim_words(theString, numWords) {
+    expString = theString.split(/\s+/,numWords);
+    theNewString=expString.join(" ");
+    return theNewString;
+}
+
+
+
+var title = "{$article[0].title}";
+title = title.split(' ').join('+');
+var content = "{substr(strip_tags($article[0].content),0,160)}";	
+	content = trim_words(content,20)+"...";
+var dataShare = "{$basedomain}shareArtikel.php/?img={$article[0].image}&title="+title+"&content="+content;
+// var dataShare = "http://qinc.co.id/activegro/assets/file/slide-1-img.png";
+
+var fbID = "{$appId}";
+
+{literal}
+	
+
+	$(document).on('click','.btn-f', function(){
+
+		window.fbAsyncInit = function() {
+	        FB.init({
+	          appId      : fbID,
+	          status : true,
+   				cookie : true,
+	          xfbml      : true,
+	          version    : 'v2.0'
+	        });
+
+	        FB.ui(
+				 {
+				  method: 'share',
+				  href: dataShare
+				}, function(response){
+					
+					
+				});
+
+	      };
+
+		(function(d, s, id){
+		         var js, fjs = d.getElementsByTagName(s)[0];
+		         if (d.getElementById(id)) {return;}
+		         js = d.createElement(s); js.id = id;
+		         js.src = "//connect.facebook.net/en_US/sdk.js";
+		         fjs.parentNode.insertBefore(js, fjs);
+
+		         console.log(fjs);
+	       }
+	    (document, 'script', 'facebook-jssdk'));
+		
+		<!-- _gaq.push(['_trackEvent', 'Button', 'Click', 'ShareFBArtikel']); -->
+		ga('send', 'pageview', '/vp/ShareFBartikel');
+
+
+
+	})
+
+
+	$('a.btn-t').click(function(e){
+	 
+	//We tell our browser not to follow that link
+	e.preventDefault();
+	 
+	//We get the URL of the link
+	var loc = $(this).attr('href');
+	 
+	//We get the title of the link
+	var title = escape($(this).attr('title'));
+	 
+	//We trigger a new window with the Twitter dialog, in the middle of the page
+	window.open('http://twitter.com/share?url=' + loc + '&text=Ada artikel menarik nih! Yuk baca "' + title + '"&hashtags=GowithActivGro' + '&', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+	 
+	 <!-- _gaq.push(['_trackEvent', 'Button', 'Click', 'ShareTWArtikel']); -->
+	 ga('send', 'pageview', '/vp/ShareTwitterArtikel');
+	 
+	});
+
+
+{/literal}
+</script>

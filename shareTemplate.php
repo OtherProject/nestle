@@ -1,7 +1,7 @@
 <?php
 
 $foto = $_GET['ft'];
-$basedomain = "http://rumahnutrisinestle.com/gowithactivgro/";
+$basedomain = "http://rumahnutrisinestle.com/staging_gowithactivgro/";
 
     if(count($_GET) == 2){
 
