@@ -39,9 +39,9 @@
 				<a href="javascript:void(0)" id="downloadAll" class="btnpinkslide" data-url="{$basedomain}uploadfoto/imageDownloaded" data-image-id="{$myfoto.id}"><span style="color:#fff">Download</span></a>
 				
 				{if $coverfb}
-					<a href="{$app_domain}public_assets/imageFramed/{$myfoto.profil}" class="download_file" download="{$myfoto.userName}-fotoprofil-facebook.jpg" id="profdata" style="display:none"><img src="{$app_domain}public_assets/imageFramed/{$myfoto.profil}"></a>
+					<a href="{$app_domain}public_assets/imageFramed/{$myfoto.profil}" class="download_file" target="_blank" download="{$myfoto.userName}-fotoprofil-facebook.jpg" id="profdata" style="display:none"><img src="{$app_domain}public_assets/imageFramed/{$myfoto.profil}"></a>
 
-					<a href="{$app_domain}public_assets/cover/{$myfoto.cover}" class="download_file" download="{$myfoto.userName}-coverfoto-facebook.jpg" id="covdata" style="display:none"><img src="{$app_domain}public_assets/cover/{$myfoto.cover}"></a>
+					<a href="{$app_domain}public_assets/cover/{$myfoto.cover}" class="download_file" target="_blank" download="{$myfoto.userName}-coverfoto-facebook.jpg" id="covdata" style="display:none"><img src="{$app_domain}public_assets/cover/{$myfoto.cover}"></a>
 
 					<div style="height:20px;width:100%;clear:both;">&nbsp;</div>
 					<a href="javascript:void(0)" class="btn-fslide btn-next" idfile="http://facebook.com" style="display:none" id="sosmedButton"><span style="color:#fff">Facebook Profile</span></a>
@@ -77,7 +77,7 @@
 
 		        $(".btn-next").css("display","");
 		      });
-console.log('masuk');
+
 		    return false; //cancel navigation
 		  	} else {
 		  	var link = $("#profdata").attr('href');

@@ -53,11 +53,7 @@ var dataShare = "{$basedomain}shareTemplate.php?ft={$myfoto.profil}";
 var fbID = "{$appId}";
 {literal}
 	
-	$(document).on('click','#sharedata', function(){
-
-		var link = $(this).attr('data-link');
-		window.location.href=link;
-	})
+	
 
 	window.fbAsyncInit = function() {
 	    // init the FB JS SDK
@@ -103,7 +99,7 @@ var fbID = "{$appId}";
 
 					
 				});
-	       
+	    window.location.href = basedomain+'uploadfoto/changephoto';
 	})
 
 
