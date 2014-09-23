@@ -9,20 +9,20 @@
 
     <div role="main" class="ui-content jqm-content jqm-fullwidth" style="border:0px solid #000;">
     	<form method="post" action="{$basedomain}uploadfoto/ajaxUpload" id="uploadImagetolocal">
-		<div class="article" id="imgupload"><img src="{$mobile_domain}assets/images/title_upload.jpg" width="100%"></div>
+		<div class="article" id="imgupload"><img src="{$mobile_domain}assets/images/cover-foto.png" width="100%"></div>
 		<div class="article">
-    		<p class="isi"><strong>Ibu dan Ayah bisa mengupload foto Si Kecil dari file komputer maupun langsung dari album facebook
+    		<p class="isi"><strong>Ibu dan Ayah bisa mengupload foto Si Kecil dari computer ataupun langsung dari album Facebook.
 			</strong><p>
 		</div><!-- /article -->
 		<div class="article">
 		<input type="file" name="fotoupload" style="" id="fotoupload">
 			 <div class="btnpinkslide uploadfoto">
-					Select File
+					Pilih foto
 				</div>
 			<div style="height:10px;width:100%;">&nbsp;</div>
 			<div style="float:left">
 					<input type="checkbox" name="checkboxG2" id="checkboxG2" class="css-checkbox" akses="1" checked="checked" required/><label for="checkboxG2" class="css-label"></label>
-					<span class="isi"><strong>Saya menyetujui <span  id='basic-modal'><a href='#' class='basic2'><u>Syarat dan Ketentuan</u></a></span> yang berlaku.</strong></span>
+					<span class="isi"><strong>Saya menyetujui <a href='{$basedomain}home/term' class='basic2'><u>Syarat dan Ketentuan</u></a> yang berlaku.</strong></span>
 					</div><br/>
 		</div>
 </form>	
@@ -84,8 +84,10 @@
 				$('#imgupload').attr('align','center');
 				var loading = "<img src='"+app_domain+"assets/images/loading.gif' width='50px'/>";
 				$('#imgupload').html(loading);
-				
-				
+				$('.isi').css('display','none');
+				$('.btnpinkslide').css('display','none');
+				$('.css-label').css('display','none');
+				// return false;
 			},
 			success : function(data) {		
 
