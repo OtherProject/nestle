@@ -212,6 +212,97 @@ class uploadfoto extends Controller {
     return $this->loadView('upload/uploadProfile');
   }
 
+  function thanks(){
+
+    global $CONFIG, $basedomain, $IMAGE, $LOCALE;
+
+    // pr($_SESSION);
+    if (!$this->user){redirect($basedomain); exit;}
+
+    $file_path = "";
+    $getMyPhoto = $this->contentHelper->getCreateImage();
+    if ($getMyPhoto){
+      // pr($getMyPhoto);
+      $file_path = $IMAGE[0]['imageframed'].$getMyPhoto['profil'];
+
+      $this->view->assign('myfoto',$getMyPhoto);
+    }
+
+
+    if (isset($_SESSION['fb-logout'])){
+
+      FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);
+      $helper = new FacebookRedirectLoginHelper($basedomain.'uploadfoto/share/?share=true');
+      $session = false;
+      if(isset($_GET['share'])){
+        $session = $helper->getSessionFromRedirect();
+
+        /* Buat posting message */
+
+        // $post = (new FacebookRequest(
+       //      $session, 'POST', '/me/feed',array ('message' => 'This is a test message from bot',)
+       //    ))->execute()->getGraphObject();
+
+        $arr['link'] = $basedomain;
+        $arr["source"] = '@' . realpath($file_path);
+        $arr["message"] = $LOCALE['fb']['status-message'];
+
+        /*
+        $post = (new FacebookRequest(
+                $session, 'POST', '/me/photos',$arr
+              ))->execute()->getGraphObject();
+        */
+        $post = (new FacebookRequest(
+                $session, 'POST', '/me/feed',$arr
+              ))->execute()->getGraphObject();
+
+        /*
+        $album = (new FacebookRequest(
+                    $session,'GET','/me/albums'
+                  ))->execute()->getGraphObject();
+        */
+
+          // pr($album);
+
+        $updateStatus = $this->contentHelper->updateCreateImageStatus();
+
+        redirect($basedomain.'uploadfoto/changephoto');
+
+      }else{
+        $loginUrl = $helper->getLoginUrl(array('scope' => 'publish_actions',));
+        // $loginUrl = $helper->getLoginUrl(array('scope' => 'email,public_profile,user_friends',));
+        $this->view->assign('accessUrl',false);
+      }
+
+    }else{
+
+
+        if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
+
+          $this->view->assign('accessUrl',$basedomain.'uploadfoto/twitterRedirectShare');
+        }
+
+
+    }
+
+    $getFrame = $this->contentHelper->getCreateImage();
+    // pr($getFrame);
+    $this->view->assign('frame',$getFrame);
+
+    if (isset($_SESSION['fb-logout'])){
+      $this->view->assign('appId',$CONFIG['fb']['appId']);
+      $this->view->assign('coverfb',1);
+    }else{
+      $this->view->assign('coverfb',0);
+    }
+
+
+
+    // return $this->loadView('upload/share');
+    return $this->loadView('thanks');
+  }
+
+
 	 function share(){
 
 		global $CONFIG, $basedomain, $IMAGE, $LOCALE;
@@ -386,7 +477,7 @@ class uploadfoto extends Controller {
             // pr($response);
             $updateStatus = $this->contentHelper->updateCreateImageStatus();
             // usleep(500);
-            redirect($basedomain.'uploadfoto/changephoto');
+            redirect($basedomain.'uploadfoto/thanks');
         } else {
           /* Save HTTP status for error dialog on connnect page.*/
           // header('Location: ./clearsessions.php');

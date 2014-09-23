@@ -10,19 +10,19 @@
 <div id="wrapperhome">
 	<div id="slides" align="center">
 		
-		<div id="imgupload"><img src="{$basedomain}assets/file/slide-4.jpg" width="100%"/></div>
-
+		<div id="imgupload" style="margin:14px"><img src="{$basedomain}assets/file/cover-foto.png" width="40%"/></div>
+		<div class="isiThanks"><strong>Ibu dan Ayah bisa mengupload foto Si Kecil dari computer ataupun langsung dari album Facebook</strong><br/><br/></div>
 		{if $iebrowser}
 		<!--IE-->
 		<label class="btnpinkslide">
 			 <input type="file" name="fotoupload" style="display:none" id="fotoupload">
 
-			 Select File
+			 Pilih foto
 		</label>
 		
 		{else}
 		<div class="file-input-wrapper">
-		  	<button class="btn-file-input btnpinkslideUp">Select File</button>
+		  	<button class="btn-file-input btnpinkslideUp">Pilih foto</button>
 		  	<input type="file" name="fotoupload"  id="fotoupload"/>
 		</div>
 		{/if}
@@ -47,7 +47,7 @@
 		</div>
 		
 		<div id="divcheckslide">
-		<input type="checkbox" name="checkboxG2" id="checkboxG2" class="css-checkbox" akses="1" checked="checked"/><label for="checkboxG2" class="css-label"></label><strong>Saya setuju dengan peraturan dan ketentuan yang berlaku</strong>
+		<input type="checkbox" name="checkboxG2" id="checkboxG2" class="css-checkbox" akses="1" checked="checked"/><label for="checkboxG2" class="css-label"></label><strong>Saya menyetujui <span  id='basic-modal'><a href="javascript:void(0)" class='basic2'><u>Syarat dan Ketentuan</u></a></span> yang berlaku</strong>
 		
 		</div>
 		<input type='hidden' name='tmpimage' id='tmpimage' />
@@ -112,8 +112,8 @@
 				
 				
 				var loading = "<img src='"+basedomain+"assets/images/loading.gif' width='50px'/>";
+				$('#imgupload').css('height','100%');
 				$('#imgupload').html(loading);
-				
 				
 			},
 			success : function(data) {		

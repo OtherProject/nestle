@@ -49,7 +49,7 @@
 			<div id="{if $coverfb}wrapframerightFB{else}wrapframeright{/if}">
 				<div id="{if $coverfb}descimgframespaceFB{else}descimgframespace{/if}">&nbsp;</div>
 				<div id="descimgframe" align>
-					Sesuaikan foto Si Kecil dengan frame fotonya
+					Sesuaikan foto Si Kecil dengan foto sampulnya dengan menggeser kursor di atas foto profil Si Kecil
 				</div>
 			</div>
 		 </div>
@@ -77,9 +77,9 @@
 				
 				{if $browser > 2}
 					
-					<input type="submit" class="btnpinkslide" value="Crop" style="" />
+					<input type="submit" class="btnpinkslide" value="Lanjutkan" style="" />
 				{else}
-					<a href="javascript:void(0)" class="btnpinkslide crop" fid="{$frame[0].files}" cid="{$frame[0].cover.files}">Crop</a>
+					<a href="javascript:void(0)" class="btnpinkslide crop" fid="{$frame[0].files}" cid="{$frame[0].cover.files}">Lanjutkan</a>
 				{/if}
 				
 			</div>
@@ -245,7 +245,8 @@ var dinamisClass = "{if $coverfb}userContent{else}userContenttw{/if}";
 
 			if (data.status==true){
 				
-				    window.location.href = basedomain+'uploadfoto/cropedProfile';
+				    // window.location.href = basedomain+'uploadfoto/cropedProfile';
+				    window.location.href = basedomain+'uploadfoto/changephoto';
 				
 			}
 
