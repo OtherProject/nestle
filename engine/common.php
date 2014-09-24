@@ -179,6 +179,8 @@ function uploadFile($data,$path=null,$ext){
         return $result;
     }
 	
+	logFile(serialize($_FILES[$data]));
+
 	if ($path!='') $path = $path.'/';
 	$pathFile = $CONFIG[$key]['upload_path'].$path;
 	$ext = explode ('.',$_FILES[$data]["name"]);

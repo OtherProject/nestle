@@ -588,14 +588,18 @@ class uploadfoto extends Controller {
 
         if ($saveUserFoto){
           print json_encode(array('status'=>true));
+          logFile('User success upload image');
         }else{
+          logFile('User failed upload image');
           print json_encode(array('status'=>false));
         }
       }else{
+        logFile('File type not allowed');
         print json_encode(array('status'=>false,'message'=>'File tidak didukung'));
       }
     }else{
-      print json_encode(array('status'=>false));
+      logFile('No file exist');
+      print json_encode(array('status'=>false,'message'=>'Tidak ada file'));
     }
 
     exit;
