@@ -16,9 +16,21 @@
 		</div><!-- /article -->
 		<div class="article">
 		<input type="file" name="fotoupload" style="" id="fotoupload">
-			 <div class="btnpinkslide uploadfoto">
-					Pilih foto
-				</div>
+
+			{if $albumfb}
+				{foreach $albumfb as $val}
+				<a href='#' class='fotofb'><img src="{$val.source}" width="50px" height="50px" class="selectPhoto"/> </a>
+				{/foreach}
+			{else}
+			<div class="btnpinkslide uploadfoto">
+				Pilih foto
+			</div>
+			<div class="uploadfoto" style="margin-top:30px" align="center">
+				<a onClick="ga('send', 'event', 'Button', 'Click', 'FBConnect');" data-href="{$accessUrlFb}" class="btn-fslide fbButton">&nbsp;<span style="color:white">Album Facebook</span></a>
+			</div>
+			{/if}
+			
+				
 			<div style="height:10px;width:100%;">&nbsp;</div>
 			<div style="float:left">
 					<input type="checkbox" name="checkboxG2" id="checkboxG2" class="css-checkbox" akses="1" checked="checked" required/><label for="checkboxG2" class="css-label"></label>
@@ -31,6 +43,13 @@
 
 <script type="text/javascript">
 {literal}
+	
+	
+
+	$(document).on('click','.fbButton', function(){
+		var link = $(this).attr('data-href');
+		window.location.href = link;
+	})
 	
 	$(document).on('click','.btnpinkslide', function(){
 

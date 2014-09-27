@@ -56,7 +56,7 @@ class uploadfoto extends Controller {
 
 
       $album = (new FacebookRequest(
-                  $session,'GET','/me/photos'
+                  $session,'GET','/me/photos/uploaded'
                 ))->execute()->getGraphObject();
       /*
       $album = (new FacebookRequest(
@@ -83,7 +83,7 @@ class uploadfoto extends Controller {
       $this->view->assign('albumfb',$data);
 
     }else{
-      $loginUrl = $helper->getLoginUrl(array('scope' => 'user_photos,publish_actions',)); 
+      $loginUrl = $helper->getLoginUrl(array('scope' => 'user_photos',)); 
       $this->view->assign('accessUrlFb',$loginUrl);
     }
         
