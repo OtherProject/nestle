@@ -54,14 +54,14 @@ class uploadfoto extends Controller {
 
 
       $album = (new FacebookRequest(
-                  $session,'GET','/me/photos'
+                  $session,'GET','/me/photos/uploaded'
                 ))->execute()->getGraphObject();
       /*
       $album = (new FacebookRequest(
                   $session,'GET','/me/albums'
                 ))->execute()->getGraphObject();*/
 
-
+      logFile(serialize($album));
       $userAlbum = $album->getPropertyAsArray('data');
 
 
@@ -77,6 +77,8 @@ class uploadfoto extends Controller {
         // $data[$key]['images'] = $value->getProperty('images');
 
       }
+      logFile('====user photo ====');
+      logFile(serialize($data));
       // pr($data);
       $this->view->assign('albumfb',$data);
 
@@ -199,11 +201,20 @@ class uploadfoto extends Controller {
   $browser = $this->checkBrowser();
 
   if ($browser > 2){
+
     $tmpimage = $basedomain.'public_assets/'.$getMyPhoto['files'];
 
   }else{
-    $tmpimage = $_SESSION['tmpimage'];
-
+    
+    if ($browser == 2){
+      $image_data=file_get_contents($basedomain.'public_assets/'.$getMyPhoto['files']);
+      $encoded_image=base64_encode($image_data);
+      $tmpimage = 'data:image/png;base64,'.$encoded_image;
+    }else{
+      $tmpimage = $_SESSION['tmpimage'];
+    }
+    
+    
   }
 
 

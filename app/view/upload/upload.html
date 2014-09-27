@@ -4,6 +4,22 @@
 		top:-1000px;
 
 	}
+	#thumbwrap {
+	position:relative;
+}
+.thumb img { 
+	border:1px solid #ddd;
+	float:left;
+}
+.thumb span { 
+	position:fixed;
+	visibility:hidden;
+}
+.thumb:hover, .thumb:hover span { 
+	visibility:visible;
+	top:0; left:250px; 
+	z-index:1;
+}
 </style>
 <form method="post" action="{$basedomain}uploadfoto/ajaxUpload" id="uploadImagetolocal" enctype="multipart/form-data">
 
@@ -21,27 +37,37 @@
 		</label>
 		
 		{else}
-		<div class="file-input-wrapper">
-		  	<button class="btn-file-input btnpinkslideUp">Pilih foto</button>
-		  	<input type="file" name="fotoupload"  id="fotoupload"/>
-		</div>
+			{if !$albumfb}
+			{if $fbalbum}
+				<div class="file-input-wrapper" style="float:left;margin-left:15%;margin-right:-10%">
+			{else}
+				<div class="file-input-wrapper" >
+			{/if}
+			
+			  	<button class="btn-file-input btnpinkslideUp">Pilih foto</button>
+			  	<input type="file" name="fotoupload"  id="fotoupload"/>
+			</div>
+			{/if}
 		{/if}
-		
 
 			
-		 <div id="divbtnslide">
+		 <div id="divbtnslide" style="margin-top:8px">
 		 	{if $albumfb}
-		 	<div>
-			
+		 	<div style="overflow:auto;height:120px">
+				
+				<div id='__basic-modal'>
+					
+				
 				{foreach $albumfb as $val}
-					<img src="{$val.source}" width="50px" height="50px" class="selectPhoto"/>
+				<a href='#' class='fotofb'><img src="{$val.source}" width="50px" height="50px" class="selectPhoto"/> </a>
 				{/foreach}
-			
+				</div>
 			</div>
 			{else}
 			{*}
-			<a href="javascript:void(0)" class="btnpinkslide">Select File</a>&nbsp;&nbsp;&nbsp;{/*}{if $fbalbum}<span class="fontNunito">{*}or</span>&nbsp;&nbsp;&nbsp;
-			<a href="{$accessUrlFb}" class="btnblueslide">Facebook Album</a>{/*}{/if}
+			<a href="javascript:void(0)" class="btnpinkslide">Select File</a>&nbsp;&nbsp;&nbsp;{/*}
+			{if $fbalbum}<span class="fontNunito">or</span>&nbsp;&nbsp;&nbsp;
+			<a href="{$accessUrlFb}" class="btnblueslide">Facebook Album</a>{/if}
 			{/if}
 		 
 		</div>
@@ -51,20 +77,30 @@
 		
 		</div>
 		<input type='hidden' name='tmpimage' id='tmpimage' />
+		<input type='hidden' name='imgtmpfb' id='imgtmpfb' />
+
 		<input type='submit' name='simpan' id='submitfoto' style='display:none'>
 		
 								
 	</div>
 </div>
 </form>
-
+<div id="basic-modal-content" align="center">
+			
+	<div class="fotoAlbumfb" >
+	
+	</div>
+</div>
 <script type="text/javascript">
 {literal}
-
+	
+	
 	$(document).on('click','.btnpinkslide', function(){
 
 		$('#fotoupload').trigger('click');
 	})
+
+	
 
 	$(document).on('click','#checkboxG2', function(){
 

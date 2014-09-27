@@ -14,6 +14,7 @@ jQuery(function ($) {
 
 	// Load dialog on click
 	$('#basic-modal .basic').click(function (e) {
+		
 		$('#basic-modal-content').modal();
 		ga('send', 'pageview', '/vp/Tentang');
 
@@ -38,6 +39,15 @@ jQuery(function ($) {
 		$('#basic-modal-content.global').modal();
 		/* _gaq.push(['_trackPageview', '/vp/Tentang']); */
 		
+
+		return false;
+	});
+	$('#basic-modal .fotofb img').click(function (e) {
+		var image = $(this).attr("src");
+		$('#imgtmpfb').val(image);
+
+		$('#basic-modal-content').html("<img src='"+image+"' height='400px' width='740px'/><br/><div id='divbtnslide' align='center'><button class='btn-file-input btnpinkslideUp'>Pilih foto</button></div>");
+		$('#basic-modal-content').modal();ga('send', 'pageview', '/vp/Tentang');
 
 		return false;
 	});
