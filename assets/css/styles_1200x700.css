@@ -318,7 +318,7 @@ body{
 	margin:0 auto;
 	margin-top:-80px;
 	width:610px;
-	height:125px;
+	height:146px;
 	border:0px solid #fefcfd;
 	overflow:auto;
 	position:relative;
@@ -343,7 +343,7 @@ body{
 	margin:0 auto;
 	float:right;
 	width:430px;
-	height:121px;
+	height:144px;
 	border:0px solid #000;
 	overflow:hidden;
 }
@@ -385,7 +385,7 @@ body{
 	float:left;
 	border:0px solid #fff;
 	width:425px;
-	height:50px;
+	height:64px;
 	overflow:hidden;
 }
 #article{

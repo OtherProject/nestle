@@ -34,8 +34,8 @@
 		 </div>
 		 <div id="{if $coverfb}wrapcontentuserFB{else}wrapcontentuser{/if}">
 			<div id="contentuserdesc">
-				<div class="tittledesc">Ganti Foto Profil Anda</div>
-				<div class="isidesc">Silakan ganti foto profil dan cover photo Facebook atau Twitter Ayah dan Ibu menggunakan gambar yang telah kami sediakan untuk memenangkan hadiah menarik dari Nestl&eacute; LACTOGEN 3 Activgro.</div>
+				{*}<div class="tittledesc">Ganti Foto Profil Anda</div>{/*}
+				<div class="isidesc"><strong>Ayo klik download untuk mendapatkan foto sampul dan foto profil yang sudah Ibu dan Ayah pilih</strong></div>
 
 			</div>
 			<div id="btn-desc" align="right">
@@ -79,9 +79,9 @@
 	  	  if (!window.XDomainRequest) {
 		      $('a.download_file > img').each(function() {
 		        $(this).trigger( "click" );
-		        $(".btn-next").css("display","");
+		        // $(".btn-next").css("display","");
 		      });
-
+		      window.location.href=basedomain+'uploadfoto/thanks';
 		    return false; //cancel navigation
 		  } else {
 		  	var link = $("#profdata").attr('href');
@@ -89,11 +89,12 @@
 			if(link!='') window.open(link,'_blank');
 			setTimeout(function(){
 				if(cover!='') window.open(cover,'_blank');
+				
 			}, 1000);
 
 
 
-			$(".btn-next").css("display","");
+			// $(".btn-next").css("display","");
 		  }
 	  });
 	});

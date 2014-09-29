@@ -32,8 +32,8 @@
 
 		 </div>
 			<div class="article" style="margin-top:-50px;">
-				<h2 class="isi">Ganti Foto Profil Anda</h2>
-				<p class="isi"><strong>Silakan ganti foto profil dan cover photo Facebook atau Twitter Ayah dan Ibu menggunakan gambar yang telah kami sediakan untuk memenangkan hadiah menarik dari Nestlé LACTOGEN 3 Activgro.</strong> </p>
+				{*}<h2 class="isi">Ganti Foto Profil Anda</h2>{/*}
+				<p class="isi"><strong>Silakan ganti foto profil dan cover photo Facebook atau Twitter Ayah dan Ibu menggunakan gambar yang telah kami sediakan untuk memenangkan hadiah menarik dari Nestl&eacute; LACTOGEN 3 Activgro.</strong> </p>
 			</div>
 			<div class="article">
 				<a href="javascript:void(0)" id="downloadAll" class="btnpinkslide" data-url="{$basedomain}uploadfoto/imageDownloaded" data-image-id="{$myfoto.id}"><span style="color:#fff">Download</span></a>
@@ -74,8 +74,8 @@
 		      $('a.download_file > img').each(function() {
 		        $(this).trigger( "click" );
 		        
-
-		        $(".btn-next").css("display","");
+		        window.location.href=basedomain+'uploadfoto/thanks';
+		        // $(".btn-next").css("display","");
 		      });
 
 		    return false; //cancel navigation
@@ -91,7 +91,7 @@
 
 
 
-			$(".btn-next").css("display","");
+			// $(".btn-next").css("display","");
 		  }
 	  });
 	});
@@ -113,7 +113,7 @@
 
 	$(document).on('click','.btn-next', function(){
 
-		window.location.href=basedomain+'home/thanks';
+		window.location.href=basedomain+'uploadfoto/thanks';
 
 	})
 {/literal}

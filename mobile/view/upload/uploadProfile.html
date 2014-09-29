@@ -33,11 +33,11 @@
 
 		 </div>
 			<div class="article" style="margin-top:-50px;">
-				<p class="isi"><strong>Sesuaikan foto Si Kecil dengan frame fotonya</strong> </p>
+				<p class="isi"><strong>Sesuaikan foto Si Kecil dengan foto sampulnya dengan menggeser kursor di atas foto profil Si Kecil.</strong> </p>
 			</div>
 			
 			<div class="article">
-				<a href="javascript:void(0)" class="btnpinkslide crop" fid="{$frame[0].files}" cid="{$frame[0].cover.files}"><span style="color:#fff">Crop</span></a>
+				<a href="javascript:void(0)" class="btnpinkslide crop" fid="{$frame[0].files}" cid="{$frame[0].cover.files}"><span style="color:#fff">Lanjutkan</span></a>
 			</div>
 		 </div>
 		<form action="{$basedomain}uploadfoto/getCropImage" method="post">
@@ -198,7 +198,7 @@ var dinamisClass = "loader";
 
 			if (data.status==true){
 				
-				    window.location.href = basedomain+'uploadfoto/cropedProfile';
+				    window.location.href = basedomain+'uploadfoto/changephoto';
 				
 			}
 

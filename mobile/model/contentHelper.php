@@ -219,6 +219,7 @@ class contentHelper extends Database {
 		$useraccount = false;
 		$jumlhAnak = intval($data['jmlhAnak']);
 
+		// pr($data);
 		$useraccount = $this->user[$this->app];
 		if (!$useraccount) return false;
 
@@ -229,9 +230,9 @@ class contentHelper extends Database {
 			$sql = "UPDATE social_member SET name = '{$data['nama']}', phone_number = '{$data['telp']}', StreetName = '{$data['alamat']}', verified = 1 WHERE id = {$useraccount['id']} LIMIT 1";
 
 		}
-		// pr($sql);
+		
 		$res = $this->query($sql);
-
+		
 		if ($res){
 
 			for($i=0; $i<=$jumlhAnak-1; $i++){

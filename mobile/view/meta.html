@@ -9,22 +9,16 @@
     <link rel="stylesheet" href="{$basedomain}mobile/assets/css/style.css">
 	 
   <link rel="stylesheet" href="{$basedomain}mobile/assets/js/plugins/beatpicker/css/BeatPicker.min.css"/>
-  
+  {*}
+    <link rel="stylesheet" href="{$basedomain}mobile/assets/css/jquery.remodal.css">
+   {/*}
    <!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">-->
-	
+
     <script src="{$basedomain}mobile/assets/js/jquery.js" id="jqueryfile"></script>
-    
     <script src="{$basedomain}mobile/assets/js/index.js"></script>
+
     <script src="{$basedomain}mobile/assets/js/jquery.mobile-1.4.3.min.js"></script>
 
-	<script>
-            $(document).on('pageinit',function(){
-                $('div[data-role="content"]').on("swiperight",function(){
-                    console.log('swipe');
-                    $.mobile.activePage.find('#menu').panel("open");
-                });
-            });                     
-        </script>
 
 </head>
 <body style="background-color:white">

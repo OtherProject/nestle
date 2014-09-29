@@ -93,6 +93,7 @@ class contentHelper extends Database {
 				VALUES ('{$title}', 1, '{$data['full_name']}', {$useraccount['id']}, '{$date}',1)";
 		// pr($sql);
 		$res = $this->query($sql);
+		logFile('user '.$useraccount['name'].' save image to database before croping');
 		if($res) return true;
 		return false;
 	}

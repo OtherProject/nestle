@@ -9,8 +9,7 @@
 	 background: -ms-radial-gradient(circle, #F1C75B, #BF6C0C);">
     	<h2 id="titlefooterleft">Nestl&eacute; LACTOGEN 3 &copy; 2014. All Right Reserved</h2>
     </div><!-- /footer -->
-	
-	
+
 
 </div><!-- /page -->
 
@@ -20,19 +19,19 @@
 	
 	<script type="text/javascript">
 	{literal}
-		$(function(){
-			$('#postdate').datepicker({
-				dateFormat:'yy-mm-dd'
-			});
-			$('#postdate1').datepicker({
-				dateFormat:'yy-mm-dd'
-			});
-			$('#postdate2').datepicker({
-				dateFormat:'yy-mm-dd'
-			});
+		// $(function(){
+		// 	$('#postdate').datepicker({
+		// 		dateFormat:'yy-mm-dd'
+		// 	});
+		// 	$('#postdate1').datepicker({
+		// 		dateFormat:'yy-mm-dd'
+		// 	});
+		// 	$('#postdate2').datepicker({
+		// 		dateFormat:'yy-mm-dd'
+		// 	});
 
 			
-		});
+		// });
 	
 	
 
@@ -52,8 +51,13 @@
 
 	{/literal}
 	</script>
-	
+	{if $page.page=='uploadfoto'}
 	<script src="{$basedomain}mobile/assets/js/jquery.form.js" id="jqueryfile"></script>
 	<script type="text/javascript" src='{$basedomain}mobile/assets/js/jquery.guillotine.js'></script>
+	{/if}
+
+{*}
+<script src="{$basedomain}mobile/assets/js/zepto.min.js"></script>
+<script src="{$basedomain}mobile/assets/js/jquery.remodal.js"></script>{/*}
 </body>
 </html>
