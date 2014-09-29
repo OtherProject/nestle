@@ -665,7 +665,7 @@ class uploadfoto extends Controller {
         if ($saveUserFoto){
 
           if ($ie){
-            redirect($basedomain.'uploadfoto/cropedProfile');
+            redirect($basedomain.'uploadfoto/changephoto');
             exit;
           }else{
             print json_encode(array('status'=>true));

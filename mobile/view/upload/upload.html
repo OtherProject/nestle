@@ -25,9 +25,11 @@
 			<div class="btnpinkslide uploadfoto">
 				Pilih foto
 			</div>
+			{if $fbalbum}
 			<div class="uploadfoto" style="margin-top:30px" align="center">
 				<a onClick="ga('send', 'event', 'Button', 'Click', 'FBConnect');" data-href="{$accessUrlFb}" class="btn-fslide fbButton">&nbsp;<span style="color:white">Album Facebook</span></a>
 			</div>
+			{/if}
 			{/if}
 			
 				
@@ -50,7 +52,7 @@
 		var link = $(this).attr('data-href');
 		window.location.href = link;
 	})
-	
+
 	$(document).on('click','.btnpinkslide', function(){
 
 		$('#fotoupload').trigger('click');
