@@ -17,7 +17,14 @@
     <script src="{$basedomain}mobile/assets/js/index.js"></script>
     <script src="{$basedomain}mobile/assets/js/jquery.mobile-1.4.3.min.js"></script>
 
-
+	<script>
+            $(document).on('pageinit',function(){
+                $('div[data-role="content"]').on("swiperight",function(){
+                    console.log('swipe');
+                    $.mobile.activePage.find('#menu').panel("open");
+                });
+            });                     
+        </script>
 
 </head>
 <body style="background-color:white">
