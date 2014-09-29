@@ -561,22 +561,33 @@ class uploadfoto extends Controller {
     // return $this->loadView('upload/gantiProfile');
   }
 
-	function imageDownloaded ()
-	{
-		if ($this->user) {
-
+  	function imageShared ()
+  	{
+  		if ($this->user) {
 			$image_id = filter_input(INPUT_GET, 'image_id', FILTER_SANITIZE_NUMBER_INT);
-
 			if (empty($image_id)) {
 				$image_id = filter_input(INPUT_POST, 'image_id', FILTER_SANITIZE_NUMBER_INT);
 			}
-
 			if ($image_id) {
-
 				$image = $this->contentHelper->getCreateImageObject($this->user, $image_id);
-
 				if ($image && $image['n_status'] == 2) {
 					$this->contentHelper->setCreateImageStatus($image, 3);
+				}
+			}
+		}
+  	}
+
+	function imageDownloaded ()
+	{
+		if ($this->user) {
+			$image_id = filter_input(INPUT_GET, 'image_id', FILTER_SANITIZE_NUMBER_INT);
+			if (empty($image_id)) {
+				$image_id = filter_input(INPUT_POST, 'image_id', FILTER_SANITIZE_NUMBER_INT);
+			}
+			if ($image_id) {
+				$image = $this->contentHelper->getCreateImageObject($this->user, $image_id);
+				if ($image && $image['n_status'] == 1) {
+					$this->contentHelper->setCreateImageStatus($image, 2);
 				}
 			}
 		}
@@ -665,7 +676,8 @@ class uploadfoto extends Controller {
         if ($saveUserFoto){
 
           if ($ie){
-            redirect($basedomain.'uploadfoto/changephoto');
+          // redirect($basedomain.'uploadfoto/cropedProfile');
+	          redirect($basedomain.'uploadfoto/changephoto');
             exit;
           }else{
             print json_encode(array('status'=>true));
