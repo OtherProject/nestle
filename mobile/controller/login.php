@@ -121,7 +121,7 @@ class login extends Controller {
 
         if ($user) {
 
-            pr($user_profile);
+            // pr($user_profile);
             $logoutUrl = $facebook->getLogoutUrl();
             $this->view->assign('user',$user);
             $this->view->assign('accessUrlFb',$logoutUrl);
@@ -193,6 +193,7 @@ class login extends Controller {
             $getUserInfo = $this->loginHelper->getUserInfo($setLoginUser['id']);
             $this->log('welcome','login success',$getUserInfo['id']);
 
+            // pr($getUserInfo);exit;
             if ($getUserInfo['verified']>0){
               redirect($basedomain.'uploadfoto/pilihframe');
             }else{

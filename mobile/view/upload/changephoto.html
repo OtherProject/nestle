@@ -13,10 +13,10 @@
 			</div>
 			<div id="" style="float: left;
     height: 63px;
-    margin-left: -148px;
+    margin-left: -145px;
     overflow: hidden;
     width: 55px;
-    margin-top:-3px;
+    margin-top:0px;
     position: relative;">
 <div id="loadingbar" align="center"></div>
 				<div id="frame imgframe" style="z-index:999;position:relative">
@@ -33,23 +33,27 @@
 		 </div>
 			<div class="article" style="margin-top:-50px;">
 				{*}<h2 class="isi">Ganti Foto Profil Anda</h2>{/*}
-				<p class="isi"><strong>Silakan ganti foto profil dan cover photo Facebook atau Twitter Ayah dan Ibu menggunakan gambar yang telah kami sediakan untuk memenangkan hadiah menarik dari Nestl&eacute; LACTOGEN 3 Activgro.</strong> </p>
+				<p class="isi"><strong>Ayo klik download untuk mendapatkan foto sampul dan foto profil yang sudah Ibu dan Ayah pilih</strong> </p>
 			</div>
-			<div class="article">
-				<a href="javascript:void(0)" id="downloadAll" class="btnpinkslide" data-url="{$basedomain}uploadfoto/imageDownloaded" data-image-id="{$myfoto.id}"><span style="color:#fff">Download</span></a>
+			<div class="article" align="center">
+				<div><a href="javascript:void(0)" id="downloadProfil" class="btnpinkslide" data-url="{$basedomain}uploadfoto/imageDownloaded" data-image-id="{$myfoto.id}"><span style="color:#fff"><i class="fa fa-cloud-download"></i> Foto Profil</span></a></div>
+
+				<div style="margin-top:30px"><a href="javascript:void(0)" id="downloadSampul" class="btnpinkslide" data-url="{$basedomain}uploadfoto/imageDownloaded" data-image-id="{$myfoto.id}"><span style="color:#fff"><i class="fa fa-cloud-download"></i> Foto Sampul</span></a></div>
+
+				<div style="margin-top:30px"><a href="{$basedomain}uploadfoto/thanks" class="btnpinkslide" ><span style="color:#fff">Lanjutkan</span></a></div>
 				
 				{if $coverfb}
-					<a href="{$app_domain}public_assets/imageFramed/{$myfoto.profil}" class="download_file" target="_blank" download="{$myfoto.userName}-fotoprofil-facebook.jpg" id="profdata" style="display:none"><img src="{$app_domain}public_assets/imageFramed/{$myfoto.profil}"></a>
+					<a href="{$app_domain}public_assets/imageFramed/{$myfoto.profil}" class="download_file" target="_blank" download="{$myfoto.userName}-fotoprofil-facebook.jpg" id="profie" style="display:none"><img src="{$app_domain}public_assets/imageFramed/{$myfoto.profil}" id="profdata"></a>
 
-					<a href="{$app_domain}public_assets/cover/{$myfoto.cover}" class="download_file" target="_blank" download="{$myfoto.userName}-coverfoto-facebook.jpg" id="covdata" style="display:none"><img src="{$app_domain}public_assets/cover/{$myfoto.cover}"></a>
+					<a href="{$app_domain}public_assets/cover/{$myfoto.cover}" class="download_file" target="_blank" download="{$myfoto.userName}-coverfoto-facebook.jpg" id="covie" style="display:none"><img src="{$app_domain}public_assets/cover/{$myfoto.cover}" id="covdata"></a>
 
 					<div style="height:20px;width:100%;clear:both;">&nbsp;</div>
 					<a href="javascript:void(0)" class="btn-fslide btn-next" idfile="http://facebook.com" style="display:none" id="sosmedButton"><span style="color:#fff">Facebook Profile</span></a>
 				{else}
 
-					<a href="{$app_domain}public_assets/imageFramed/{$myfoto.profil}" class="download_file" download="{$myfoto.userName}-fotoprofil-twitter.jpg" id="profdata" style="display:none" target="_blank"><img src="{$basedomain}public_assets/imageFramed/{$myfoto.profil}"></a>
+					<a href="{$app_domain}public_assets/imageFramed/{$myfoto.profil}" class="download_file" download="{$myfoto.userName}-fotoprofil-twitter.jpg" id="profie" style="display:none" target="_blank"><img src="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" id="profdata"></a>
 
-					<a href="{$app_domain}public_assets/cover/{$myfoto.cover}" class="download_file" download="{$myfoto.userName}-coverfoto-twitter.jpg" target="_blank" id="covdata" style="display:none"><img src="{$app_domain}public_assets/cover/{$myfoto.cover}"></a>
+					<a href="{$app_domain}public_assets/cover/{$myfoto.cover}" class="download_file" download="{$myfoto.userName}-coverfoto-twitter.jpg" target="_blank" id="covie" style="display:none"><img src="{$app_domain}public_assets/cover/{$myfoto.cover}" id="covdata"></a>
 
 					<div style="height:20px;width:100%;clear:both;">&nbsp;</div>
 					<a href="{$basedomain}home/thanks" class="btn-fslide btn-next" idfile="http://twitter.com" style="display:none" id="sosmedButton"><span style="color:#fff">Twitter Profile</span></a>
@@ -62,36 +66,34 @@
 {literal}
 
 	$(document).ready(function() {
-	  $('#downloadAll').click(function() {
-
-	  	
-			$.ajax({
+	  $('#downloadSampul').click(function() {
+	  		$.ajax({
 				url: $(this).data("url"),
 				method: 'POST',
 				data: "image_id="+$(this).data("image-id")
 			});
-	  	  	if (!window.XDomainRequest) {
-		      $('a.download_file > img').each(function() {
-		        $(this).trigger( "click" );
-		        
-		        window.location.href=basedomain+'uploadfoto/thanks';
-		        // $(".btn-next").css("display","");
-		      });
+			 if (!window.XDomainRequest) {
+			        $('#covdata').trigger( "click" );
+			    return false; //cancel navigation
+			  } else {
+			  	var link = $("#covie").attr('href');
+				if(link!='') window.open(link,'_blank');
+			  }	
+	  });
 
+	  $('#downloadProfil').click(function() {
+				$.ajax({
+					url: $(this).data("url"),
+					method: 'POST',
+					data: "image_id="+$(this).data("image-id")
+				});
+	  	  if (!window.XDomainRequest) {
+		        $('#profdata').trigger( "click" );
+		      // window.location.href=basedomain+'uploadfoto/thanks';
 		    return false; //cancel navigation
-		  	} else {
-		  	var link = $("#profdata").attr('href');
-			var cover = $("#covdata").attr('href');
+		  } else {
+		  	var link = $("#profie").attr('href');
 			if(link!='') window.open(link,'_blank');
-			console.log(link);
-			return false;
-			setTimeout(function(){
-				if(cover!='') window.open(cover,'_blank');
-			}, 1000);
-
-
-
-			// $(".btn-next").css("display","");
 		  }
 	  });
 	});

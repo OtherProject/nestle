@@ -22,7 +22,7 @@
 				<a href='#' class='fotofb'><img src="{$val.source}" width="50px" height="50px" class="selectPhoto"/> </a>
 				{/foreach}
 			{else}
-			<div class="btnpinkslide uploadfoto">
+			<div class="btnpinkslide uploadfoto" align="center">
 				Pilih foto
 			</div>
 			{if $fbalbum}
@@ -106,7 +106,7 @@
 				var loading = "<img src='"+app_domain+"assets/images/loading.gif' width='50px'/>";
 				$('#imgupload').html(loading);
 				$('.isi').css('display','none');
-				$('.btnpinkslide').css('display','none');
+				$('.uploadfoto').css('display','none');
 				$('.css-label').css('display','none');
 				// return false;
 			},
