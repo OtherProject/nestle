@@ -48,18 +48,18 @@
 
 				{if $coverfb}
 					<div>
-					<a href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" class="download_file" download="{$myfoto.userName}-fotoprofil-facebook.jpg" style="display:none"><img id="profdata" src="{$basedomain}public_assets/imageFramed/{$myfoto.profil}"></a>
+					<a href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" class="download_file" download="{$myfoto.userName}-fotoprofil-facebook.jpg" id="profie" style="display:none"><img id="profdata" src="{$basedomain}public_assets/imageFramed/{$myfoto.profil}"></a>
 
-					<a href="{$basedomain}public_assets/cover/{$myfoto.cover}" class="download_file" download="{$myfoto.userName}-coverfoto-facebook.jpg" style="display:none"><img src="{$basedomain}public_assets/cover/{$myfoto.cover}" id="covdata"></a>
+					<a href="{$basedomain}public_assets/cover/{$myfoto.cover}" class="download_file" download="{$myfoto.userName}-coverfoto-facebook.jpg" id="covie" style="display:none"><img src="{$basedomain}public_assets/cover/{$myfoto.cover}" id="covdata"></a>
 
 					<a href="javascript:void(0)" id="sosmedButton" class="btn-fP btnpinkslide btn-next" idcover="" id="sosmed" idfile="http://facebook.com" style="display:none">Facebook Profile</a>
 					</div>
 					<p>&nbsp;</p>
 				{else}
 					<div>
-					<a href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" class="download_file" download="{$myfoto.userName}-fotoprofil-twitter.jpg"  style="display:none"><img id="profdata" src="{$basedomain}public_assets/imageFramed/{$myfoto.profil}"></a>
+					<a href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" class="download_file" download="{$myfoto.userName}-fotoprofil-twitter.jpg" id="profie"  style="display:none"><img id="profdata" src="{$basedomain}public_assets/imageFramed/{$myfoto.profil}"></a>
 
-					<a href="{$basedomain}public_assets/cover/{$myfoto.cover}" class="download_file" download="{$myfoto.userName}-coverfoto-twitter.jpg" style="display:none"><img src="{$basedomain}public_assets/cover/{$myfoto.cover}" id="covdata"></a>
+					<a href="{$basedomain}public_assets/cover/{$myfoto.cover}" class="download_file" download="{$myfoto.userName}-coverfoto-twitter.jpg" id="covie" style="display:none"><img src="{$basedomain}public_assets/cover/{$myfoto.cover}" id="covdata"></a>
 
 					<a href="{$basedomain}home/thanks" id="sosmedButton" class="btn-tP btnpinkslide btn-next" idcover="" idfile="http://twitter.com" style="display:none">Twitter Profile</a>
 					</div>
@@ -85,7 +85,7 @@
 			        $('#covdata').trigger( "click" );
 			    return false; //cancel navigation
 			  } else {
-			  	var link = $("#covdata").attr('href');
+			  	var link = $("#covie").attr('href');
 				if(link!='') window.open(link,'_blank');
 			  }	
 	  });
@@ -101,7 +101,7 @@
 		      // window.location.href=basedomain+'uploadfoto/thanks';
 		    return false; //cancel navigation
 		  } else {
-		  	var link = $("#profdata").attr('href');
+		  	var link = $("#profie").attr('href');
 			if(link!='') window.open(link,'_blank');
 		  }
 	  });
