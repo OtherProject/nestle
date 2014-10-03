@@ -138,6 +138,8 @@ var fbID = "{$appId}";
 		window.fbAsyncInit = function() {
 	        FB.init({
 	          appId      : fbID,
+	          status : true,
+   				cookie : true,
 	          xfbml      : true,
 	          version    : 'v2.0'
 	        });

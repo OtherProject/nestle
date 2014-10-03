@@ -9,4 +9,8 @@ admin/config/config.php
 admin/cache/*
 admin/CACHE/*
 admin/logs/*
+mobile/config/config.php
+mobile/cache/*
+mobile/CACHE/*
+mobile/logs/*
 dashboard/config/config.php

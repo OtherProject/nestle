@@ -9,11 +9,11 @@ use Facebook\GraphUser;
 use Facebook\FacebookRequestException;
 
 class uploadfoto extends Controller {
-	
+
 	var $models = FALSE;
 	var $view;
 
-	
+
 	function __construct()
 	{
 		global $basedomain;
@@ -24,7 +24,7 @@ class uploadfoto extends Controller {
     $this->user = $userdata['default'];
 
     }
-	
+
 	function loadmodule()
 	{
     $this->loginHelper = $this->loadModel('loginHelper');
@@ -45,28 +45,28 @@ class uploadfoto extends Controller {
     $session = false;
     if(isset($_GET['get'])){
       $session = $helper->getSessionFromRedirect();
-      
+
       /* Buat posting message */
-      
+
       // $post = (new FacebookRequest(
      //      $session, 'POST', '/me/feed',array ('message' => 'This is a test message from bot',)
      //    ))->execute()->getGraphObject();
 
 
       $album = (new FacebookRequest(
-                  $session,'GET','/me/photos'
+                  $session,'GET','/me/photos/uploaded'
                 ))->execute()->getGraphObject();
       /*
       $album = (new FacebookRequest(
                   $session,'GET','/me/albums'
                 ))->execute()->getGraphObject();*/
-      
 
+      logFile(serialize($album));
       $userAlbum = $album->getPropertyAsArray('data');
 
-     
+
       foreach ($userAlbum as $key => $value) {
-       
+
         $data[$key]['id'] = $value->getProperty('id');
         $data[$key]['from'] = $value->getProperty('from');
         $data[$key]['name'] = $value->getProperty('name');
@@ -77,15 +77,22 @@ class uploadfoto extends Controller {
         // $data[$key]['images'] = $value->getProperty('images');
 
       }
+      logFile('====user photo ====');
+      logFile(serialize($data));
       // pr($data);
       $this->view->assign('albumfb',$data);
 
     }else{
-      $loginUrl = $helper->getLoginUrl(array('scope' => 'user_photos,publish_actions',)); 
+      $loginUrl = $helper->getLoginUrl(array('scope' => 'user_photos',));
       $this->view->assign('accessUrlFb',$loginUrl);
     }
-        
 
+
+    $browser = $this->checkBrowser();
+
+    if ($browser > 2){
+      $this->view->assign('iebrowser',true);
+    }
 
 		if (isset($_SESSION['fb-logout'])){
       $this->view->assign('fbalbum',true);
@@ -107,14 +114,14 @@ class uploadfoto extends Controller {
 		$getMyPhoto = $this->contentHelper->getMyPhoto();
     if ($getMyPhoto){
       // pr($getMyPhoto);
-      
+
       $this->view->assign('myfoto',$getMyPhoto);
     }
 
     $getFrame = $this->contentHelper->getFrame();
     // pr($getFrame);
     $this->view->assign('frame',$getFrame);
-   
+
 
   	return $this->loadView('upload/chooseframe');
   }
@@ -129,7 +136,7 @@ class uploadfoto extends Controller {
     $getMyPhoto = $this->contentHelper->getMyPhoto();
     if ($getMyPhoto){
       // pr($getMyPhoto);
-      
+
       $this->view->assign('myfoto',$getMyPhoto);
     }
 
@@ -146,14 +153,14 @@ class uploadfoto extends Controller {
     foreach ($getFrame as $key => $value) {
 
       if ($value['cover']){
-        
+
         $imgFrame[] = $value;
       }
     }
     // pr($imgFrame);
     $this->view->assign('frame',$imgFrame);
-    
-    
+
+
 
     return $this->loadView('upload/chooseframe');
   }
@@ -166,7 +173,7 @@ class uploadfoto extends Controller {
     $getMyPhoto = $this->contentHelper->getMyPhoto();
     if ($getMyPhoto){
       // pr($getMyPhoto);
-      
+
       $this->view->assign('myfoto',$getMyPhoto);
     }
 
@@ -177,35 +184,135 @@ class uploadfoto extends Controller {
     // pr($getFrame);
     $this->view->assign('frame',$getFrame);
     $this->view->assign('cover',$getCover);
-    
+
     $sessionFlag = intval(@$_SESSION['flag']);
     if ($sessionFlag<1){
-      
+
       $_SESSION['flag'] = 1;
       // redirect($basedomain.'uploadfoto/uploadprofile');
     }
-    
+
     if (isset($_SESSION['fb-logout'])){
       $this->view->assign('coverfb',1);
     }else{
       $this->view->assign('coverfb',0);
     }
-	
+
   $browser = $this->checkBrowser();
 
   if ($browser > 2){
+
     $tmpimage = $basedomain.'public_assets/'.$getMyPhoto['files'];
 
   }else{
-    $tmpimage = $_SESSION['tmpimage'];
-  
+    
+    if ($browser == 2){
+      $image_data=file_get_contents($basedomain.'public_assets/'.$getMyPhoto['files']);
+      $encoded_image=base64_encode($image_data);
+      $tmpimage = 'data:image/png;base64,'.$encoded_image;
+    }else{
+      $tmpimage = $_SESSION['tmpimage'];
+    }
+    
+    
   }
-	
-  
+
+
   $this->view->assign('browser',$browser);
 	$this->view->assign('tmpimage',$tmpimage);
     return $this->loadView('upload/uploadProfile');
   }
+
+  function thanks(){
+
+    global $CONFIG, $basedomain, $IMAGE, $LOCALE;
+
+    // pr($_SESSION);
+    if (!$this->user){redirect($basedomain); exit;}
+
+    $file_path = "";
+    $getMyPhoto = $this->contentHelper->getCreateImage();
+    if ($getMyPhoto){
+      // pr($getMyPhoto);
+      $file_path = $IMAGE[0]['imageframed'].$getMyPhoto['profil'];
+
+      $this->view->assign('myfoto',$getMyPhoto);
+    }
+
+
+    if (isset($_SESSION['fb-logout'])){
+
+      FacebookSession::setDefaultApplication($CONFIG['fb']['appId'], $CONFIG['fb']['secret']);
+      $helper = new FacebookRedirectLoginHelper($basedomain.'uploadfoto/share/?share=true');
+      $session = false;
+      if(isset($_GET['share'])){
+        $session = $helper->getSessionFromRedirect();
+
+        /* Buat posting message */
+
+        // $post = (new FacebookRequest(
+       //      $session, 'POST', '/me/feed',array ('message' => 'This is a test message from bot',)
+       //    ))->execute()->getGraphObject();
+
+        $arr['link'] = $basedomain;
+        $arr["source"] = '@' . realpath($file_path);
+        $arr["message"] = $LOCALE['fb']['status-message'];
+
+        /*
+        $post = (new FacebookRequest(
+                $session, 'POST', '/me/photos',$arr
+              ))->execute()->getGraphObject();
+        */
+        $post = (new FacebookRequest(
+                $session, 'POST', '/me/feed',$arr
+              ))->execute()->getGraphObject();
+
+        /*
+        $album = (new FacebookRequest(
+                    $session,'GET','/me/albums'
+                  ))->execute()->getGraphObject();
+        */
+
+          // pr($album);
+
+        $updateStatus = $this->contentHelper->updateCreateImageStatus();
+
+        redirect($basedomain.'uploadfoto/changephoto');
+
+      }else{
+        $loginUrl = $helper->getLoginUrl(array('scope' => 'publish_actions',));
+        // $loginUrl = $helper->getLoginUrl(array('scope' => 'email,public_profile,user_friends',));
+        $this->view->assign('accessUrl',false);
+      }
+
+    }else{
+
+
+        if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
+
+          $this->view->assign('accessUrl',$basedomain.'uploadfoto/twitterRedirectShare');
+        }
+
+
+    }
+
+    $getFrame = $this->contentHelper->getCreateImage();
+    // pr($getFrame);
+    $this->view->assign('frame',$getFrame);
+
+    if (isset($_SESSION['fb-logout'])){
+      $this->view->assign('appId',$CONFIG['fb']['appId']);
+      $this->view->assign('coverfb',1);
+    }else{
+      $this->view->assign('coverfb',0);
+    }
+
+
+
+    // return $this->loadView('upload/share');
+    return $this->loadView('thanks');
+  }
+
 
 	 function share(){
 
@@ -231,14 +338,14 @@ class uploadfoto extends Controller {
       $session = false;
       if(isset($_GET['share'])){
         $session = $helper->getSessionFromRedirect();
-        
+
         /* Buat posting message */
-        
+
         // $post = (new FacebookRequest(
        //      $session, 'POST', '/me/feed',array ('message' => 'This is a test message from bot',)
        //    ))->execute()->getGraphObject();
 
-        
+				$arr['link'] = $basedomain;
         $arr["source"] = '@' . realpath($file_path);
         $arr["message"] = $LOCALE['fb']['status-message'];
 
@@ -255,29 +362,31 @@ class uploadfoto extends Controller {
         $album = (new FacebookRequest(
                     $session,'GET','/me/albums'
                   ))->execute()->getGraphObject();
-        */  
-          
+        */
+
           // pr($album);
-       
+
+				$updateStatus = $this->contentHelper->updateCreateImageStatus();
+
         redirect($basedomain.'uploadfoto/changephoto');
 
       }else{
-        $loginUrl = $helper->getLoginUrl(array('scope' => 'publish_actions',)); 
-        // $loginUrl = $helper->getLoginUrl(array('scope' => 'email,public_profile,user_friends',)); 
+        $loginUrl = $helper->getLoginUrl(array('scope' => 'publish_actions',));
+        // $loginUrl = $helper->getLoginUrl(array('scope' => 'email,public_profile,user_friends',));
         $this->view->assign('accessUrl',false);
       }
-    
+
     }else{
 
-    
+
         if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
-        
+
           $this->view->assign('accessUrl',$basedomain.'uploadfoto/twitterRedirectShare');
         }
-        
+
 
     }
-		
+
     $getFrame = $this->contentHelper->getCreateImage();
     // pr($getFrame);
     $this->view->assign('frame',$getFrame);
@@ -289,8 +398,8 @@ class uploadfoto extends Controller {
       $this->view->assign('coverfb',0);
     }
 
-    
-    
+
+
   	// return $this->loadView('upload/share');
     return $this->loadView('upload/previewProfile');
   }
@@ -300,7 +409,7 @@ class uploadfoto extends Controller {
 
         global $CONFIG, $basedomain, $IMAGE;
         // require_once(LIBS.'twitteroauth/twitteroauth/twitteroauth.php');
-        
+
         /* If the oauth_token is old redirect to the connect page. */
         if (isset($_REQUEST['oauth_token']) && $_SESSION['oauth_token'] !== $_REQUEST['oauth_token']) {
           $_SESSION['oauth_status'] = 'oldtoken';
@@ -337,8 +446,8 @@ class uploadfoto extends Controller {
             /* If method is set change API call made. Test is called by default. */
             $content = $connection->get('account/verify_credentials');
             // pr($content);
-            
-            
+
+
             $getMyPhoto = $this->contentHelper->getCreateImage();
             // pr($getMyPhoto);
             if ($getMyPhoto){
@@ -350,9 +459,9 @@ class uploadfoto extends Controller {
             $params = array();
             $params['media[]'] = "@{$file_path}";
             $params['status'] = 'Senangnya melihat foto Si Kecil ceria! Yuk tunjukkan foto buah hati Anda di bit.ly/GowithActivGro #GowithActivGro';
-            
+
             // pr($params);
-            
+
             // $access_token = $_SESSION['access_token'];
             // pr($access_token_tw);
             $tmhOAuth = new \tmhOAuth(array(
@@ -361,7 +470,7 @@ class uploadfoto extends Controller {
                         'token' => $access_token_tw['oauth_token'],
                         'secret' => $access_token_tw['oauth_token_secret'],
                         ));
-           
+
             $response = $tmhOAuth->user_request(array(
                         'method' => 'POST',
                         'url' => $tmhOAuth->url("1.1/statuses/update_with_media"),
@@ -379,7 +488,7 @@ class uploadfoto extends Controller {
             // pr($response);
             $updateStatus = $this->contentHelper->updateCreateImageStatus();
             // usleep(500);
-            redirect($basedomain.'uploadfoto/changephoto');
+            redirect($basedomain.'uploadfoto/thanks');
         } else {
           /* Save HTTP status for error dialog on connnect page.*/
           // header('Location: ./clearsessions.php');
@@ -394,25 +503,25 @@ class uploadfoto extends Controller {
         global $CONFIG,$basedomain;
 
         // require_once(LIBS.'twitteroauth/twitteroauth/twitteroauth.php');
-        
+
         $twitterRedirectShare = $basedomain.'uploadfoto/twitterCallBackShare/';
 
         /* Build TwitterOAuth object with client credentials. */
         $connection = new TwitterOAuth($CONFIG['twitter']['CONSUMER_KEY'], $CONFIG['twitter']['CONSUMER_SECRET']);
-         
+
         /* Get temporary credentials. */
         $request_token = $connection->getRequestToken($twitterRedirectShare);
 
         /* Save temporary credentials to session. */
         $_SESSION['oauth_token'] = $token = $request_token['oauth_token'];
         $_SESSION['oauth_token_secret'] = $request_token['oauth_token_secret'];
-         
+
         /* If last connection failed don't display authorization link. */
         switch ($connection->http_code) {
           case 200:
             /* Build authorize URL and redirect user to Twitter. */
             $url = $connection->getAuthorizeURL($token);
-            // header('Location: ' . $url); 
+            // header('Location: ' . $url);
             redirect($url);
             break;
           default:
@@ -429,7 +538,7 @@ class uploadfoto extends Controller {
 		if (!$this->user){redirect($basedomain); exit;}
 
 		$getMyPhoto = $this->contentHelper->getCreateImage();
-    if ($getMyPhoto){ 
+    if ($getMyPhoto){
       // pr($getMyPhoto);
       $file_path = $getMyPhoto['profil'];
 
@@ -451,33 +560,68 @@ class uploadfoto extends Controller {
   	return $this->loadView('upload/changephoto');
     // return $this->loadView('upload/gantiProfile');
   }
-	
+
+  	function imageShared ()
+  	{
+  		if ($this->user) {
+			$image_id = filter_input(INPUT_GET, 'image_id', FILTER_SANITIZE_NUMBER_INT);
+			if (empty($image_id)) {
+				$image_id = filter_input(INPUT_POST, 'image_id', FILTER_SANITIZE_NUMBER_INT);
+			}
+			if ($image_id) {
+				$image = $this->contentHelper->getCreateImageObject($this->user, $image_id);
+				if ($image && $image['n_status'] == 2) {
+					$this->contentHelper->setCreateImageStatus($image, 3);
+				}
+			}
+		}
+  	}
+
+	function imageDownloaded ()
+	{
+		if ($this->user) {
+			$image_id = filter_input(INPUT_GET, 'image_id', FILTER_SANITIZE_NUMBER_INT);
+			if (empty($image_id)) {
+				$image_id = filter_input(INPUT_POST, 'image_id', FILTER_SANITIZE_NUMBER_INT);
+			}
+			if ($image_id) {
+				$image = $this->contentHelper->getCreateImageObject($this->user, $image_id);
+				if ($image && $image['n_status'] == 1) {
+					$this->contentHelper->setCreateImageStatus($image, 2);
+				}
+			}
+		}
+	}
 
 	function ajaxUpload()
   {
-	
+
 	//pr($_POST);exit;
-	
+
 	$_SESSION['tmpimage'] = $_POST['tmpimage'];
     if (isset($_FILES['fotoupload'])){
 
       $file = uploadFile('fotoupload',null,'image');
 
       // pr($file);
-      
+
       if ($file['status'] > 0){
         $saveUserFoto = $this->contentHelper->saveUserFoto($file);
 
         if ($saveUserFoto){
           print json_encode(array('status'=>true));
+          logFile('User success upload image');
         }else{
+          logFile('User failed upload image');
           print json_encode(array('status'=>false));
         }
       }else{
+        logFile('File type not allowed');
         print json_encode(array('status'=>false,'message'=>'File tidak didukung'));
       }
     }else{
-      print json_encode(array('status'=>false));
+      logFile('No file exist');
+      print json_encode(array('status'=>false,'message'=>'Tidak ada file'));
     }
 
     exit;
@@ -485,16 +629,16 @@ class uploadfoto extends Controller {
 
   function ajaxUploadIE()
   {
-  
+
   global $basedomain;
-  
+
   $_SESSION['tmpimage'] = $_POST['tmpimage'];
     if (isset($_FILES['fotoupload'])){
 
       $file = uploadFile('fotoupload',null,'image');
 
       // pr($file);
-      
+
       if ($file['status'] > 0){
         $saveUserFoto = $this->contentHelper->saveUserFoto($file);
 
@@ -518,33 +662,34 @@ class uploadfoto extends Controller {
 
     global $basedomain;
     // pr($_POST);
-    $fileid = _p('fileid'); 
-    $frameName = _p('frameName'); 
-    $fileName = _p('fileName'); 
+    $fileid = _p('fileid');
+    $frameName = _p('frameName');
+    $fileName = _p('fileName');
 
       $file = imageFrame($fileName,$frameName);
 
       // pr($file);
-      
+
       if ($file){
         $saveUserFoto = $this->contentHelper->updateUserFoto($fileid, $fileName);
 
         if ($saveUserFoto){
 
           if ($ie){
-            redirect($basedomain.'uploadfoto/cropedProfile');
+          // redirect($basedomain.'uploadfoto/cropedProfile');
+	          redirect($basedomain.'uploadfoto/changephoto');
             exit;
           }else{
             print json_encode(array('status'=>true));
           }
-           
+
         }else{
           print json_encode(array('status'=>false));
         }
       }else{
         print json_encode(array('status'=>false));
       }
-    
+
 
     exit;
   }
@@ -552,9 +697,9 @@ class uploadfoto extends Controller {
   function getFromFb()
   {
     global $IMAGE,$basedomain;
-    
-    $fileName = _p('fileName'); 
-    $idPhoto = sha1($fileName).'.jpg'; 
+
+    $fileName = _p('fileName');
+    $idPhoto = sha1($fileName).'.jpg';
 
       $url = $fileName;
       $img = $IMAGE[0]['pathfile'].$idPhoto;
@@ -571,7 +716,7 @@ class uploadfoto extends Controller {
 
       // $download = file_put_contents($img, file_get_contents($url));
       $download = 1;
-      
+
       if ($download>0){
 
         $saveUserFoto = $this->contentHelper->updateUserFoto(false,$idPhoto,true);
@@ -584,8 +729,8 @@ class uploadfoto extends Controller {
       }else{
         print json_encode(array('status'=>false,'msg'=>'2'));
       }
-      
-    
+
+
 
     exit;
   }
@@ -617,9 +762,9 @@ class uploadfoto extends Controller {
    // $targ_h = 120;
     $jpeg_quality = 90;
 
-    
+
     $src = $basedomain.'public_assets/'.$_GET['file'];
-    
+
     $img_r = imagecreatefromjpeg($src);
     $dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
 
@@ -631,12 +776,12 @@ class uploadfoto extends Controller {
 
 
     exit;
-   
+
   }
 
   function getCropImage()
   {
-    
+
 
     global $CONFIG, $basedomain;
 
@@ -659,13 +804,13 @@ class uploadfoto extends Controller {
       $image->cropImage($w, $h, $x, $y);
       $image->writeImage($CONFIG['default']['upload_path'].$cropped);
       // smart_resize_image($CONFIG['default']['upload_path'].$cropped,180,181);
-     
+
       //overlaying
       $framename = $getFrame['frame'];
-      
-      $_POST['fileid'] = $getFrame['id']; 
-      $_POST['frameName'] = $framename; 
-      $_POST['fileName'] = $cropped; 
+
+      $_POST['fileid'] = $getFrame['id'];
+      $_POST['frameName'] = $framename;
+      $_POST['fileName'] = $cropped;
 
       // pr($_POST);exit;
       $ifIE = _p('iepost');
@@ -677,7 +822,7 @@ class uploadfoto extends Controller {
       $this->generateImage($getFrame['id'], $framename, $cropped, $iebrowser);
 
 
-      
+
       exit;
   }
 
@@ -689,14 +834,14 @@ class uploadfoto extends Controller {
     $getMyPhoto = $this->contentHelper->getCreateImage();
     if ($getMyPhoto){
       // pr($getMyPhoto);
-      
+
       $this->view->assign('myfoto',$getMyPhoto);
     }
 
     $getFrame = $this->contentHelper->getCreateImage();
     // pr($getFrame);
     $this->view->assign('frame',$getFrame);
-   
+
     if (isset($_SESSION['fb-logout'])){
       $this->view->assign('coverfb',1);
     }else{

@@ -1,0 +1,172 @@
+<style>
+	label input[type="file"]{
+		position: fixed;
+		top:-1000px;
+
+	}
+</style>
+<form method="post" action="{$basedomain}uploadfoto/ajaxUpload" id="uploadImagetolocal">
+
+<div id="wrapperhome">
+	<div id="slides" align="center">
+		
+		<div id="imgupload"><img src="{$basedomain}assets/file/slide-4.jpg" width="100%"/></div>
+		{*}
+		<label class="btnpinkslide">
+			 <input type="file" name="fotoupload" style="display:none" id="fotoupload">
+			 Select File
+		</label>
+		{/*}
+		
+		 		
+				
+	 	
+
+		 <div id="divbtnslide">
+		 	{if $albumfb}
+		 	<div>
+			
+				{foreach $albumfb as $val}
+					<img src="{$val.source}" width="50px" height="50px" class="selectPhoto"/>
+				{/foreach}
+			
+			</div>
+			{else}
+			<a href="{$accessUrlFb}" class="btnblueslide">Facebook Album</a>
+			{*}
+			<a href="javascript:void(0)" class="btnpinkslide">Select File</a>&nbsp;&nbsp;&nbsp;{/*}{if $fbalbum}<span class="fontNunito">{*}or</span>&nbsp;&nbsp;&nbsp;
+			<a href="{$accessUrlFb}" class="btnblueslide">Facebook Album</a>{/*}{/if}
+			{/if}
+		 	
+		 	
+		</div>
+		
+		<div id="divcheckslide">
+		<input type="checkbox" name="checkboxG2" id="checkboxG2" class="css-checkbox" akses="1" checked="checked"/><label for="checkboxG2" class="css-label"></label><strong>Saya setuju dengan peraturan dan ketentuan yang berlaku</strong>
+		
+		</div>
+		<input type='hidden' name='tmpimage' id='tmpimage' />
+		<input type='submit' name='simpan' id='submitfoto' style='display:none'>
+		
+								
+	</div>
+</div>
+</form>
+
+<script type="text/javascript">
+{literal}
+
+	$(document).on('click','.btnpinkslide', function(){
+
+		$('#fotoupload').trigger('click');
+	})
+
+	$(document).on('click','#checkboxG2', function(){
+
+		var test = $(this).attr('akses');
+		if (test==0){
+			$(this).attr('akses',1);
+		}else{
+			$(this).attr('akses',0);
+		}
+		
+	})
+
+	$(document).on('click','.selectPhoto', function(){
+
+
+		var fileName = $(this).attr('src');
+		
+
+		var loading = "<img src='"+basedomain+"assets/images/loading.gif' width='50px'/>";
+		$('#imgupload').html(loading);
+		$.post(basedomain+'uploadfoto/getFromFb',{fileName:fileName}, function(data){
+
+			
+			
+			if (data.status==true){
+				
+				    window.location.href = basedomain+'uploadfoto/uploadprofile';
+				
+			}
+
+		},"JSON")
+	})
+
+	
+		
+	$(document).on('change','#fotoupload', function(e){
+		
+		readURLpose(this);
+		
+		e.preventDefault();
+
+		var uploadoptions = {
+			dataType:  'json', 	
+			beforeSubmit: function(data) { 
+				
+				
+				var loading = "<img src='"+basedomain+"assets/images/loading.gif' width='50px'/>";
+				$('#imgupload').html(loading);
+				
+				
+			},
+			success : function(data) {		
+
+					if(data.status==true){
+						
+						setTimeout(function() {
+						    window.location.href = basedomain+'uploadfoto/uploadprofile';
+						}, 1000);
+						
+						 							
+					} else {
+							$.modal("<div><center><h3>"+data.message+"</h3></center></div>");
+							$("#simplemodal-container").css({width : '400px', height: '100px',
+																margin: '0 auto',
+																left: '0',
+																bottom: '0',
+																right: '0',
+																'font-family': 'Nunito'});
+							$(".modalCloseImg").remove();
+
+							setTimeout(function() {
+							    window.location.href = basedomain+'uploadfoto';
+							}, 2000);
+						}
+						 
+			}
+			};					
+
+		$("#uploadImagetolocal").ajaxForm(uploadoptions).submit();
+		setTimeout(function() {
+
+			var getAgree = parseInt($('#checkboxG2').attr('akses'));
+			if (getAgree<1){
+
+				$('#imgupload').html('please check');
+				return false;
+			}else{
+
+				$('#divbtnslide').html('');
+				$('#divcheckslide').html('');
+				$("#submitfoto").trigger('click');
+			}
+		    
+		}, 500);
+	})
+	
+	function readURLpose(input) {
+		if (input.files && input.files[0]) {
+            var reader = new FileReader();
+			reader.onload = function (e) {
+                $('#tmpimage').val(e.target.result);
+                
+            }
+			 reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+   
+{/literal}
+</script>

@@ -20,4 +20,5 @@ $IMAGE[0]['pathfile'] = $CONFIG['default']['upload_path'];
 $IMAGE[0]['pathframe'] = $CONFIG['default']['upload_path']. 'frame/';
 $IMAGE[0]['imageframed'] = $CONFIG['default']['upload_path']. 'imageFramed/';
 
+
 ?>

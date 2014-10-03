@@ -9,7 +9,7 @@ $content = $_GET['content'];
 <strong>
 asdasasasasa
 </strong>
-<img width="100%" src="http://rumahnutrisinestle.com/gowithactivgro/public_assets/<?php echo $foto?>" class="bigImage1" id="profilePicture"/>
+<img width="100%" src="http://rumahnutrisinestle.com/staging_gowithactivgro/public_assets/<?php echo $foto?>" class="bigImage1" id="profilePicture"/>
 
 
 

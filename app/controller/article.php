@@ -21,8 +21,9 @@ class article extends Controller {
 		$this->loadmodule();
 		$this->view = $this->setSmarty();
 		$this->view->assign('basedomain',$basedomain);
-    $userdata = $this->isUserOnline();
+    $userdata = $this->isUserOnline();  
     $this->user = $userdata['default'];
+
     }
 	
 	function loadmodule()

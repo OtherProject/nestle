@@ -28,24 +28,25 @@ class Controller extends Application{
 	function index()
 	{
 		
-		global $CONFIG, $LOCALE, $basedomain, $title, $DATA, $app_domain, $CODEKIR;
+		global $CONFIG, $LOCALE, $basedomain, $title, $DATA, $app_domain, $CODEKIR, $mobile_domain;
 		$filePath = APP_CONTROLLER.$this->page.$this->php_ext;
 		
 		$this->view = $CODEKIR['smarty'];
 		$this->view->assign('basedomain',$basedomain);
 		$this->view->assign('app_domain',$app_domain);
+		$this->view->assign('mobile_domain',$mobile_domain);
 		$this->view->assign('page',$DATA[$this->configkey]);
 		$this->view->assign('browsertype',$this->checkBrowser());
 		
 		if ($this->configkey=='default')$this->view->assign('user',$this->isUserOnline());
 		if ($this->configkey=='admin')$this->view->assign('admin',$this->isAdminOnline());
-		if ($this->configkey=='dashboard')$this->view->assign('dashboard',$this->isAdminOnline());
+		if ($this->configkey=='mobile')$this->view->assign('user',$this->isUserOnline());
 		
 		// $this->inject();
 		// pr($this->isUserOnline());
 
 		// detection browser
-		
+		// pr($CONFIG);
 		if (isset($_SESSION['fb-logout'])){
 			$this->view->assign('logoutUrl',@$_SESSION['fb-logout']);
 		}else{
@@ -53,7 +54,7 @@ class Controller extends Application{
 		}
 		
 		// exit;
-
+// pr($filePath);exit;
 		if (file_exists($filePath)){
 			
 			if ($DATA[$this->configkey]['page']!=='login'){
@@ -65,13 +66,13 @@ class Controller extends Application{
 					}
 				}
 
-				if (array_key_exists('dashboard',$CONFIG)) {
+				// if (array_key_exists('mobile',$CONFIG)) {
 					
-					if (!$this->isAdminOnline()){
-						redirect($basedomain.$CONFIG[$this->configkey]['login']);
-						exit;
-					}
-				}
+				// 	if (!$this->isAdminOnline()){
+				// 		redirect($basedomain.$CONFIG[$this->configkey]['login']);
+				// 		exit;
+				// 	}
+				// }
 
 			}
 
@@ -118,16 +119,16 @@ class Controller extends Application{
 				}
 			}
 
-			if ($this->configkey == 'dashboard'){ echo '1';
+			if ($this->configkey == 'mobile'){ 
 				if ($DATA[$this->configkey]['page']=='login'){
-					if ($this->isAdminOnline()){
+					if ($this->isUserOnline()){
 					redirect($CONFIG[$this->configkey]['default_view']);
 					exit;
 					}
 				}
 			}
 
-			// echo 'ada';
+			
 			include $filePath;
 			
 			$createObj = new $this->page();

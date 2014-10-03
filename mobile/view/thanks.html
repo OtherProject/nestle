@@ -1,0 +1,150 @@
+
+    <div role="main" class="ui-content jqm-content jqm-fullwidth" style="border:0px solid #000;">
+		<div class="article"><img src="{$mobile_domain}assets/images/selamat.png" width="100%"></div>
+		<div class="article">
+    		<p class="isi"><strong>Ibu dan Ayah telah berhasil mendownload foto sampul dan foto profil Si Kecil. Sekarang saatnya mengganti foto sampul dan foto profil di Facebook atau Twitter agar kesempatan menang lebih besar!
+			</strong><p>
+		</div><!-- /article -->
+
+		<div style="width:306px;margin:10px auto" align="center">
+			<div align="center" style="widht:100%">
+				<div style="width:54%; float:left;margin-bottom:20px">
+					{if $coverfb}
+						<a href="http://facebook.com" id="sosmedButton" class="btn-fP btnpinkslide btn-next" idcover="" id="sosmed" idfile="http://facebook.com" style="" target="_blank"><span style="color:white">Facebook Saya</span></a>
+					{else}
+						<a href="http://twitter.com" id="sosmedButton" class="btn-tP btnpinkslide btn-next" idcover="" idfile="http://twitter.com" style="" target="_blank"><span style="color:white">Twitter Profile</span></a>
+					{/if}
+					
+				</div>
+				<div>
+					<a onClick="ga('send', 'event', 'Button', 'Click', 'ShareFB');" class="{if $accessUrl}twittershare{else}sharebutton{/if} btnpinkslide " data-href="{$basedomain}public_assets/imageFramed/{$myfoto.profil}" href="javascript:void(0)" data-link="{$accessUrl}"><span style="color:white">Share</span></a>
+				</div>
+			</div>
+			
+			<div style="clear:both"></div>
+			<div id="wrapbtn" align="center" >
+				<a href="{$basedomain}article" class="btnpinkS"><span style="color:white">Lihat Article Go with ActivGro</span></a>
+			</div>
+		</div>
+		
+
+	</div><!-- /content -->
+
+
+<script type="text/javascript">
+// var dataShare = "{$basedomain}uploadfoto/shareTemplate/?ft={$myfoto.profil}";
+var dataShare = "{$basedomain}shareTemplate.php?ft={$myfoto.profil}";
+
+var fbID = "{$appId}";
+{literal}
+	
+	window.fbAsyncInit = function() {
+	    // init the FB JS SDK
+	    FB.init({
+	      appId      : fbID, // App ID from the App Dashboard
+	      status     : true, // check the login status upon init?
+	      cookie     : true, // set sessions cookies to allow your server to access the session?
+	      xfbml      : true ,
+	      version    : 'v2.0' // parse XFBML tags on this page?
+	    });
+
+    };
+    	
+    (function(d, s, id){
+
+	         var js, fjs = d.getElementsByTagName(s)[0];
+	         if (d.getElementById(id)) {return;}
+	         js = d.createElement(s); js.id = id;
+	         js.src = "//connect.facebook.net/en_US/sdk.js";
+	         fjs.parentNode.insertBefore(js, fjs);
+
+	         // console.log(fjs);
+       }
+    (document, 'script', 'facebook-jssdk'));
+
+	$(document).on('click','.sharebutton', function(){
+
+
+		FB.ui(
+				 {
+				  method: 'share',
+				  href: dataShare
+				}, function(response){
+
+					console.log(response);
+					if (response && !response.error_code) {
+						console.log('success posting');
+						self.close();
+				      	window.location.href = basedomain+'uploadfoto/thanks';
+				    } else {
+				      console.log('error posting');
+				    }
+
+					
+				});
+	       
+	})
+
+
+	$(document).on('click','.chooseFrame', function(){
+
+		var link = $(this).attr('linkcover');
+		var imgFullpath = basedomain+'public_assets/cover/'+link;
+		var name = $(this).attr('fname');
+		var frame = $(this).attr('src');
+
+		$('.coverImg').attr('src',imgFullpath);
+		$('#framedinamis').attr('src',frame);
+		$('.continueFrame').attr('fid',name);
+		$('.continueFrame').attr('cid',link);
+		
+	})
+
+	
+	$(document).on('click','.twittershare', function(){
+		var link = $(this).attr('data-link');
+		window.location.href=link;
+	})
+		
+	$(document).on('click','.continueFrame', function(){
+
+		var cover = $(this).attr('cid');
+		var frame = $(this).attr('fid');
+		
+		
+		var loading = "<img src='"+basedomain+"assets/images/loading.gif' width='50px'/>";
+		$('#userContent').attr('align','center');
+		$('#userContent').html(loading);
+
+		// $.post(basedomain+'uploadfoto/saveFrame',{cover:cover, frame:frame}, function(data){
+
+		// 	if (data.status==true){
+				
+				    window.location.href = basedomain+'uploadfoto/share';
+				
+		// 	}
+
+		// },"JSON")
+		
+	})
+
+
+
+	$('a.sharetw').click(function(e){
+	 
+	//We tell our browser not to follow that link
+	e.preventDefault();
+	 
+	//We get the URL of the link
+	var loc = $(this).attr('href');
+	 
+	//We get the title of the link
+	var title = escape($(this).attr('title'));
+	 
+	//We trigger a new window with the Twitter dialog, in the middle of the page
+	window.open('http://twitter.com/share?url=' + loc + '&text=Senangnya melihat foto Si Kecil ceria! Yuk tunjukkan foto buah hati Anda di bit.ly/GowithActivGro&hashtags=GowithActivGro' + '&', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+	 
+	});
+
+{/literal}
+</script>

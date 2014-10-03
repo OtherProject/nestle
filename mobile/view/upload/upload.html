@@ -1,0 +1,172 @@
+
+<style>
+	div input[type="file"] {
+    position: fixed;
+    top: -1000px;
+	border:0px solid #FD698B;
+}
+</style>
+
+    <div role="main" class="ui-content jqm-content jqm-fullwidth" style="border:0px solid #000;">
+    	<form method="post" action="{$basedomain}uploadfoto/ajaxUpload" id="uploadImagetolocal" enctype="multipart/form-data">
+		<div class="article" id="imgupload"><img src="{$mobile_domain}assets/images/cover-foto.png" width="100%"></div>
+		<div class="article">
+    		<p class="isi"><strong>Ibu dan Ayah bisa mengupload foto Si Kecil dari komputer ataupun langsung dari album Facebook.
+			</strong><p>
+		</div><!-- /article -->
+		<div class="article">
+		<input type="file" name="fotoupload" style="" id="fotoupload">
+
+			{if $albumfb}
+				{foreach $albumfb as $val}
+				<a href='#' class='fotofb'><img src="{$val.source}" width="50px" height="50px" class="selectPhoto"/> </a>
+				{/foreach}
+			{else}
+			<div class="btnpinkslide uploadfoto" align="center">
+				Pilih foto
+			</div>
+			{if $fbalbum}
+			<div class="uploadfoto" style="margin-top:30px" align="center">
+				<a onClick="ga('send', 'event', 'Button', 'Click', 'FBConnect');" data-href="{$accessUrlFb}" class="btn-fslide fbButton">&nbsp;<span style="color:white">Album Facebook</span></a>
+			</div>
+			{/if}
+			{/if}
+			
+				
+			<div style="height:10px;width:100%;">&nbsp;</div>
+			<div style="float:left">
+					<input type="checkbox" name="checkboxG2" id="checkboxG2" class="css-checkbox" akses="1" checked="checked" required/><label for="checkboxG2" class="css-label"></label>
+					<span class="isi"><strong>Saya menyetujui <a href='{$basedomain}home/term' class='basic2'><u>Syarat dan Ketentuan</u></a> yang berlaku.</strong></span>
+					</div><br/>
+		</div>
+</form>	
+	</div><!-- /content -->
+	
+
+<script type="text/javascript">
+{literal}
+	
+	
+
+	$(document).on('click','.fbButton', function(){
+		var link = $(this).attr('data-href');
+		window.location.href = link;
+	})
+
+	$(document).on('click','.btnpinkslide', function(){
+
+		$('#fotoupload').trigger('click');
+	})
+
+	$(document).on('click','#checkboxG2', function(){
+
+		var test = $(this).attr('akses');
+		if (test==0){
+			$(this).attr('akses',1);
+		}else{
+			$(this).attr('akses',0);
+		}
+		
+	})
+
+	$(document).on('click','.selectPhoto', function(){
+
+
+		var fileName = $(this).attr('src');
+		
+		$('#imgupload').attr('align','center');
+		var loading = "<img src='"+app_domain+"assets/images/loading.gif' width='50px'/>";
+		$('#imgupload').html(loading);
+		$.post(basedomain+'uploadfoto/getFromFb',{fileName:fileName}, function(data){
+
+			
+			
+			if (data.status==true){
+				
+				    window.location.href = basedomain+'uploadfoto/uploadprofile';
+				
+			}
+
+		},"JSON")
+	})
+
+	
+		
+	$(document).on('change','#fotoupload', function(e){
+		
+		readURLpose(this);
+		
+		// e.preventDefault();
+
+		var uploadoptions = {
+			dataType:  'json', 	
+			beforeSubmit: function(data) { 
+				
+				$('#imgupload').attr('align','center');
+				var loading = "<img src='"+app_domain+"assets/images/loading.gif' width='50px'/>";
+				$('#imgupload').html(loading);
+				$('.isi').css('display','none');
+				$('.uploadfoto').css('display','none');
+				$('.css-label').css('display','none');
+				// return false;
+			},
+			success : function(data) {		
+
+					if(data.status==true){
+						
+						setTimeout(function() {
+						    window.location.href = basedomain+'uploadfoto/uploadprofile';
+						}, 1000);
+						
+						 							
+					} else {
+							$.modal("<div><center><h3>"+data.message+"</h3></center></div>");
+							$("#simplemodal-container").css({width : '400px', height: '100px',
+																margin: '0 auto',
+																left: '0',
+																bottom: '0',
+																right: '0',
+																'font-family': 'Nunito'});
+							$(".modalCloseImg").remove();
+
+							setTimeout(function() {
+							    window.location.href = basedomain+'uploadfoto';
+							}, 2000);
+						}
+						 
+			}
+			};					
+
+		
+		setTimeout(function() {
+
+			var getAgree = parseInt($('#checkboxG2').attr('akses'));
+			if (getAgree<1){
+
+				$('#imgupload').html('please check');
+				return false;
+			}else{
+
+				$('#divbtnslide').html('');
+				$('#divcheckslide').html('');
+				// $("#submitfoto").trigger('click');
+				$("#uploadImagetolocal").ajaxForm(uploadoptions).submit();
+			}
+		    
+		}, 500);
+	})
+	
+	function readURLpose(input) {
+		if (input.files && input.files[0]) {
+            var reader = new FileReader();
+			reader.onload = function (e) {
+                $('#tmpimage').val(e.target.result);
+                
+            }
+			 reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+   
+{/literal}
+</script>

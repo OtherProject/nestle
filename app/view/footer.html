@@ -18,8 +18,12 @@
 		</div>
 	</div>
 </div>
-  	<script src="{$basedomain}assets/js/WallopSlider.js"></script>
+	
+	{if $page.page=='home'}
+		<script src="{$basedomain}assets/js/WallopSlider.js"></script>
   	<script src="{$basedomain}assets/js/script.js"></script>
+	{/if}
+  	
 	
 	<script type='text/javascript' src='{$basedomain}assets/js/basic.js'></script>
 	
@@ -27,7 +31,9 @@
 
 	<script type="text/javascript" src="{$basedomain}assets/js/modernizr.custom.04022.js"></script>
   	<script type="text/javascript" src="{$basedomain}assets/js/jquery-ui.js"></script>
-	<script type="text/javascript" src="{$basedomain}assets/js/jquery-ui-timepicker-addon.js"></script>
+
+  	{if $page.page=='home'}
+  	<script type="text/javascript" src="{$basedomain}assets/js/jquery-ui-timepicker-addon.js"></script>
 	<script type="text/javascript">
 	
 		$(function(){
@@ -47,9 +53,13 @@
 
 	<!-- Beatpicker -->
 	<script src="{$basedomain}assets/js/plugins/beatpicker/js/BeatPicker.min.js"></script>
-
-	<script type="text/javascript" src="{$basedomain}assets/js/jquery.form.js"></script>
+  	{/if}
+	
+  	{if $page.page=='uploadfoto'}
+  	<script type="text/javascript" src="{$basedomain}assets/js/jquery.form.js"></script>
 	<script type="text/javascript" src='{$basedomain}assets/js/jquery.guillotine.js'></script>
+  	{/if}
+	
 
 	<div id="basic-modal-content" class="global">
 			<div id="headerPopup"></div>
@@ -57,6 +67,7 @@
 		</div>
 
 	<script>
+	{literal}
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -64,7 +75,7 @@
 	 
 	  ga('create', 'UA-54500863-1', 'auto');
 	  ga('send', 'pageview'); 
-	 
+	{/literal}
 	</script>		
 		
 </body>
