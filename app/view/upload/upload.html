@@ -15,10 +15,7 @@
 .thumb span { 
 	position:fixed;
 	visibility:hidden;
-<<<<<<< HEAD
-	border:1px solid #fff;
-=======
->>>>>>> 0c901a7bda84ae242b10023914d14bc1b06f0c84
+
 }
 .thumb:hover, .thumb:hover span { 
 	visibility:visible;
@@ -58,15 +55,7 @@
 			
 		 <div id="divbtnslide" style="margin-top:8px">
 		 	{if $albumfb}
-<<<<<<< HEAD
-		 	<div>
-				<div id="thumbwrap">
-				{foreach $albumfb as $val}
-					<a class="thumb" href="#"><img src="{$val.source}" width="50px" height="50px" /><span><img src="{$val.source}" class="selectPhoto"/></span></a>
-				{/foreach}
-				</div>
-			
-=======
+
 		 	<div style="overflow:auto;height:120px">
 				
 				<div id='__basic-modal'>
@@ -76,7 +65,7 @@
 				<a href='#' class='fotofb'><img src="{$val.source}" width="50px" height="50px" class="selectPhoto"/> </a>
 				{/foreach}
 				</div>
->>>>>>> 0c901a7bda84ae242b10023914d14bc1b06f0c84
+
 			</div>
 			{else}
 			{*}
