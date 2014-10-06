@@ -259,7 +259,7 @@ body{
 }
 #wrapcontentuserDwn{
 	margin:0 auto;
-	margin-top:-20px;
+	margin-top:-25px;
 	width:610px;
 	height:125px;
 	border:0px solid #fefcfd;
@@ -296,7 +296,7 @@ body{
 	margin-top:10px;
 	color:#646466;
 	float:left;
-	width:390px;
+	width:320px;
 	height:120px;
 	border:0px solid #fefcfd;
 	overflow:hidden;
@@ -325,9 +325,9 @@ body{
 	margin:0 auto;
 	margin-top:-20px;
 	float:right;
-	width:210px;
+	width:280px;
 	padding-right:7px;
-	padding-top:30px;
+	padding-top:35px;
 	height:100px;
 	border:0px solid #fefcfd;
 	overflow:hidden;
