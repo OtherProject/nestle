@@ -10,7 +10,7 @@
 			<div align="center" style="widht:100%">
 				<div style="width:54%; float:left;margin-bottom:20px">
 					{if $coverfb}
-						<a href="http://facebook.com" id="sosmedButton" class="btn-fP btnpinkslide btn-next" idcover="" id="sosmed" idfile="http://facebook.com" style="" target="_blank"><span style="color:white">Facebook Saya</span></a>
+						<a href="http://facebook.com" id="sosmedButton" class="btn-fP btnpinkslide btn-next" idcover="" id="sosmed" idfile="http://facebook.com" style="" target="_blank" onClick="ga('send', 'event', 'Button', 'Click', 'FacebookSaya');"><span style="color:white">Facebook Saya</span></a>
 					{else}
 						<a href="http://twitter.com" id="sosmedButton" class="btn-tP btnpinkslide btn-next" idcover="" idfile="http://twitter.com" style="" target="_blank"><span style="color:white">Twitter Profile</span></a>
 					{/if}
@@ -23,7 +23,7 @@
 			
 			<div style="clear:both"></div>
 			<div id="wrapbtn" align="center" >
-				<a href="{$basedomain}article" class="btnpinkS"><span style="color:white">Lihat Article Go with ActivGro</span></a>
+				<a href="{$basedomain}article" class="btnpinkS"><span style="color:white" onClick="ga('send', 'event', 'Button', 'Click', 'LihatArtikel');">Lihat Article Go with ActivGro</span></a>
 			</div>
 		</div>
 		
